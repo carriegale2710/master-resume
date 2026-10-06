@@ -27,6 +27,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - `bash scripts/build.sh --tags a,b --md-only master/master-resume.md` filters master bullets by tag.
 - `bash scripts/build.sh applications/<folder>/resume.md` builds the PDF.
 - `bash scripts/new-application.sh company-role` creates an application folder.
+- `bash scripts/link-skills.sh` links or copies skills for each tool.
 - Prefer these scripts over re-implementing their logic.
 
 ## Skills
