@@ -1,0 +1,19 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  shell-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Test build script
+        run: bash tests/test-build.sh
+      - name: Test application generator
+        run: bash tests/test-new-application.sh

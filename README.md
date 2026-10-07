@@ -35,6 +35,17 @@ The scripts in this repository help automate the process of creating tailored re
 - `scripts/build.sh [options] <input>`: Builds a resume or cover letter. Use `--tags` to filter bullets by tags and `--md-only` to output only Markdown.
 - `scripts/link-skills.sh [--copy]`: Links or copies skills from the `skills/` directory to the tool-specific directories. Use `--copy` if the tool does not follow symlinks.
 
+## Tests
+
+The shell-script tests use synthetic resume data in `tests/fixtures/` and do not read the private master resume. GitHub Actions runs both tests on pushes and pull requests. To run them locally from the repository root with Bash:
+
+```bash
+bash tests/test-build.sh
+bash tests/test-new-application.sh
+```
+
+On Windows, run these commands from Git Bash.
+
 ## Workflow
 
 1. Create the application folder:
@@ -113,6 +124,11 @@ master-resume/
 │   ├── build.sh                   # tag filter and PDF export
 │   ├── new-application.sh         # creates an application folder
 │   └── link-skills.sh             # links or copies skills for each tool
+├── tests/
+│   ├── fixtures/
+│   │   └── dummy-resume.md        # synthetic input for build.sh tests
+│   ├── test-build.sh              # tests tag filtering and private-section removal
+│   └── test-new-application.sh    # tests application-folder creation
 │
 ├── applications/                  # one folder per job
 │   └── 2026-10-acme-frontend/     # example, created by new-application.sh
