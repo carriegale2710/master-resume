@@ -8,8 +8,7 @@ Tailoring a resume and cover letter for each job takes 30-60 minutes by hand. Th
 
 ## Problem Statement
 
-- Manual flow today (see README Workflow): create folder, paste JD, filter by tags, hand-edit, export PDF, write cover letter, and update `tracker.csv`. Folder setup, filtering, and export are mechanical; content review, edits, and approval require human judgement.
-- Risk: an LLM that tailors without constraint invents skills or metrics. `AGENTS.md` already forbids this, so the pipeline must enforce it, not just request it.
+Carrie, a solo job seeker applying across several role families, spends 30-60 minutes by hand on each application: creating a folder, pasting the job description, filtering resume bullets by tags, editing the resume, exporting a PDF, writing a cover letter, and updating `tracker.csv`. Folder setup, filtering, and export are mechanical, while choosing and editing content and approving claims require human judgement. This time cost recurs with each application. If tailoring introduces unsupported skills or metrics, Carrie cannot defend those claims in an interview and will not approve the materials.
 
 ## Goals & Success Metrics
 
