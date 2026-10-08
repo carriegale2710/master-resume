@@ -4,11 +4,13 @@
 
 ## Overview
 
-Tailoring a resume and cover letter for each job takes 30-60 minutes by hand. This MVP turns that into a local CLI workflow: provide a job description, generate editable resume and cover-letter drafts, verify their claims, approve the final Markdown, and export a styled PDF. Drafts are unapproved until the user edits/reviews them and explicitly marks them ready. PDF export and job submission are separate manual steps. Batch processing is deferred until the single-application workflow passes its reliability pilot.
+Tailoring a resume and cover letter for each job takes 30-60 minutes by hand, and a high-priority application can take a full day. This MVP turns that into a local CLI workflow: provide a job description, generate editable resume and cover-letter drafts, verify their claims, approve the final Markdown, and export a styled PDF. Drafts are unapproved until the user edits/reviews them and explicitly marks them ready. PDF export and job submission are separate manual steps. Batch processing is deferred until the single-application workflow passes its reliability pilot.
 
 ## Problem Statement
 
-Carrie, a solo job seeker applying across several role families, spends 30-60 minutes by hand on each application: creating a folder, pasting the job description, filtering resume bullets by tags, editing the resume, exporting a PDF, writing a cover letter, and updating `tracker.csv`. Folder setup, filtering, and export are mechanical, while choosing and editing content and approving claims require human judgement. This time cost recurs with each application. If tailoring introduces unsupported skills or metrics, Carrie cannot defend those claims in an interview and will not approve the materials.
+Carrie is a recent graduate applying to multiple graduate programs and internships in a tough, competitive job market, as well as roles ranging from part-time work to software development and UX design. Each application requires different tailoring. The manual workflow takes 30-60 minutes, but for a job she particularly wants, perfectionism can lead her to spend the whole day on a single application. As a result, she can miss opportunities when tailoring runs past an application deadline. For roles that feel less compelling, the effort required to tailor can instead lead her to submit a generic resume.
+
+While studying and working on personal projects, Carrie has limited time for applications. She strongly dislikes writing but is a perfectionist about application quality. She has a high-quality master resume she wrote herself, yet has accumulated 20+ resume-version drafts in one disorganised folder and is afraid to delete any because she cannot tell which is the latest. Each rejection after substantial effort is especially discouraging. She would rather delegate the application work, but generic-sounding materials or unsupported claims are not acceptable to her.
 
 ## Goals & Success Metrics
 
@@ -26,7 +28,7 @@ Carrie, a solo job seeker applying across several role families, spends 30-60 mi
 
 ## Persona
 
-**Carrie, solo job seeker** applying across several role families (see tags in README). Comfortable with a terminal and git. Wants an editable draft she can review and correct, and will not approve anything containing a claim she cannot defend in an interview.
+**Carrie, recent graduate and solo job seeker** applying to graduate programs, internships, part-time jobs, software development roles, and UX design roles in a tough, competitive job market. She is studying and working on personal projects, is comfortable with a terminal and git, and strongly dislikes writing. She has a high-quality master resume that she wrote herself, but also has 20+ resume-version drafts in a disorganised folder and cannot confidently identify the latest. She has researched and built custom agent skills and templates for tailoring applications. She wants AI to follow that approach and tailor or edit her existing material without making it sound generic. She is perfectionistic about quality, wants editable drafts she can review and correct, would rather delegate as much application work as possible, and will not approve anything containing a claim she cannot defend in an interview.
 
 ## Scope
 
