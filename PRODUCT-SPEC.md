@@ -57,6 +57,120 @@ A local CLI wrapper around the existing scripts and a configurable OpenAI-compat
 - **FR8: Regeneration and failures.** Regeneration creates a separate revision and preserves all existing drafts, including user-edited drafts; the user chooses which version to keep. On model, verification, or export failure, stop that operation with a clear error, preserve the JD and existing drafts, and never mark unsupported or unapproved content ready.
 - **FR9: Batch (later phase).** Add `apply-batch jobs.txt` only after the single-run reliability pilot passes: at least 10 consecutive applications with zero unsupported claims in final approved outputs, successful builds, and explicit human approval records. Batch runs sequentially, continues after item failures, and creates a review queue; it never auto-approves.
 
+## Main User Flows
+
+The diagrams below show the V1 happy paths and the main negative paths or recovery loops. A failed operation preserves the JD and existing drafts; it does not create an approved result.
+
+**Diagram legend:** blue = AI agent, grey = local CLI/system, yellow = manual user action or review, green = successful outcome, red = stop or failure.
+
+### Flow 1: Intake and draft generation
+
+```mermaid
+flowchart TD
+    A([Start]) --> B[Run apply with JD file]
+    B -->|No file| C[Paste JD text]
+    B -->|File provided| D[Save JD in application folder]
+    C --> D
+    D --> E[Show JD payload and estimated cost]
+    E -->|Cost over USD 0.50| F{User confirms API call?}
+    F -->|No| G([Stop; preserve JD])
+    F -->|Yes| H[Send JD and approved public-safe facts]
+    E -->|Cost within threshold| H
+    H --> I[Model suggests role-family tags and drafts]
+    I -->|Malformed or model failure| J([Error; preserve JD and drafts])
+    I --> K[User reviews and confirms tags]
+    K -->|Change tags| L[Regenerate with confirmed tags]
+    L -->|Failure| J
+    L --> K
+    K -->|Tags confirmed| M[Save unapproved resume and cover letter]
+    M --> N([Continue to verification])
+    classDef ai fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef system fill:#e5e7eb,stroke:#6b7280,color:#1f2937
+    classDef user fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef success fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef error fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class A,B,C,F,K user
+    class D,E,H,L,M system
+    class I ai
+    class G,J error
+    class N success
+```
+
+### Flow 2: Verification, review, and approval
+
+```mermaid
+flowchart TD
+    A([Unapproved drafts]) --> B[Run local verification]
+    B --> C[Check citations, TODOs, and numbers locally]
+    C --> D{Any unsupported, ambiguous, or invalid claims?}
+    D -->|Yes| E[Show claims, gaps, cuts, and rewording]
+    E --> F[User edits drafts or adds exact citations]
+    F --> B
+    D -->|No| G[User confirms citations semantically]
+    G -->|Citation not supported| E
+    G -->|All citations supported| H[User explicitly approves]
+    H --> I[Record approval against file hashes]
+    I --> J[Append tracker row with ready status]
+    J --> K([Approved Markdown])
+    F -->|Content changed after approval| B
+    classDef ai fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef system fill:#e5e7eb,stroke:#6b7280,color:#1f2937
+    classDef user fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef success fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef error fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class A,E,F,G,H user
+    class B,C,D,I,J system
+    class K success
+```
+
+### Flow 3: Approved Markdown to PDF
+
+```mermaid
+flowchart TD
+    A([Approved Markdown]) --> B[Check ready status and file hashes]
+    B -->|Hash mismatch or not ready| C([Refuse export; reverify and reapprove])
+    B -->|Hashes valid| D[Run PDF build]
+    D -->|Build failure| E([Report error; preserve drafts and approval])
+    D --> F{PDF is one or two pages?}
+    F -->|Yes| G([PDF exported])
+    F -->|More than two pages| H([Fail clearly; no approved export])
+    classDef ai fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef system fill:#e5e7eb,stroke:#6b7280,color:#1f2937
+    classDef user fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef success fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef error fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class A user
+    class B,D,F system
+    class C,E,H error
+    class G success
+```
+
+### Flow 4: Regeneration and failure recovery
+
+```mermaid
+flowchart TD
+    A([Existing JD or draft]) --> B[Request regeneration or rerun operation]
+    B --> C[Create separate revision]
+    C -->|Model, verifier, or export failure| D[Show clear error]
+    D --> E([Preserve JD and all existing drafts])
+    C --> F[User compares revisions]
+    F --> G{Choose version to keep}
+    G -->|Earlier or edited draft| H[Keep selected existing revision]
+    G -->|New revision| I[Keep new revision]
+    H --> J([Continue from selected unapproved draft])
+    I --> J
+    classDef ai fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef system fill:#e5e7eb,stroke:#6b7280,color:#1f2937
+    classDef user fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef success fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef error fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class A,B,F,G,H,I user
+    class D system
+    class C ai
+    class E error
+    class J success
+```
+
 ## Non-Functional Requirements
 
 - **Privacy:** The model receives only the job description and a reusable, user-approved public-safe fact allowlist curated from master sections 1-5. It never receives the full master resume or content from sections 6-10. The section 6 metrics log stays local for numeric checks and application of any required safe wording. Use generic wording for Outlier / Scale AI work unless the user confirms otherwise. Show the job-description payload before each API call. Keep credentials out of application artifacts and Git.
