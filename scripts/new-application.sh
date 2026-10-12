@@ -2,8 +2,24 @@
 # Usage: ./scripts/new-application.sh company-role
 set -euo pipefail
 [ $# -eq 1 ] || { echo "Usage: $0 company-role"; exit 1; }
-dir="applications/$(date +%Y-%m)-$1"
-[ -e "$dir" ] && { echo "Already exists: $dir"; exit 1; }
+name="$1"
+[[ "$name" =~ ^[A-Za-z0-9]+([A-Za-z0-9-]*[A-Za-z0-9])?$ ]] || {
+  echo "Invalid application name: use ASCII letters, numbers, and hyphens; start and end with a letter or number." >&2
+  exit 1
+}
+
+mkdir -p applications
+applications_root="$(cd applications && pwd -P)"
+dir="$applications_root/$(date +%Y-%m)-$name"
+resolved_dir="$(realpath -m -- "$dir")"
+case "$resolved_dir" in
+  "$applications_root"/*) ;;
+  *)
+    echo "Application directory must stay inside applications/: $dir" >&2
+    exit 1
+    ;;
+esac
+[ -e "$dir" ] || [ -L "$dir" ] && { echo "Already exists: $dir"; exit 1; }
 mkdir -p "$dir"
 printf '# Job description\n\nURL:\nDate posted:\n\n(paste posting here)\n' > "$dir/job-description.md"
 printf '# Notes\n\nContacts:\nInterview prep:\nOutcome:\n' > "$dir/notes.md"

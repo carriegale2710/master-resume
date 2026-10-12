@@ -25,6 +25,17 @@ application_dir="$tmp_dir/applications/$year_month-synthetic-example"
 grep -q '^# Job description$' "$application_dir/job-description.md" || fail "Unexpected job-description.md template"
 grep -q '^# Notes$' "$application_dir/notes.md" || fail "Unexpected notes.md template"
 
+for invalid_name in '../outside' 'company/role' 'company/../role' 'company\role' '..'; do
+  if (
+    cd "$tmp_dir"
+    bash "$repo_root/scripts/new-application.sh" "$invalid_name" >/dev/null 2>&1
+  ); then
+    fail "Invalid application name should be rejected: $invalid_name"
+  fi
+done
+
+[[ ! -e "$tmp_dir/outside" ]] || fail "Invalid application name created a path outside applications"
+
 if (
   cd "$tmp_dir"
   bash "$repo_root/scripts/new-application.sh" synthetic-example >/dev/null 2>&1
