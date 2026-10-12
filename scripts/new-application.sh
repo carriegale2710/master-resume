@@ -11,19 +11,11 @@ name="$1"
 mkdir -p applications
 applications_root="$(cd applications && pwd -P)"
 dir="$applications_root/$(date +%Y-%m)-$name"
-resolved_dir="$(realpath -m -- "$dir")"
-case "$resolved_dir" in
-  "$applications_root"/*) ;;
-  *)
-    echo "Application directory must stay inside applications/: $dir" >&2
-    exit 1
-    ;;
-esac
 if [ -e "$dir" ] || [ -L "$dir" ]; then
   echo "Already exists: $dir"
   exit 1
 fi
-mkdir -p "$dir"
+mkdir "$dir"
 printf '# Job description\n\nURL:\nDate posted:\n\n(paste posting here)\n' > "$dir/job-description.md"
 printf '# Notes\n\nContacts:\nInterview prep:\nOutcome:\n' > "$dir/notes.md"
 : > "$dir/cover-letter.md"
