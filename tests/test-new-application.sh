@@ -36,6 +36,18 @@ done
 
 [[ ! -e "$tmp_dir/outside" ]] || fail "Invalid application name created a path outside applications"
 
+fake_bin="$tmp_dir/fake-bin"
+mkdir -p "$fake_bin"
+printf '#!/usr/bin/env bash\nprintf "../outside-month\\n"\n' > "$fake_bin/date"
+chmod +x "$fake_bin/date"
+if (
+  cd "$tmp_dir"
+  PATH="$fake_bin:$PATH" bash "$repo_root/scripts/new-application.sh" containment-escape >/dev/null 2>&1
+); then
+  fail "Application target resolving outside applications should be rejected"
+fi
+[[ ! -e "$tmp_dir/outside-month-containment-escape" ]] || fail "Created application directory outside applications"
+
 outside_target="$tmp_dir/outside-target"
 mkdir -p "$outside_target"
 ln -s "$outside_target" "$tmp_dir/applications/$year_month-symlink-escape"
