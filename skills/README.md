@@ -112,7 +112,7 @@ Once installed, just ask your AI assistant to help with resume tasks:
 
 ### Resume Optimization
 
-- `resume-ats-optimizer` - Pass ATS systems
+- `resume-ats-optimizer` - Review formatting and job-description keyword alignment
 - `resume-bullet-writer` - Write achievement-focused bullets
 - `resume-quantifier` - Add metrics and numbers
 - `resume-formatter` - Clean, scannable formatting
@@ -175,7 +175,7 @@ Claude will:
 User: Here's a job description [paste] and my resume [paste]. Should I apply?
 
 Claude will:
-1. Calculate match score
+1. Review evidence-backed alignment with job requirements
 2. Identify gaps and strengths
 3. Flag any red flags in posting
 4. Provide resume customization strategy
