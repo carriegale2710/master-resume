@@ -35,6 +35,8 @@ contains "$cover_letter" 'a metric is not required'
 contains "$cover_letter" 'fictional illustrations and must not be reused'
 omits "$cover_letter" 'Includes at least one specific metric/achievement'
 omits "$cover_letter" '- Match Score:'
+omits "$cover_letter" '5 seconds to grab attention'
+omits "$cover_letter" '250-400 words'
 
 contains "$ats_optimizer" 'must not be reused as facts or claims'
 contains "$ats_optimizer" 'rather than a predictive ATS score'

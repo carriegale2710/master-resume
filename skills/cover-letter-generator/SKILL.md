@@ -41,7 +41,7 @@ Use AFTER analyzing job description to have clear talking points.
 ## The Perfect Cover Letter Structure
 
 ### Length & Format
-- **Length:** 250-400 words (3-4 paragraphs)
+- **Length:** Concise, typically a few paragraphs
 - **Format:** Professional business letter style
 - **Tone:** Confident but not arrogant, personalized but professional
 
@@ -51,20 +51,20 @@ Use AFTER analyzing job description to have clear talking points.
 [Date]
 [Recipient Info]
 
-Opening Paragraph: Hook + Position + Why This Company (2-3 sentences)
+Opening Paragraph: Hook + Position + Why This Company
 
-Body Paragraph 1: Your strongest qualification match (3-4 sentences)
+Body Paragraph 1: Your strongest qualification match
 
-Body Paragraph 2: Additional qualifications + address any gaps (3-4 sentences)
+Body Paragraph 2: Additional qualifications + address any gaps
 
-Closing Paragraph: Call to action + enthusiasm (2-3 sentences)
+Closing Paragraph: Call to action + enthusiasm
 
 [Professional Sign-off]
 ```
 
 ## Opening Paragraph Strategies
 
-The opening is critical - you have 5 seconds to grab attention.
+The opening should quickly make the role and company connection clear.
 
 ### Hook Types (Choose One)
 
@@ -161,15 +161,15 @@ I'm excited about the opportunity to bring my [specific skill] experience to [Co
 
 Dear [Mr./Ms. Last Name / Hiring Manager],
 
-[OPENING HOOK - 1-2 sentences grabbing attention with company knowledge, mutual connection, or impressive achievement]
+[OPENING HOOK - A concise opening with company knowledge, mutual connection, or a supported achievement]
 
-[BRIDGE TO POSITION - 1 sentence stating the role and your interest]
+[BRIDGE TO POSITION - State the role and your interest]
 
-[BODY 1 - 3-4 sentences connecting your strongest relevant experience to their primary requirement. Include a metric only if a relevant one is supported by the master.]
+[BODY 1 - Connect your strongest relevant experience to their primary requirement. Include a metric only if a relevant one is supported by the master.]
 
-[BODY 2 - 3-4 sentences adding additional value, addressing any gaps if needed, and demonstrating company research/culture fit]
+[BODY 2 - Add relevant value, address any gaps if needed, and demonstrate company research/culture fit]
 
-[CLOSING - 2-3 sentences expressing enthusiasm, suggesting next steps, and thanking them]
+[CLOSING - Express enthusiasm, suggest next steps, and thank them]
 
 Sincerely,
 [Your Name]
@@ -275,6 +275,6 @@ Before delivering any cover letter:
 5. ✅ Addresses any obvious gaps (if applicable)
 6. ✅ Has confident but not arrogant tone
 7. ✅ Ends with clear call to action
-8. ✅ Is 250-400 words (3-4 paragraphs)
+8. ✅ Is concise and focused
 9. ✅ Contains no typos or grammatical errors
 10. ✅ Would make you want to interview this person
