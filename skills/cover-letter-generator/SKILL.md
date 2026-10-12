@@ -5,6 +5,10 @@ description: Create personalized, compelling cover letters from resume and job d
 
 # Cover Letter Generator
 
+## Source-of-truth rules
+
+Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent or infer skills, tools, dates, titles, metrics, or outcomes. Use a number only when supported by section 6 of the master and follow its required safe wording; treat `TODO` as unknown. Any examples in this skill are fictional illustrations and must not be reused as facts or claims. A complete cover letter does not need a metric: include one only when a relevant, supported metric exists.
+
 ## When to Use This Skill
 
 Use this skill when the user wants to:
@@ -101,10 +105,10 @@ The opening is critical - you have 5 seconds to grab attention.
 
 Connect your strongest experience to their top requirement.
 
-**Formula:** [Their Need] + [Your Exact Experience] + [Specific Result]
+**Formula:** [Their Need] + [Your Supported Experience] + [Relevant Result, if supported]
 
 ```
-Your focus on data-driven product decisions aligns perfectly with my approach. At [Company], I implemented a product analytics framework that increased feature adoption by 40% by identifying and prioritizing high-impact opportunities through A/B testing and user behavior analysis.
+Your focus on data-informed product decisions aligns with my experience. At [Company], I [describe relevant, source-supported experience and its result, if one is documented].
 ```
 
 ### Body Paragraph 2: Broader Value + Gap Handling
@@ -161,7 +165,7 @@ Dear [Mr./Ms. Last Name / Hiring Manager],
 
 [BRIDGE TO POSITION - 1 sentence stating the role and your interest]
 
-[BODY 1 - 3-4 sentences connecting your strongest relevant experience to their primary requirement. Include specific metrics and results.]
+[BODY 1 - 3-4 sentences connecting your strongest relevant experience to their primary requirement. Include a metric only if a relevant one is supported by the master.]
 
 [BODY 2 - 3-4 sentences adding additional value, addressing any gaps if needed, and demonstrating company research/culture fit]
 
@@ -236,7 +240,6 @@ When generating a cover letter, provide:
 # COVER LETTER FOR [POSITION] AT [COMPANY]
 
 ## Analysis Summary
-- Match Score: [From JD Analyzer]
 - Key Strengths to Highlight: [List]
 - Gaps to Address: [List or "None"]
 - Company Research Notes: [Key facts to reference]
@@ -268,7 +271,7 @@ Before delivering any cover letter:
 1. ✅ Opens with a hook (not "I am writing to apply")
 2. ✅ Mentions specific company knowledge
 3. ✅ Connects experience directly to job requirements
-4. ✅ Includes at least one specific metric/achievement
+4. ✅ Uses a relevant metric only when it is supported by the master; a metric is not required
 5. ✅ Addresses any obvious gaps (if applicable)
 6. ✅ Has confident but not arrogant tone
 7. ✅ Ends with clear call to action
