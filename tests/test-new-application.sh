@@ -25,6 +25,40 @@ application_dir="$tmp_dir/applications/$year_month-synthetic-example"
 grep -q '^# Job description$' "$application_dir/job-description.md" || fail "Unexpected job-description.md template"
 grep -q '^# Notes$' "$application_dir/notes.md" || fail "Unexpected notes.md template"
 
+for invalid_name in '../outside' 'company/role' 'company/../role' 'company\role' '..'; do
+  if (
+    cd "$tmp_dir"
+    bash "$repo_root/scripts/new-application.sh" "$invalid_name" >/dev/null 2>&1
+  ); then
+    fail "Invalid application name should be rejected: $invalid_name"
+  fi
+done
+
+[[ ! -e "$tmp_dir/outside" ]] || fail "Invalid application name created a path outside applications"
+
+fake_bin="$tmp_dir/fake-bin"
+mkdir -p "$fake_bin"
+printf '#!/usr/bin/env bash\nprintf "../outside-month\\n"\n' > "$fake_bin/date"
+chmod +x "$fake_bin/date"
+if (
+  cd "$tmp_dir"
+  PATH="$fake_bin:$PATH" bash "$repo_root/scripts/new-application.sh" containment-escape >/dev/null 2>&1
+); then
+  fail "Application target resolving outside applications should be rejected"
+fi
+[[ ! -e "$tmp_dir/outside-month-containment-escape" ]] || fail "Created application directory outside applications"
+
+outside_target="$tmp_dir/outside-target"
+mkdir -p "$outside_target"
+ln -s "$outside_target" "$tmp_dir/applications/$year_month-symlink-escape"
+if (
+  cd "$tmp_dir"
+  bash "$repo_root/scripts/new-application.sh" symlink-escape >/dev/null 2>&1
+); then
+  fail "Application target resolving outside applications should be rejected"
+fi
+[[ ! -e "$outside_target/job-description.md" ]] || fail "Created application files outside applications"
+
 if (
   cd "$tmp_dir"
   bash "$repo_root/scripts/new-application.sh" synthetic-example >/dev/null 2>&1
