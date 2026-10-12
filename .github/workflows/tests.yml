@@ -17,3 +17,5 @@ jobs:
         run: bash tests/test-build.sh
       - name: Test application generator
         run: bash tests/test-new-application.sh
+      - name: Test link-skills script
+        run: bash tests/test-link-skills.sh
