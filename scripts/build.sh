@@ -34,9 +34,10 @@ filter() {
 
 if [ "$md_only" -eq 1 ]; then filter; exit 0; fi
 
-if filter | grep -q 'TODO'; then
+todo_matches="$(filter | grep -n 'TODO' || true)"
+if [ -n "$todo_matches" ]; then
   echo "WARNING: TODO placeholders remain in output:" >&2
-  filter | grep -n 'TODO' >&2 || true
+  printf '%s\n' "$todo_matches" >&2
 fi
 
 out="${in%.md}.pdf"

@@ -19,3 +19,5 @@ jobs:
         run: bash tests/test-new-application.sh
       - name: Test link-skills script
         run: bash tests/test-link-skills.sh
+      - name: Test skill evidence rules
+        run: bash tests/test-skill-evidence-rules.sh

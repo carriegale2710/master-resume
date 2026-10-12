@@ -4,27 +4,34 @@ Private repo for my master resume and every tailored application.
 
 ## Requirements
 
-- `pandoc` (required) -> used for converting Markdown to PDF
-- `weasyprint` (PDF engine) -> used for rendering PDFs from HTML/CSS
+The PDF build in `scripts/build.sh` requires both the Pandoc executable and the
+WeasyPrint executable. Pandoc converts Markdown to HTML; WeasyPrint renders the
+HTML and CSS to PDF.
 
 ## Setup
 
-1. Install the required dependencies:
+1. Install Pandoc using the [official installation instructions](https://pandoc.org/installing.html).
+   The Python package named `pandoc` is not a substitute for the Pandoc executable.
+2. Install WeasyPrint and any operating-system dependencies it needs, following
+   the [official installation instructions](https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation).
+   For Python environments, WeasyPrint can be installed with:
 
 ```bash
-pip install pandoc weasyprint
+python -m pip install weasyprint
 ```
 
-2. Run this once.
+3. Check that both executables are available on your `PATH`:
 
 ```bash
-chmod +x scripts/*.sh
+pandoc --version
+weasyprint --version
 ```
 
-This marks every `.sh` file in `scripts/` as executable on Unix-like systems. You can run scripts directly, like:
+The PDF build will fail if either command is unavailable. You can run scripts
+with Bash without changing their executable permissions:
 
 ```bash
-./scripts/build.sh
+bash scripts/build.sh applications/<folder>/resume.md
 ```
 
 ## How to use the scripts
@@ -37,11 +44,12 @@ The scripts in this repository help automate the process of creating tailored re
 
 ## Tests
 
-The shell-script tests use synthetic resume data in `tests/fixtures/` and do not read the private master resume. GitHub Actions runs both tests on pushes and pull requests. To run them locally from the repository root with Bash:
+The build and application-generator tests use synthetic resume data in `tests/fixtures/`; none of the tests read the private master resume. GitHub Actions runs all three tests on pushes and pull requests. To run them locally from the repository root with Bash:
 
 ```bash
 bash tests/test-build.sh
 bash tests/test-new-application.sh
+bash tests/test-skill-evidence-rules.sh
 ```
 
 On Windows, run these commands from Git Bash.
@@ -49,13 +57,13 @@ On Windows, run these commands from Git Bash.
 ## Workflow
 
 1. Create the application folder:
-   `./scripts/new-application.sh acme-frontend`
+   `bash scripts/new-application.sh acme-frontend`
 2. Paste the job posting into `job-description.md`.
 3. Draft a starting resume filtered by tags:
-   `./scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
+   `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
 4. Edit `resume.md` by hand: pick the 5-7 strongest bullets, mirror true keywords from the posting, reword the summary, cut to one page.
 5. Export to PDF:
-   `./scripts/build.sh applications/<folder>/resume.md`
+   `bash scripts/build.sh applications/<folder>/resume.md`
 6. Submit, then commit and tag:
    `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`
 7. Add a row to `tracker.csv`.
@@ -73,22 +81,23 @@ On Windows, run these commands from Git Bash.
 
 ## Things to know
 
-- **Skill links:** `.claude/` and `.codex/` are created by `bash scripts/link-skills.sh`. Symlinks can be committed; ignore copied folders to avoid stale duplicates.
-- **Applications:** `applications/` starts empty; `new-application.sh` creates each application folder.
-- **Master sections:** The metrics log and private notes are sections 6 and 7, referenced by section in `AGENTS.md` and `verify-claims`. Update those references if you move either section.
+- **Skill links:** `bash scripts/link-skills.sh` creates tool-specific skill directories for Claude Code, Codex and Gemini. Re-run it after editing skills; do not edit copied skill directories.
+- **Applications:** `new-application.sh` creates the `applications/` directory and each application folder as needed.
+- **Master sections:** Section references are documented in `AGENTS.md` and the relevant skills. Keep them in sync if sections move.
 
 ## Agents and skills (tool-neutral)
 
-- `AGENTS.md` holds the canonical rules. `CLAUDE.md` and `GEMINI.md` only point to it.
+- `AGENTS.md` holds the canonical rules. `CLAUDE.md` points to it.
 - `skills/` holds the canonical skills as plain Markdown.
 - Run `bash scripts/link-skills.sh` to expose them to Claude Code, Codex and Gemini (symlinks), or `bash scripts/link-skills.sh --copy` if a tool does not follow symlinks.
 - Edit skills only in `skills/`. Never edit the linked or copied folders.
 - Tools without file access: paste `AGENTS.md` into the instructions and upload only the skill, master and job description needed. Never upload private notes to tools you do not control.
-- Order of use: tailor-resume, ats-keyword-check, verify-claims, cover-letter, interview-prep.
+- Typical order of use: `resume-tailor-quick`, `resume-ats-optimizer`, `verify-claims`, then optionally `cover-letter-generator` and `interview-prep-generator`.
 
 ## Repository Tree Structure
 
-This is the full tree with everything we've created. The comments mark what's generated or optional.
+This is the tracked repository structure. Application folders and tool-specific
+skill links are created when needed.
 
 ```
 master-resume/
@@ -96,23 +105,20 @@ master-resume/
 ├── AGENTS.md                      # canonical agent rules (edit this)
 ├── CLAUDE.md                      # one line: @AGENTS.md
 ├── tracker.csv                    # application log
-├── .env                           # for scripts + personal info / links / contact headers (never committed)
-├── .env.example
+├── .env.example                   # sample resume content in Markdown, not environment variables
 ├── .gitignore
 │
 ├── master/
-│   └── master-resume.md           # source of truth (metrics log and private notes are sections 6-7)
+│   ├── master-resume.md
+│   └── universal-checklist.md
 
 ├── industry/                      # industry-specific resume tailoring guides + templates
 │   ├── design/
 │   └── dev/
 │
 ├── skills/                        # canonical skills (edit these)
-│   ├── resume-tailor-quick/SKILL.md
-│   ├── resume-ats-optimizer/SKILL.md
-│   ├── verify-claims/SKILL.md
-│   ├── cover-letter-generator/SKILL.md
-│   └── interview-prep-generator/SKILL.md
+│   ├── README.md
+│   └── <skill-name>/SKILL.md
 │
 ├── templates/
 │   ├── dev.md
@@ -130,16 +136,5 @@ master-resume/
 │   ├── test-build.sh              # tests tag filtering and private-section removal
 │   └── test-new-application.sh    # tests application-folder creation
 │
-├── applications/                  # one folder per job
-│   └── 2026-10-acme-frontend/     # example, created by new-application.sh
-│       ├── job-description.md
-│       ├── resume.md
-│       ├── resume.pdf             # exact file submitted
-│       ├── cover-letter.md
-│       └── notes.md
-│
-├── archive/                       # retired bullets, old submissions
-│
-├── .claude/skills -> ../skills    # generated by link-skills.sh
-└── .codex/skills  -> ../skills    # generated, only if you use Codex
+└── docs/
 ```
