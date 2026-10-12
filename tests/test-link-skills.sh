@@ -78,4 +78,17 @@ fi
 [[ "$(cat "$tmp_dir/external/important.txt")" == 'external data' ]] ||
   fail "Unrelated symlink target contents should be preserved"
 
+tool_symlink_root="$tmp_dir/symlinked-tool-directory"
+make_fixture "$tool_symlink_root"
+mkdir -p "$tmp_dir/external-tool"
+printf 'external tool data\n' > "$tmp_dir/external-tool/important.txt"
+ln -s "$tmp_dir/external-tool" "$tool_symlink_root/.claude"
+if bash "$tool_symlink_root/scripts/link-skills.sh" claude >/dev/null 2>&1; then
+  fail "Symlinked tool directory should not be used"
+fi
+[[ "$(readlink "$tool_symlink_root/.claude")" == "$tmp_dir/external-tool" ]] ||
+  fail "Symlinked tool directory should be preserved"
+[[ "$(cat "$tmp_dir/external-tool/important.txt")" == 'external tool data' ]] ||
+  fail "Symlinked tool directory contents should be preserved"
+
 echo "PASS: link-skills.sh validates names and preserves unrelated paths"
