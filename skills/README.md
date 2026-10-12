@@ -12,7 +12,7 @@ Skills are markdown files that give AI agents specialized knowledge and workflow
 
 | Skill                                                              | Description                                                                                     |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| [resume-ats-optimizer](/skills/resume-ats-optimizer)               | Optimize resumes for Applicant Tracking Systems, check ATS compatibility, analyze keyword match |
+| [resume-ats-optimizer](/skills/resume-ats-optimizer)               | Review resume formatting and evidence-backed keyword alignment for Applicant Tracking Systems |
 | [resume-bullet-writer](/skills/resume-bullet-writer)               | Transform weak bullets into achievement-focused statements with metrics and impact              |
 | [job-description-analyzer](/skills/job-description-analyzer)       | Analyze job postings, calculate match scores, identify gaps, create application strategy        |
 | [resume-tailor](/skills/resume-tailor)                             | Customize resume for specific job postings while maintaining truthfulness                       |
@@ -23,7 +23,7 @@ Skills are markdown files that give AI agents specialized knowledge and workflow
 | [tech-resume-optimizer](/skills/tech-resume-optimizer)             | Optimize resumes for software engineering, PM, and technical roles                              |
 | [executive-resume-writer](/skills/executive-resume-writer)         | Create C-suite and VP level resumes emphasizing strategic leadership                            |
 | [career-changer-translator](/skills/career-changer-translator)     | Translate skills from one industry to another, identify transferable skills                     |
-| [resume-quantifier](/skills/resume-quantifier)                     | Find opportunities to add metrics, estimate when numbers unknown                                |
+| [resume-quantifier](/skills/resume-quantifier)                     | Identify evidence-backed metrics and flag unknowns instead of estimating                       |
 | [resume-formatter](/skills/resume-formatter)                       | Ensure ATS-friendly formatting, create clean scannable layouts                                  |
 | [portfolio-case-study-writer](/skills/portfolio-case-study-writer) | Transform resume bullets into detailed portfolio case studies                                   |
 | [academic-cv-builder](/skills/academic-cv-builder)                 | Format CVs for academic positions with publications, grants, teaching                           |
@@ -147,26 +147,12 @@ Once installed, just ask your AI assistant to help with resume tasks:
 
 ## Why These Skills Matter
 
-**The Problem:**
+**What these skills support:**
 
-- 75% of resumes rejected by ATS before humans see them
-- Average job gets 250 applications
-- Most resumes have weak bullets with no metrics
-- Job seekers apply to wrong jobs, waste time
-
-**The Solution:**
-
-- Pass ATS with optimized formatting and keywords
-- Stand out with achievement-focused bullets
-- Apply strategically to right-fit roles
-- Get interviews faster with tailored applications
-
-**The Results:**
-
-- 2-3x more interviews per application
-- Higher quality responses
-- Faster job search (2 months saved on average)
-- Better salary negotiations ($10K+ higher offers)
+- Review formatting and keyword alignment without predicting screening outcomes.
+- Strengthen bullets using evidence-backed achievements.
+- Identify role requirements, supported experience, and gaps.
+- Prepare tailored application materials and interview talking points.
 
 ## Quick Start Examples
 

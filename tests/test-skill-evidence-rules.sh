@@ -5,6 +5,7 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 quantifier="$repo_root/skills/resume-quantifier/SKILL.md"
 cover_letter="$repo_root/skills/cover-letter-generator/SKILL.md"
 ats_optimizer="$repo_root/skills/resume-ats-optimizer/SKILL.md"
+skill_catalog="$repo_root/skills/README.md"
 
 fail() {
   echo "FAIL: $1" >&2
@@ -43,5 +44,11 @@ contains "$ats_optimizer" 'rather than a predictive ATS score'
 omits "$ats_optimizer" '75% of resumes are rejected'
 omits "$ats_optimizer" 'Target: 80%+'
 omits "$ats_optimizer" 'Estimated New Match Score'
+
+contains "$skill_catalog" 'flag unknowns instead of estimating'
+contains "$skill_catalog" 'without predicting screening outcomes'
+omits "$skill_catalog" '75% of resumes rejected'
+omits "$skill_catalog" '2-3x more interviews per application'
+omits "$skill_catalog" '$10K+ higher offers'
 
 echo "PASS: imported skills follow evidence rules"
