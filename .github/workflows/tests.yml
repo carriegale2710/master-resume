@@ -21,3 +21,5 @@ jobs:
         run: bash tests/test-link-skills.sh
       - name: Test skill evidence rules
         run: bash tests/test-skill-evidence-rules.sh
+      - name: Test PDF export
+        run: bash tests/test-pdf-export.sh

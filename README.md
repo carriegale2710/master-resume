@@ -44,12 +44,25 @@ The scripts in this repository help automate the process of creating tailored re
 
 ## Tests
 
-The build and application-generator tests use synthetic resume data in `tests/fixtures/`; none of the tests read the private master resume. GitHub Actions runs all three tests on pushes and pull requests. To run them locally from the repository root with Bash:
+The build, application-generator, and PDF-export tests use synthetic resume data; none of the tests read the private master resume. GitHub Actions runs the tests on pushes and pull requests. The PDF-export test runs when Pandoc and WeasyPrint are installed and otherwise reports a skip. To run the tests locally from the repository root with Bash:
 
 ```bash
 bash tests/test-build.sh
 bash tests/test-new-application.sh
+bash tests/test-link-skills.sh
 bash tests/test-skill-evidence-rules.sh
+bash tests/test-pdf-export.sh
+```
+
+For a manual PDF-export check when those dependencies are available, create a synthetic input and verify the resulting file:
+
+```bash
+tmp_dir="$(mktemp -d)"
+printf '# Synthetic PDF check\n\nPDF export works.\n' > "$tmp_dir/check.md"
+bash scripts/build.sh "$tmp_dir/check.md"
+test -s "$tmp_dir/check.pdf"
+head -c 5 "$tmp_dir/check.pdf" | grep -q '%PDF-'
+rm -rf "$tmp_dir"
 ```
 
 On Windows, run these commands from Git Bash.
@@ -134,7 +147,8 @@ master-resume/
 │   ├── fixtures/
 │   │   └── dummy-resume.md        # synthetic input for build.sh tests
 │   ├── test-build.sh              # tests tag filtering and private-section removal
-│   └── test-new-application.sh    # tests application-folder creation
+│   ├── test-new-application.sh    # tests application-folder creation
+│   └── test-pdf-export.sh         # checks PDF export when dependencies are available
 │
 └── docs/
 ```

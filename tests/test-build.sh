@@ -76,6 +76,22 @@ clean_err="$(PATH="$mock_bin:$PATH" bash "$repo_root/scripts/build.sh" "$clean_r
 omits "$clean_err" "WARNING: TODO placeholders remain in output:"
 omits "$clean_err" "TODO"
 
+for section in 6 7 8 9 10; do
+  private_boundary="$tmp_dir/private-section-$section.md"
+  cat > "$private_boundary" <<EOF
+# Synthetic boundary test
+
+Public text before private section $section.
+
+## $section. Synthetic Private Section
+
+PRIVATE_BOUNDARY_SENTINEL_$section
+EOF
+  boundary_output="$(bash "$repo_root/scripts/build.sh" --md-only "$private_boundary")"
+  contains "$boundary_output" "Public text before private section $section."
+  omits "$boundary_output" "PRIVATE_BOUNDARY_SENTINEL_$section"
+done
+
 tagged_todo="$tmp_dir/tagged-todo.md"
 {
   echo "# Tagged Resume"
