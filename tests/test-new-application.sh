@@ -36,6 +36,17 @@ done
 
 [[ ! -e "$tmp_dir/outside" ]] || fail "Invalid application name created a path outside applications"
 
+outside_target="$tmp_dir/outside-target"
+mkdir -p "$outside_target"
+ln -s "$outside_target" "$tmp_dir/applications/$year_month-symlink-escape"
+if (
+  cd "$tmp_dir"
+  bash "$repo_root/scripts/new-application.sh" symlink-escape >/dev/null 2>&1
+); then
+  fail "Application target resolving outside applications should be rejected"
+fi
+[[ ! -e "$outside_target/job-description.md" ]] || fail "Created application files outside applications"
+
 if (
   cd "$tmp_dir"
   bash "$repo_root/scripts/new-application.sh" synthetic-example >/dev/null 2>&1

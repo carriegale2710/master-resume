@@ -19,7 +19,10 @@ case "$resolved_dir" in
     exit 1
     ;;
 esac
-[ -e "$dir" ] || [ -L "$dir" ] && { echo "Already exists: $dir"; exit 1; }
+if [ -e "$dir" ] || [ -L "$dir" ]; then
+  echo "Already exists: $dir"
+  exit 1
+fi
 mkdir -p "$dir"
 printf '# Job description\n\nURL:\nDate posted:\n\n(paste posting here)\n' > "$dir/job-description.md"
 printf '# Notes\n\nContacts:\nInterview prep:\nOutcome:\n' > "$dir/notes.md"
