@@ -44,11 +44,12 @@ The scripts in this repository help automate the process of creating tailored re
 
 ## Tests
 
-The shell-script tests use synthetic resume data in `tests/fixtures/` and do not read the private master resume. GitHub Actions runs both tests on pushes and pull requests. To run them locally from the repository root with Bash:
+The build and application-generator tests use synthetic resume data in `tests/fixtures/`; none of the tests read the private master resume. GitHub Actions runs all three tests on pushes and pull requests. To run them locally from the repository root with Bash:
 
 ```bash
 bash tests/test-build.sh
 bash tests/test-new-application.sh
+bash tests/test-skill-evidence-rules.sh
 ```
 
 On Windows, run these commands from Git Bash.

@@ -5,6 +5,10 @@ description: Create personalized, compelling cover letters from resume and job d
 
 # Cover Letter Generator
 
+## Source-of-truth rules
+
+Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent or infer skills, tools, dates, titles, metrics, or outcomes. Use a number only when supported by section 6 of the master and follow its required safe wording; treat `TODO` as unknown. Any examples in this skill are fictional illustrations and must not be reused as facts or claims. A complete cover letter does not need a metric: include one only when a relevant, supported metric exists.
+
 ## When to Use This Skill
 
 Use this skill when the user wants to:
@@ -37,7 +41,7 @@ Use AFTER analyzing job description to have clear talking points.
 ## The Perfect Cover Letter Structure
 
 ### Length & Format
-- **Length:** 250-400 words (3-4 paragraphs)
+- **Length:** Concise, typically a few paragraphs
 - **Format:** Professional business letter style
 - **Tone:** Confident but not arrogant, personalized but professional
 
@@ -47,20 +51,20 @@ Use AFTER analyzing job description to have clear talking points.
 [Date]
 [Recipient Info]
 
-Opening Paragraph: Hook + Position + Why This Company (2-3 sentences)
+Opening Paragraph: Hook + Position + Why This Company
 
-Body Paragraph 1: Your strongest qualification match (3-4 sentences)
+Body Paragraph 1: Your strongest qualification match
 
-Body Paragraph 2: Additional qualifications + address any gaps (3-4 sentences)
+Body Paragraph 2: Additional qualifications + address any gaps
 
-Closing Paragraph: Call to action + enthusiasm (2-3 sentences)
+Closing Paragraph: Call to action + enthusiasm
 
 [Professional Sign-off]
 ```
 
 ## Opening Paragraph Strategies
 
-The opening is critical - you have 5 seconds to grab attention.
+The opening should quickly make the role and company connection clear.
 
 ### Hook Types (Choose One)
 
@@ -101,10 +105,10 @@ The opening is critical - you have 5 seconds to grab attention.
 
 Connect your strongest experience to their top requirement.
 
-**Formula:** [Their Need] + [Your Exact Experience] + [Specific Result]
+**Formula:** [Their Need] + [Your Supported Experience] + [Relevant Result, if supported]
 
 ```
-Your focus on data-driven product decisions aligns perfectly with my approach. At [Company], I implemented a product analytics framework that increased feature adoption by 40% by identifying and prioritizing high-impact opportunities through A/B testing and user behavior analysis.
+Your focus on data-informed product decisions aligns with my experience. At [Company], I [describe relevant, source-supported experience and its result, if one is documented].
 ```
 
 ### Body Paragraph 2: Broader Value + Gap Handling
@@ -157,15 +161,15 @@ I'm excited about the opportunity to bring my [specific skill] experience to [Co
 
 Dear [Mr./Ms. Last Name / Hiring Manager],
 
-[OPENING HOOK - 1-2 sentences grabbing attention with company knowledge, mutual connection, or impressive achievement]
+[OPENING HOOK - A concise opening with company knowledge, mutual connection, or a supported achievement]
 
-[BRIDGE TO POSITION - 1 sentence stating the role and your interest]
+[BRIDGE TO POSITION - State the role and your interest]
 
-[BODY 1 - 3-4 sentences connecting your strongest relevant experience to their primary requirement. Include specific metrics and results.]
+[BODY 1 - Connect your strongest relevant experience to their primary requirement. Include a metric only if a relevant one is supported by the master.]
 
-[BODY 2 - 3-4 sentences adding additional value, addressing any gaps if needed, and demonstrating company research/culture fit]
+[BODY 2 - Add relevant value, address any gaps if needed, and demonstrate company research/culture fit]
 
-[CLOSING - 2-3 sentences expressing enthusiasm, suggesting next steps, and thanking them]
+[CLOSING - Express enthusiasm, suggest next steps, and thank them]
 
 Sincerely,
 [Your Name]
@@ -236,7 +240,6 @@ When generating a cover letter, provide:
 # COVER LETTER FOR [POSITION] AT [COMPANY]
 
 ## Analysis Summary
-- Match Score: [From JD Analyzer]
 - Key Strengths to Highlight: [List]
 - Gaps to Address: [List or "None"]
 - Company Research Notes: [Key facts to reference]
@@ -268,10 +271,10 @@ Before delivering any cover letter:
 1. ✅ Opens with a hook (not "I am writing to apply")
 2. ✅ Mentions specific company knowledge
 3. ✅ Connects experience directly to job requirements
-4. ✅ Includes at least one specific metric/achievement
+4. ✅ Uses a relevant metric only when it is supported by the master; a metric is not required
 5. ✅ Addresses any obvious gaps (if applicable)
 6. ✅ Has confident but not arrogant tone
 7. ✅ Ends with clear call to action
-8. ✅ Is 250-400 words (3-4 paragraphs)
+8. ✅ Is concise and focused
 9. ✅ Contains no typos or grammatical errors
 10. ✅ Would make you want to interview this person
