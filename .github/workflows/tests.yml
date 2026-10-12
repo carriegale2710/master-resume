@@ -21,3 +21,9 @@ jobs:
         run: bash tests/test-link-skills.sh
       - name: Test skill evidence rules
         run: bash tests/test-skill-evidence-rules.sh
+      - name: Install PDF export dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y pandoc weasyprint
+      - name: Test PDF export
+        run: bash tests/test-pdf-export.sh
