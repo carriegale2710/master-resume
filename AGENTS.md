@@ -13,6 +13,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - Never copy content from sections 6-10 of the master (metrics log, private notes, application log, archive) into a resume or cover letter.
 - Respect the Outlier / Scale AI NDA note: use generic wording for tools and project types unless the user confirms otherwise.
 - Never upload or paste this repo's private files into external services.
+- Contact details are secret. Leave `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` and `${RESUME_LINKS}` placeholders exactly as written; they are intentional, not `TODO`. Never read `.env`, never ask for or write the real values, and never run the PDF build (the user runs it locally so `.env` is filled in then).
 
 ## Writing rules
 
@@ -25,7 +26,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 ## Tools in this repo
 
 - `bash scripts/build.sh --tags a,b --md-only master/master-resume.md` filters master bullets by tag.
-- `bash scripts/build.sh applications/<folder>/resume.md` builds the PDF.
+- `bash scripts/build.sh applications/<folder>/resume.md` builds the PDF (user-run only; it fills the header from `.env`).
 - `bash scripts/new-application.sh company-role` creates an application folder.
 - `bash scripts/link-skills.sh` links or copies skills for each tool.
 - Prefer these scripts over re-implementing their logic.

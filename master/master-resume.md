@@ -10,10 +10,10 @@
 
 ## 0. Header and admin facts
 
-- Name: TODO
+- Name: ${RESUME_NAME}
 - Location: TODO
-- Phone / Email: TODO
-- LinkedIn / GitHub / Portfolio: TODO (full address, no `https://`)
+- Phone / Email: ${RESUME_PHONE} / ${RESUME_EMAIL}
+- LinkedIn / GitHub / Portfolio: ${RESUME_LINKS}
 - Work rights / visa status: TODO (state citizenship or visa for AU applications)
 - Languages: English (native) | Korean: intermediate-to-advanced (TODO CEFR/TOPIK; older CVs say "fluent" after 10+ years of self-study, exchange and university classes, so prove it with a result or keep the safer wording) | Japanese: beginner (older CVs say "conversational"; TODO) | French: 2 years of university electives (TODO level)
 

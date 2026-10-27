@@ -4,6 +4,8 @@
 # --tags     keep only tagged bullets matching any tag (untagged lines kept)
 # --md-only  print filtered Markdown to stdout instead of building a PDF
 # Private sections (6-10), tag/variant keys and "> " notes are always removed.
+# PDF build only: ${RESUME_NAME|EMAIL|PHONE|LINKS} placeholders come from .env
+# (override path with RESUME_ENV_FILE). --md-only never reads .env.
 set -euo pipefail
 
 tags=""; md_only=0; in=""
@@ -41,6 +43,18 @@ if [ -n "$todo_matches" ]; then
 fi
 
 out="${in%.md}.pdf"
-filter | pandoc -f markdown -t html5 --standalone --metadata title=" " \
+md="$(filter)"
+# Private header: ${RESUME_*} placeholders are filled from .env at PDF time only.
+if grep -q '\${RESUME_' <<<"$md"; then
+  env_file="${RESUME_ENV_FILE:-$(dirname "$0")/../.env}"
+  [ -f "$env_file" ] || { echo "Missing $env_file" >&2; exit 1; }
+  set -a; . "$env_file"; set +a
+  for v in RESUME_NAME RESUME_EMAIL RESUME_PHONE RESUME_LINKS; do
+    [ -n "${!v:-}" ] || { echo "Missing $v in $env_file" >&2; exit 1; }
+    tok='${'"$v"'}'
+    md="${md//"$tok"/"${!v}"}"
+  done
+fi
+printf '%s\n' "$md" | pandoc -f markdown -t html5 --standalone --metadata title=" " \
   --css "$(dirname "$0")/../templates/style.css" --pdf-engine=weasyprint -o "$out"
 echo "Built $out"

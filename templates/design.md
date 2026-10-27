@@ -1,6 +1,6 @@
-# NAME
+# ${RESUME_NAME}
 UX/UI Designer | Accessibility | Figma | Frontend
-LOCATION | EMAIL | LINKEDIN | PORTFOLIO
+LOCATION | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
 
 ## Summary
 
