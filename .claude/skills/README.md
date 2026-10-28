@@ -12,7 +12,7 @@ Markdown files that give agents a workflow for one task. Claude Code loads them 
 
 | Skill                                                              | Description                                                                                     |
 | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| [resume-ats-optimizer](/.claude/skills/resume-ats-optimizer)               | Review resume formatting and evidence-backed keyword alignment for Applicant Tracking Systems |
+| [resume-ats-optimizer](/.claude/skills/resume-ats-optimizer)               | Review resume formatting and evidence-backed keyword alignment for Applicant Tracking Systems without predicting screening outcomes |
 | [resume-bullet-writer](/.claude/skills/resume-bullet-writer)               | Transform weak bullets into achievement-focused statements with metrics and impact              |
 | [job-description-analyzer](/.claude/skills/job-description-analyzer)       | Analyze job postings, calculate match scores, identify gaps, create application strategy        |
 | [resume-tailor](/.claude/skills/resume-tailor)                             | Customize resume for specific job postings while maintaining truthfulness                       |

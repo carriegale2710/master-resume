@@ -4,7 +4,7 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 t="$(mktemp)"; trap 'rm -f "$t"' EXIT
 export TRACKER="$t"
 fail() { echo "FAIL: $1" >&2; exit 1; }
-printf 'id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date\n2026-10-acme-dev,,Acme,Dev,Remote,seek,2026-10-acme-dev,pending,2026-10-01,,,,,\n2026-10-beta-dev,,Beta,Dev,Remote,seek,2026-10-beta-dev,pending,2026-10-01,,,,,\n' > "$t"
+printf 'id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date,eligibility\n2026-10-acme-dev,,Acme,Dev,Remote,seek,2026-10-acme-dev,pending,2026-10-01,,,,,,\n2026-10-beta-dev,,Beta,Dev,Remote,seek,2026-10-beta-dev,pending,2026-10-01,,,,,,\n' > "$t"
 bash "$repo_root/scripts/ready.sh" applications/2026-10-acme-dev >/dev/null
 grep -q '^2026-10-acme-dev,.*,ready,' "$t" || fail "ready.sh did not mark row"
 bash "$repo_root/scripts/set-status.sh" 2026-10-acme-dev exported >/dev/null

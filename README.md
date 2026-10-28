@@ -46,7 +46,7 @@ bash tests/run-all.sh
    `bash scripts/build.sh applications/<folder>/resume.md`
 6. **Submit.** `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`, then update the `tracker.csv` row.
 
-Status flow: `pending` -> `tailored` -> `verified` -> `ready` (`ready.sh`) -> `exported` (`build.sh`). `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date`.
+Status flow: `pending` -> `tailored` -> `verified` -> `ready` (`ready.sh`) -> `exported` (`build.sh`). `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date, eligibility`.
 
 Hard gates: zero unsupported claims in anything `ready`; metrics only from master section 6 using its safe wording; nothing from master sections 6-10 in output; one page target, two pages limit.
 

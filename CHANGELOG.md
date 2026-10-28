@@ -17,6 +17,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - `applications/tracker.csv` row (`pending`) created by `new-application.sh`; new `id`, `opening_date` and `closing_date` columns.
 - `scripts/set-status.sh` and `scripts/ready.sh` move a row through `pending`, `tailored`, `verified`, `ready`, `exported`; `build.sh` sets `exported` after a docx build; `resume-tailor-quick` and `verify-claims` set their own status. `tests/test-ready.sh` covers it.
 - `tracker-intake` skill fills company, role, location, source and opening/closing dates from the job description.
+- `tracker.csv` `eligibility` column, filled by `tracker-intake` from posting criteria.
+- `tracker.csv` `EXAMPLE-` row shows what each column holds.
+- `tracker.csv` `source` column holds original posting URL.
 - `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` placeholders filled from `.env` at build.
 
 ### Changed

@@ -2,6 +2,7 @@
 
 URL: https://cba.wd3.myworkdayjobs.com/CommBank_Careers/job/Sydney-CBD-Area/Technology-Associate-Program--Traineeship-_REQ267530-1
 Date posted: 2026-10-28
+Closing date: 2026-11-13
 
 Technology Associate Program (Traineeship)
 Apply

@@ -18,8 +18,8 @@ printf '# Job description\n\nURL:\nDate posted:\nClosing date:\n\n(paste posting
 printf '# Notes\n\nContacts:\nInterview prep:\nOutcome:\n' > "$dir/notes.md"
 : > "$dir/cover-letter.md"
 tracker=applications/tracker.csv
-[ -f "$tracker" ] || echo "id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date" > "$tracker"
+[ -f "$tracker" ] || echo "id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date,eligibility" > "$tracker"
 id="$(basename "$dir")"
-echo "$id,,$name,,,,$id,pending,$(date +%F),,,,," >> "$tracker"
+echo "$id,,$name,,,,$id,pending,$(date +%F),,,,,," >> "$tracker"
 echo "Created $dir (tracker row: pending)"
-echo "Next: ./scripts/build.sh --tags frontend,a11y --md-only master/master-resume.md > $dir/resume.md"
+echo "Next: Copy in the job description and run ./scripts/build.sh --tags <tag1,tag2> --md-only master/master-resume.md > $dir/resume.md"
