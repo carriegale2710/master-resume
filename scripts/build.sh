@@ -64,3 +64,4 @@ ref="$(dirname "$0")/../templates/reference.docx"
 ref_opt=(); [ -f "$ref" ] && ref_opt=(--reference-doc="$ref")
 printf '%s\n' "$md" | pandoc -f markdown -t docx "${ref_opt[@]}" -o "$out"
 echo "Built $out"
+bash "$(dirname "$0")/set-status.sh" "$folder" exported || true

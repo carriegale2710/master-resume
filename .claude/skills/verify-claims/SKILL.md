@@ -17,3 +17,5 @@ Check, in order:
 7. **Length.** Estimate whether it fits one page; suggest what to cut if not.
 
 Output: PASS or FAIL, then a numbered list of issues with the file line, the problem, and a suggested fix. Do not silently edit; propose changes unless the user asks you to apply them.
+
+On PASS, run `bash scripts/set-status.sh <folder> verified`. On FAIL, leave the status unchanged. Never set `ready` or `exported`.

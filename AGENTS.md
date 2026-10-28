@@ -34,14 +34,19 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 
 Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for an application:
 
-1. `resume-tailor-quick`
-2. `resume-ats-optimizer`
-3. `verify-claims` (mandatory final step before any file is called ready)
-4. `cover-letter-generator` (optional)
-5. `interview-prep-generator` (after applying)
+1. `tracker-intake`
+2. `resume-tailor-quick`
+3. `resume-ats-optimizer`
+4. `verify-claims` (mandatory final step before any file is called ready)
+5. `cover-letter-generator` (optional)
+6. `interview-prep-generator` (after applying)
 
 View `.claude/skills/README.md` for the full list of available other skills imported into this repo.
 
 ## Always report
 
 At the end of any task, list: what was cut, what was reworded, and every claim that still needs evidence.
+
+## Tracker status
+
+`applications/tracker.csv` status moves `pending` (new-application.sh) -> `tailored` (resume-tailor-quick) -> `verified` (verify-claims, on PASS) -> `ready` (user runs `scripts/ready.sh`) -> `exported` (build.sh sets it after a docx build). Skills set their own status with `bash scripts/set-status.sh <folder> <status>` before finishing. The row `id` is the application folder name. Agents never set `ready` or `exported`.

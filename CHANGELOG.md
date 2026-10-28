@@ -14,6 +14,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - `scripts/new-application.sh` creates `applications/<folder>`.
 - Shell tests for build and application scripts, synthetic data.
 - `docs/PRODUCT-SPEC.md` with user flows.
+- `applications/tracker.csv` row (`pending`) created by `new-application.sh`; new `id`, `opening_date` and `closing_date` columns.
+- `scripts/set-status.sh` and `scripts/ready.sh` move a row through `pending`, `tailored`, `verified`, `ready`, `exported`; `build.sh` sets `exported` after a docx build; `resume-tailor-quick` and `verify-claims` set their own status. `tests/test-ready.sh` covers it.
+- `tracker-intake` skill fills company, role, location, source and opening/closing dates from the job description.
 - `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` placeholders filled from `.env` at build.
 
 ### Changed

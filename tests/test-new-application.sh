@@ -34,6 +34,9 @@ done
 grep -q '^# Job description$' "$application_dir/job-description.md" || fail "Unexpected job-description.md template"
 grep -q '^# Notes$' "$application_dir/notes.md" || fail "Unexpected notes.md template"
 
+grep -q ",$year_month-synthetic-example,pending," "$tmp_dir/applications/tracker.csv" || fail "Missing pending tracker row"
+[[ "$(grep -c ',synthetic-example,' "$tmp_dir/applications/tracker.csv")" == 1 ]] || fail "Expected one tracker row"
+
 for invalid_name in '' '../outside' 'company/role' 'company/../role' 'company\role' '..' '.' '-company' 'company-' 'company_role' 'company role' 'café'; do
   if (
     cd "$tmp_dir"

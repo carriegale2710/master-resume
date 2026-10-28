@@ -2,87 +2,61 @@
 
 **Status:** Draft | **Parent:** [PRODUCT-SPEC.md](PRODUCT-SPEC.md), [AGENTS.md](../AGENTS.md)
 
-> **Note:** This MVP deliberately does not cover all of [PRODUCT-SPEC.md](PRODUCT-SPEC.md). The spec is the aspirational target; this doc is the smallest first version that is useful. Where they differ, the MVP wins for V1, and the spec is where cut features live until a trigger below brings them back.
+> The spec is the aspirational target; this is the smallest useful first version. Where they differ, the MVP wins for V1. Cut features live in the spec until a trigger below brings them back.
 
 ## Goal
 
-Turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using the scripts and skills that already exist. No new CLI, no model API, no database.
+Turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using existing scripts and skills. No new CLI, model API or database.
 
 ## Workflow
 
-#todo - create a workflow skill that gos through all these steps in a row and only stops if a step fails.
+#todo - create a workflow skill that runs all steps in a row and stops only if a step fails.
 
-1. **~~Intake.~~**
-   - ~~Run `bash scripts/new-application.sh company-role`~~.
-   - ~~Paste the job description into `applications/<YYYY-MM-company-role>/job-description.md`.~~
-2. **~~Tailor.~~**
-   - In the agent session, run `resume-tailor-quick`
-   - The agent writes `resume.md` in the application folder and never edits `master/`.
-   - Run `cover-letter-generator` only if the job needs a letter.
-3. **~~Verify.~~**
-   - Run `verify-claims`. It writes `verify-report.md` listing supported claims, unsupported claims, `TODO` items and citations to master lines.
-   - Carrie checks that each citation supports its claim. Any unsupported or uncited claim blocks the next step.
-4. **Approve.**
-   - After a clean verify, Carrie sets the application's row in `tracker.csv` to `ready`. #todo - create a skill for this
-   - Editing a draft after approval means running step 4 again.
-5. **Export.**
-   - Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the contact header. It writes `<folder>-resume.docx` to `~/Downloads`.
-   - A `.docx` has no fixed page count, so Carrie opens it in Word and checks it is one page (two at most) before submitting.
+1. ~~**Intake.**~~ `bash scripts/new-application.sh company-role`, then paste the job description into `applications/<YYYY-MM-company-role>/job-description.md`.
+2. ~~**Tailor.**~~ Run `resume-tailor-quick`. The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed.
+3. ~~**Verify.**~~ Run `verify-claims`; it writes `verify-report.md` (supported claims, unsupported claims, `TODO` items, master-line citations). Carrie checks each citation. Any unsupported or uncited claim blocks the next step.
+4. **Approve.** After a clean verify, Carrie runs `bash scripts/ready.sh <folder>`. The agent never runs it. Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported` (`build.sh` sets the last). Editing a draft after approval means verifying again.
+5. **Export.** Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the header. It writes `<folder>-resume.docx` to `~/Downloads`. A `.docx` has no fixed page count, so Carrie checks in Word that it is one page (two at most).
 
 ## Build checklist
 
-Everything the workflow needs already exists except the items below. Do them in order.
-
-- [ ] **1. Confirm the existing pieces run end to end.**
-      Run steps 1-5 of the workflow on one real or synthetic job description. Note anything that breaks; fix only what blocks the MVP.
-- [ ] **2. Check `verify-claims` output.**
-      Confirm it writes `verify-report.md` with supported claims, unsupported claims, `TODO` items and master-line citations. If it doesn't, adjust the skill, not the workflow.
-- [ ] **3. Add `ready` status helper (optional).**
-      A one-line script or a documented manual edit that sets the row's `status` to `ready` in `tracker.csv`. Skip it if editing by hand is fine.
-- [ ] **4. Run the pilot.**
-      Do three real applications through the full workflow, noting intake and approval times. Fix only problems that block or mislead.
-- [ ] **5. Update the docs.**
-      Point `README.md` at this workflow, and add a line to `docs/CHANGELOG.md`.
+- [ ] **1. End-to-end run.** Run workflow steps 1-5 on one real or synthetic job description. Fix only what blocks the MVP.
+- [ ] **2. Check `verify-claims` output.** Confirm `verify-report.md` has the sections above. If not, fix the skill, not the workflow.
+- [x] **3. `ready` helper.** Done: `scripts/ready.sh`.
+- [ ] **4. Pilot.** Three real applications through the full workflow, noting intake and approval times.
+- [ ] **5. Update docs.** Point `README.md` at this workflow; add a `CHANGELOG.md` line.
 
 ## Hard gates
 
 - Zero unsupported claims in anything marked `ready`.
-- Metrics come only from master section 6, using its safe wording for Estimate, Projection and Self-reported rows.
-- Content from master sections 6-10 never appears in output.
-- One page is the target; two pages is the limit.
+- Metrics only from master section 6, using its safe wording for Estimate, Projection and Self-reported rows.
+- Master sections 6-10 never appear in output.
+- One page target; two pages limit.
 - A human approves; the agent never sets `ready`.
-
-## New work
-
-| Item                                                                                              | Size                                      |
-| ------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| Optional: a one-line script to set a `tracker.csv` row to `ready`                                 | Trivial                                   |
-
-Everything else reuses `new-application.sh`, `build.sh`, the skills and `tracker.csv`.
 
 ## Out of scope for V1
 
-- Python CLI or orchestrator, and any external model API (provider config, cost threshold, outbound payload preview, retention review, public-safe fact allowlist).
-- Tag-confirmation and regeneration loop; pick tags in the chat.
-- Approval hash manifest and `needs-review` status; use git to see edits after approval.
+- Python CLI or orchestrator, external model API (provider config, cost threshold, payload preview, retention review, public-safe fact allowlist).
+- Tag-confirmation and regeneration loop; pick tags in chat.
+- Approval hash manifest and `needs-review` status; use git.
 - Revision management; use git history.
 - Batch processing, assisted submit, web app, job feed, interview prep, outcome analytics.
 
 ## Add later only if triggered
 
-| Trigger                                                                                       | Add                                     |
-| --------------------------------------------------------------------------------------------- | --------------------------------------- |
-| A draft is edited after approval and the change goes unnoticed                                | Hash check against an approval manifest |
-| Running the pipeline in the agent session is too slow or costly                               | The API CLI from `PRODUCT-SPEC.md`      |
-| Ten consecutive applications with zero unsupported claims, clean builds and recorded approval | Batch processing                        |
+| Trigger | Add |
+| --- | --- |
+| A draft is edited after approval and the change goes unnoticed | Hash check against an approval manifest |
+| Running the pipeline in the agent session is too slow or costly | The API CLI from `PRODUCT-SPEC.md` |
+| Ten consecutive applications with zero unsupported claims, clean builds and recorded approval | Batch processing |
 
 ## Pilot measure
 
-For the first three applications, note the intake and approval times in `tracker.csv` or `notes.md`. Use their median to set a time-saving target; the self-reported manual baseline is 30-60 minutes.
+Note intake and approval times for the first three applications in `tracker.csv` or `notes.md`. Their median sets the time-saving target; the self-reported manual baseline is 30-60 minutes.
 
 ## Done when
 
-- [ ] A JD goes in and a verified `resume.md` comes out without manual rewriting from scratch.
+- [ ] A JD goes in and a verified `resume.md` comes out without rewriting from scratch.
 - [ ] `verify-report.md` shows no unsupported claims before `ready` is set.
-- [ ] The `.docx` builds and is one or two pages when opened in Word.
+- [ ] The `.docx` builds and is one or two pages in Word.
 - [ ] No tag names or section 6-10 content appear in the output.

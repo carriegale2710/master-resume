@@ -14,8 +14,12 @@ if [ -e "$dir" ]; then
   exit 1
 fi
 mkdir -p "$dir"
-printf '# Job description\n\nURL:\nDate posted:\n\n(paste posting here)\n' > "$dir/job-description.md"
+printf '# Job description\n\nURL:\nDate posted:\nClosing date:\n\n(paste posting here)\n' > "$dir/job-description.md"
 printf '# Notes\n\nContacts:\nInterview prep:\nOutcome:\n' > "$dir/notes.md"
 : > "$dir/cover-letter.md"
-echo "Created $dir"
+tracker=applications/tracker.csv
+[ -f "$tracker" ] || echo "id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date" > "$tracker"
+id="$(basename "$dir")"
+echo "$id,,$name,,,,$id,pending,$(date +%F),,,,," >> "$tracker"
+echo "Created $dir (tracker row: pending)"
 echo "Next: ./scripts/build.sh --tags frontend,a11y --md-only master/master-resume.md > $dir/resume.md"

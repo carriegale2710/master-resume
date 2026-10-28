@@ -4,15 +4,13 @@
 
 ## Overview
 
-Self-reported estimates put manual tailoring at 30-60 minutes per application, with a high-priority application sometimes taking a full day. This MVP turns that into a local CLI workflow: provide a job description, generate editable resume and cover-letter drafts, verify their claims, approve the final Markdown, and export a .docx. Drafts are unapproved until the user edits/reviews them and explicitly marks them ready. Docx export and job submission are separate manual steps. Batch processing is deferred until the single-application workflow passes its reliability pilot.
+Manual tailoring takes a self-reported 30-60 minutes per application (sometimes a full day). This turns it into a local CLI workflow: provide a job description, generate editable resume and cover-letter drafts, verify claims, approve the Markdown, export a .docx. Drafts stay unapproved until the user reviews and marks them ready. Export and submission are separate manual steps. Batch processing waits for the single-application reliability pilot.
 
 ## Problem Statement
 
-Carrie is a recent graduate applying to multiple graduate programs and internships in a tough, competitive job market, as well as roles ranging from part-time work to software development and UX design. Each application requires different tailoring. Her self-reported estimate for the manual workflow is 30-60 minutes, but for a job she particularly wants, perfectionism can lead her to spend the whole day on a single application. She reports missing opportunities when tailoring runs past a deadline. For roles that feel less compelling, the effort required to tailor can instead lead her to submit a generic resume.
+Carrie is a recent graduate applying to graduate programs, internships, part-time work, software development and UX design roles. Each needs different tailoring. Perfectionism can turn one application into a full day and cause missed deadlines; for less compelling roles, the effort can lead to a generic resume. She has a strong master resume but 20+ draft versions in one folder and cannot tell which is latest. She dislikes writing and wants to delegate, but will not accept generic text or unsupported claims.
 
-While studying and working on personal projects, Carrie has limited time for applications. She strongly dislikes writing but is a perfectionist about application quality. She has a high-quality master resume she wrote herself, yet has accumulated 20+ resume-version drafts in one disorganised folder and is afraid to delete any because she cannot tell which is the latest. Each rejection after substantial effort is especially discouraging. She would rather delegate the application work, but generic-sounding materials or unsupported claims are not acceptable to her.
-
-The 30-60 minute and full-day durations and the 20+ draft count are self-reported estimates. Missed deadlines and generic submissions are reported experiences, not measured rates.
+The 30-60 minute and full-day durations and the 20+ draft count are self-reported, as are the missed deadlines and generic submissions.
 
 ## Goals & Success Metrics
 
@@ -33,7 +31,7 @@ Record intake and approval timestamps for each pilot application; use the first 
 
 ## Persona
 
-**Carrie, recent graduate and solo job seeker** applying to graduate programs, internships, part-time jobs, software development roles, and UX design roles in a tough, competitive job market. She is studying and working on personal projects, is comfortable with a terminal and git, and strongly dislikes writing. She has a high-quality master resume that she wrote herself, but also has 20+ resume-version drafts in a disorganised folder and cannot confidently identify the latest. She has researched and built custom agent skills and templates for tailoring applications. She wants AI to follow that approach and tailor or edit her existing material without making it sound generic. She is perfectionistic about quality, wants editable drafts she can review and correct, would rather delegate as much application work as possible, and will not approve anything containing a claim she cannot defend in an interview.
+**Carrie, recent graduate and solo job seeker.** Comfortable with a terminal and git, dislikes writing, perfectionistic about quality. Has built custom agent skills and templates for tailoring and wants AI to follow them without sounding generic. Wants editable drafts to review, delegates as much as possible, and will not approve a claim she cannot defend in an interview.
 
 ## Scope
 
@@ -240,16 +238,15 @@ Choices and reasons:
 
 ## Rollout Plan
 
-1. **Pilot:** implement the single-application flow, local checks, CLI approval state, and separate docx export. Exercise it on real applications and track failures.
-2. **Reliability gate:** batch may be added after at least 10 consecutive applications have zero unsupported claims in final approved outputs, successful builds, and recorded explicit approval.
-3. **Batch phase:** after the reliability gate, add `apply-batch jobs.txt`. Process sequentially, continue after item failures, create a review queue, and never auto-approve. No daily-volume or review-time target is a release gate.
+1. **Pilot:** single-application flow, local checks, CLI approval state, separate docx export. Track failures on real applications.
+2. **Reliability gate:** after 10 consecutive applications with zero unsupported claims in approved output, successful builds and recorded approval, add batch.
+3. **Batch:** `apply-batch jobs.txt`, sequential, continues after item failures, builds a review queue, never auto-approves.
 
 ## Later Phases (not committed)
 
 - **Future, assisted submit:** a script that opens the application page and pre-fills fields using `.claude/skills/application-form-filler`, with the user clicking submit. Assess job-board terms and account risk before implementation; full autopilot is not a goal.
 - **Future, web app:** only if the CLI is the bottleneck. A local review/export UI over the same folder structure; hosting would mean resume data leaves the machine and would require a separate privacy decision.
 - **Job feed:** saved-search email alerts parsed into `jobs.txt`, still reviewed by hand.
-- **Batch:** add `apply-batch jobs.txt` only after at least 10 consecutive applications have zero unsupported claims in final approved outputs, successful builds, and explicit human approval records. Process sequentially, continue after item failures, create a review queue, and never auto-approve.
 
 ## Risks & Open Questions
 

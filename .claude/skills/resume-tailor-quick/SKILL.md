@@ -15,6 +15,7 @@ Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, a
 6. Rewrite the summary in 2-3 lines using only facts from the master.
 7. Reorder sections so the most relevant comes first. Remove tag names and private sections.
 8. Write to `applications/<folder>/resume.md`.
-9. Report: bullets cut, wording changed, claims needing evidence, `TODO` fields still blank.
+9. Run `bash scripts/set-status.sh <folder> tailored`.
+10. Report: bullets cut, wording changed, claims needing evidence, `TODO` fields still blank.
 
 Do not add skills, tools or outcomes that are not in the master.

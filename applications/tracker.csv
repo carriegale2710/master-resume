@@ -1,1 +1,1 @@
-date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes
+id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date
