@@ -81,6 +81,19 @@ On Windows, run these commands from Git Bash.
    `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`
 7. Add a row to `tracker.csv`.
 
+## Private header (contact details)
+
+Name, email, phone and links never live in the repo. Drafts use the placeholders `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` and `${RESUME_LINKS}`. Put the real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
+
+```
+RESUME_NAME="Your Name"
+RESUME_EMAIL="you@example.com"
+RESUME_PHONE="04xx xxx xxx"
+RESUME_LINKS="github.com/you | linkedin.com/in/you"
+```
+
+`bash scripts/build.sh applications/<folder>/resume.md` substitutes them at PDF time and fails if `.env` or a variable is missing. `--md-only` never reads `.env`. Run the PDF build yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env`; that is best effort, since shell commands are a separate path.
+
 ## Tags
 
 `fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security`
