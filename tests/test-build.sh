@@ -145,4 +145,23 @@ contains "$missing_err" "Missing RESUME_EMAIL"
 nofile_err="$(RESUME_ENV_FILE="$tmp_dir/does-not-exist.env" PATH="$capture_bin:$PATH" bash "$repo_root/scripts/build.sh" "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when .env is missing"
 contains "$nofile_err" "Missing $tmp_dir/does-not-exist.env"
 
+sub_bullet="$tmp_dir/sub-bullet.md"
+{
+  echo "# Sub-bullet Resume"
+  echo ""
+  echo "- \`backend\` Excluded bullet"
+  echo "  - EXCLUDED_SUB_SENTINEL"
+  echo "- \`frontend\` Kept bullet"
+  echo "  - KEPT_SUB_SENTINEL"
+} > "$sub_bullet"
+sub_out="$(bash "$repo_root/scripts/build.sh" --tags frontend --md-only "$sub_bullet")"
+contains "$sub_out" "KEPT_SUB_SENTINEL"
+omits "$sub_out" "EXCLUDED_SUB_SENTINEL"
+
+trailing_tag="$tmp_dir/trailing-tag.md"
+printf '%s\n' "# Trailing Tag Resume" "" '- Built a thing `frontend`' > "$trailing_tag"
+trailing_out="$(bash "$repo_root/scripts/build.sh" --tags frontend --md-only "$trailing_tag")"
+contains "$trailing_out" "Built a thing"
+omits "$trailing_out" '`frontend`'
+
 echo "PASS: build.sh filters tags, removes private metadata, warns on TODO placeholders, and fills the private header from .env"
