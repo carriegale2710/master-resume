@@ -8,23 +8,12 @@ name="$1"
   exit 1
 }
 
-mkdir -p applications
-applications_root="$(cd applications && pwd -P)"
-dir="$applications_root/$(date +%Y-%m)-$name"
-if [ -e "$dir" ] || [ -L "$dir" ]; then
+dir="applications/$(date +%Y-%m)-$name"
+if [ -e "$dir" ]; then
   echo "Already exists: $dir"
   exit 1
 fi
-target_parent="$(cd "$(dirname "$dir")" && pwd -P)"
-canonical_target="$target_parent/$(basename "$dir")"
-case "$canonical_target" in
-  "$applications_root"/*) ;;
-  *)
-    echo "Application path escapes applications/: $canonical_target" >&2
-    exit 1
-    ;;
-esac
-mkdir "$dir"
+mkdir -p "$dir"
 printf '# Job description\n\nURL:\nDate posted:\n\n(paste posting here)\n' > "$dir/job-description.md"
 printf '# Notes\n\nContacts:\nInterview prep:\nOutcome:\n' > "$dir/notes.md"
 : > "$dir/cover-letter.md"
