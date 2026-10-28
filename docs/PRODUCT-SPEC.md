@@ -1,6 +1,6 @@
 # PRD: Application Pipeline (Lean MVP)
 
-**Status:** Draft | **Author:** Carrie | **Parent:** [README.md](./README.md), [AGENTS.md](./AGENTS.md)
+**Status:** Draft | **Author:** Carrie | **Parent:** [README.md](../README.md), [AGENTS.md](../AGENTS.md)
 
 ## Overview
 
@@ -53,13 +53,13 @@ A local CLI wrapper around the existing scripts and a configurable OpenAI-compat
 
 ## Functional Requirements
 
-- **FR1: Intake.** `apply <company-role> [--jd FILE]` calls `scripts/new-application.sh` and saves the job description to `applications/<YYYY-MM-company-role>/job-description.md`. If `--jd` is omitted, prompt for pasted text. V1 also accepts a local JD file; URL fetching is deferred.
+- **FR1: Intake.** `apply <company-role> [--jd FILE]` calls `scripts/new-application.sh` (which also creates `notes.md` and an empty `cover-letter.md`) and saves the job description to `applications/<YYYY-MM-company-role>/job-description.md`. If `--jd` is omitted, prompt for pasted text. V1 also accepts a local JD file; URL fetching is deferred.
 - **FR2: Role-family selection.** In one generation request, the model receives the job description and user-approved public-safe fact allowlist, recommends tags from the README tag list, and returns initial resume and cover-letter drafts. The CLI shows the proposed tags; the user can change them and regenerate with the confirmed tags. The confirmed tags are recorded with the application.
 - **FR3: Tailor.** The model tailors the resume per `AGENTS.md` and `skills/resume-tailor-quick`: 5-7 bullets per role family, keywords mirrored only where the master supports them, Australian English, and no tag names in output. It writes an unapproved `resume.md` in the application folder and never touches `master/`.
 - **FR4: Cover letter.** The model returns an unapproved `cover-letter.md` per `skills/cover-letter-generator`, using only the approved public-safe facts and job description.
 - **FR5: Verify (approval gate).** Each factual claim in the resume and cover letter must cite an exact supporting line from master sections 1-5 in a sidecar `verify-report.md`. The report lists supported claims, unsupported claims, TODO items, and citations. Local code validates that cited lines exist and checks metric claims against the section 6 metrics log, applying its safe wording where required; section 6 is used locally only, and its contents are never sent to the API. Other numbers must be supported by their cited master line. The user confirms that each citation semantically supports its claim. Ambiguous or uncited claims count as unsupported and block `ready`. A user may resolve a verifier false positive only by supplying an exact supporting master-line citation; genuinely unsupported claims cannot be overridden.
 - **FR6: Review and approval.** Generated Markdown is unapproved and editable. The CLI displays what was cut, what was reworded, gaps, and every claim still needing evidence. After any edits, verification must run against the exact current Markdown. The user explicitly approves in the CLI; only then is the application's row in `tracker.csv` set to `ready`. Whenever a CLI command relies on `ready` or exports approved content, it compares the current Markdown hashes with the approval manifest. A mismatch changes the tracker status to `needs-review` and blocks the operation until verification and approval are repeated.
-- **FR7: PDF export.** A separate CLI command exports approved Markdown via `scripts/build.sh applications/<folder>/resume.md`. One page is the target; up to two pages are allowed when needed to preserve relevant, supported evidence. Export fails above two pages. PDF export is not required to mark the Markdown `ready`, and submission remains manual.
+- **FR7: PDF export.** A separate CLI command exports approved Markdown via `scripts/build.sh applications/<folder>/resume.md` (new: the CLI adds the page-count check; `build.sh` currently only builds the PDF and fills `${RESUME_*}` contact placeholders from `.env`). One page is the target; up to two pages are allowed when needed to preserve relevant, supported evidence. Export fails above two pages. PDF export is not required to mark the Markdown `ready`, and submission remains manual.
 - **FR8: Regeneration and failures.** Regeneration creates a separate revision and preserves all existing drafts, including user-edited drafts; the user chooses which version to keep. On model, verification, or export failure, stop that operation with a clear error, preserve the JD and existing drafts, and never mark unsupported or unapproved content ready.
 ## Main User Flows
 
@@ -180,7 +180,7 @@ flowchart TD
 ## Non-Functional Requirements
 
 - **Privacy:** The model receives only the job description and a reusable, user-approved public-safe fact allowlist curated from master sections 1-5. It never receives the full master resume or content from sections 6-10. The section 6 metrics log stays local for metric checks and application of any required safe wording. Use generic wording for Outlier / Scale AI work unless the user confirms otherwise. Before each API call, show the complete outbound request payload, including the JD and approved facts. Before the first live call, review the selected provider's request handling and data-retention terms. Keep credentials out of application artifacts and Git.
-- **Provider interface:** Use a configurable OpenAI-compatible API for an open-weight model. Read credentials from a local ignored `.env` file, with environment variables taking precedence. Record the endpoint/provider and model used, but do not log prompts or secrets.
+- **Provider interface:** Use a configurable OpenAI-compatible API for an open-weight model. Read credentials from a local ignored `.env` file, with environment variables taking precedence. `.env` already holds the `RESUME_NAME/EMAIL/PHONE/LINKS` contact values read by `build.sh`; API settings must use separate variable names, and agents must not read or write `.env` (see `AGENTS.md`). Record the endpoint/provider and model used, but do not log prompts or secrets.
 - **Cost:** Track estimated/actual cost per application. If an estimate exceeds USD 0.50, ask the user before making the call; this is a consent threshold, not an automatic hard stop.
 - **Latency:** Under 3 minutes per application, excluding human review, is a non-blocking operational target.
 - **Idempotent:** Never overwrite an existing draft on regeneration; create a separate revision.
@@ -196,7 +196,7 @@ CLI intake
     -> configurable OpenAI-compatible API (tag suggestions + draft generation)
     -> local citation/number checks + human semantic review
     -> explicit CLI approval bound to verified-file hashes -> tracker.csv (`ready`)
-    -> separate existing PDF export (page-count check)
+    -> separate PDF export via existing build.sh + new CLI page-count check
 ```
 
 Choices and reasons:
@@ -217,7 +217,7 @@ Choices and reasons:
 | Resume exceeds one page | Target one page; preserve relevant supported evidence up to two pages; fail clearly above two pages. |
 | Master field marked `TODO` | Flag in the report; leave out of the output. |
 | Metric marked Estimate / Projection / Self-reported | Use safe wording from section 6. |
-| Duplicate company-role in same month | Append a suffix; warn. |
+| Duplicate company-role in same month | `new-application.sh` exits with "Already exists"; the CLI stops, creates nothing and preserves the existing folder. Use a different name. |
 | User edits output after verification or approval | At the next CLI check that relies on approval, compare file hashes; on mismatch, set tracker status to `needs-review` and require re-verification and approval. |
 | Cost estimate exceeds USD 0.50 | Show the estimate and wait for explicit user confirmation before the API call. |
 | Model, verifier, or PDF export fails | Report the error, preserve the JD and drafts, and do not mark ready. |
@@ -236,7 +236,7 @@ Choices and reasons:
 - [ ] Given regeneration, then a new revision is created without overwriting prior or user-edited drafts.
 - [ ] Given explicit approval of the verified Markdown, then the application's row in `tracker.csv` has status `ready`.
 - [ ] Given an estimated cost above USD 0.50, then the API call waits for user confirmation.
-- [ ] `tests/` gains tests using synthetic fixtures only (number check, private-section stripping), runnable via the existing GitHub Action.
+- [ ] `tests/` gains tests using synthetic fixtures only (number check, outbound payload excludes sections 6-10, approval-hash mismatch), run by a new step in `.github/workflows/tests.yml`. Removal of sections 6-10 from `build.sh` output is already covered by `tests/test-build.sh`.
 
 ## Rollout Plan
 
