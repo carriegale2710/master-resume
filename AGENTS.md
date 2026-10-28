@@ -22,6 +22,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - Mirror a job posting's keywords only where the master supports them.
 - Plain, specific, past-tense bullets. No filler adjectives. Australian English spelling.
 - Do not use tag names (`fullstack`, `qa`, etc.) in final output.
+- Tailoring workflow: follow `master/universal-checklist.md` (one target role, headline states stack, what+how+why bullets, no generic Skills section, graduate roles put Education & Training under the summary, fully typed links). Tick every item before calling a resume tailored. Where it conflicts with the privacy or source-of-truth rules above, those rules win.
 
 ## Tools in this repo
 
@@ -35,7 +36,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for an application:
 
 1. `tracker-intake`
-2. `resume-tailor-quick`
+2. `resume-drafter`
 3. `resume-ats-optimizer`
 4. `verify-claims` (mandatory final step before any file is called ready)
 5. `cover-letter-generator` (optional)
@@ -49,4 +50,4 @@ At the end of any task, list: what was cut, what was reworded, and every claim t
 
 ## Tracker status
 
-`applications/tracker.csv` status moves `pending` (new-application.sh) -> `tailored` (resume-tailor-quick) -> `verified` (verify-claims, on PASS) -> `ready` (build.sh sets it when the user answers y at its approval prompt) -> `exported` (build.sh sets it after a docx build). Skills set their own status with `bash scripts/set-status.sh <folder> <status>` before finishing. The row `id` is the application folder name. Agents never set `ready` or `exported`.
+`applications/tracker.csv` status moves `pending` (new-application.sh) -> `tailored` (resume-drafter) -> `verified` (verify-claims, on PASS) -> `ready` (build.sh sets it when the user answers y at its approval prompt) -> `exported` (build.sh sets it after a docx build). Skills set their own status with `bash scripts/set-status.sh <folder> <status>` before finishing. The row `id` is the application folder name. Agents never set `ready` or `exported`.

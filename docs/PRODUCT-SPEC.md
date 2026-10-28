@@ -14,12 +14,12 @@ The 30-60 minute and full-day durations and the 20+ draft count are self-reporte
 
 ## Goals & Success Metrics
 
-| Metric | Baseline | Target | Timeframe |
-|---|---|---|---|
-| Median elapsed time from application intake to approved drafts | Manual workflow: self-reported estimate of 30-60 minutes | Set after the first three pilot applications | Pilot |
-| Unsupported claims in final approved output | n/a | 0 | Always |
-| Successful docx build | n/a | 100% | Always |
-| Explicit human approval recorded before `ready` | n/a | 100% | Always |
+| Metric                                                         | Baseline                                                 | Target                                       | Timeframe |
+| -------------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------- | --------- |
+| Median elapsed time from application intake to approved drafts | Manual workflow: self-reported estimate of 30-60 minutes | Set after the first three pilot applications | Pilot     |
+| Unsupported claims in final approved output                    | n/a                                                      | 0                                            | Always    |
+| Successful docx build                                          | n/a                                                      | 100%                                         | Always    |
+| Explicit human approval recorded before `ready`                | n/a                                                      | 100%                                         | Always    |
 
 Record intake and approval timestamps for each pilot application; use the first three to set a time-reduction target for subsequent applications.
 
@@ -53,12 +53,13 @@ A local CLI wrapper around the existing scripts and a configurable OpenAI-compat
 
 - **FR1: Intake.** `apply <company-role> [--jd FILE]` calls `scripts/new-application.sh` (which also creates `notes.md` and an empty `cover-letter.md`) and saves the job description to `applications/<YYYY-MM-company-role>/job-description.md`. If `--jd` is omitted, prompt for pasted text. V1 also accepts a local JD file; URL fetching is deferred.
 - **FR2: Role-family selection.** In one generation request, the model receives the job description and user-approved public-safe fact allowlist, recommends tags from the README tag list, and returns initial resume and cover-letter drafts. The CLI shows the proposed tags; the user can change them and regenerate with the confirmed tags. The confirmed tags are recorded with the application.
-- **FR3: Tailor.** The model tailors the resume per `AGENTS.md` and `.claude/skills/resume-tailor-quick`: 5-7 bullets per role family, keywords mirrored only where the master supports them, Australian English, and no tag names in output. It writes an unapproved `resume.md` in the application folder and never touches `master/`.
+- **FR3: Tailor.** The model tailors the resume per `AGENTS.md` and `.claude/skills/resume-drafter`: 5-7 bullets per role family, keywords mirrored only where the master supports them, Australian English, and no tag names in output. It writes an unapproved `resume.md` in the application folder and never touches `master/`.
 - **FR4: Cover letter.** The model returns an unapproved `cover-letter.md` per `.claude/skills/cover-letter-generator`, using only the approved public-safe facts and job description.
 - **FR5: Verify (approval gate).** Each factual claim in the resume and cover letter must cite an exact supporting line from master sections 1-5 in a sidecar `verify-report.md`. The report lists supported claims, unsupported claims, TODO items, and citations. Local code validates that cited lines exist and checks metric claims against the section 6 metrics log, applying its safe wording where required; section 6 is used locally only, and its contents are never sent to the API. Other numbers must be supported by their cited master line. The user confirms that each citation semantically supports its claim. Ambiguous or uncited claims count as unsupported and block `ready`. A user may resolve a verifier false positive only by supplying an exact supporting master-line citation; genuinely unsupported claims cannot be overridden.
 - **FR6: Review and approval.** Generated Markdown is unapproved and editable. The CLI displays what was cut, what was reworded, gaps, and every claim still needing evidence. After any edits, verification must run against the exact current Markdown. The user explicitly approves in the CLI; only then is the application's row in `tracker.csv` set to `ready`. Whenever a CLI command relies on `ready` or exports approved content, it compares the current Markdown hashes with the approval manifest. A mismatch changes the tracker status to `needs-review` and blocks the operation until verification and approval are repeated.
 - **FR7: docx export.** A separate CLI command exports approved Markdown via `scripts/build.sh applications/<folder>/resume.md` (`build.sh` builds the `.docx` and fills `${RESUME_*}` contact placeholders from `.env`). One page is the target; up to two pages are allowed when needed to preserve relevant, supported evidence. Page count is checked manually in Word, because a `.docx` has no fixed page count. Docx export is not required to mark the Markdown `ready`, and submission remains manual.
 - **FR8: Regeneration and failures.** Regeneration creates a separate revision and preserves all existing drafts, including user-edited drafts; the user chooses which version to keep. On model, verification, or export failure, stop that operation with a clear error, preserve the JD and existing drafts, and never mark unsupported or unapproved content ready.
+
 ## Main User Flows
 
 The diagrams below show the V1 happy paths and the main negative paths or recovery loops. A failed operation preserves the JD and existing drafts; it does not create an approved result.
@@ -208,17 +209,17 @@ Choices and reasons:
 
 ## Edge Cases
 
-| Case | Expected behaviour |
-|---|---|
-| JD asks for a skill not in master | Omit; list under "gaps" in the review summary. Never add it. |
-| User changes tags after model suggestion | Regenerate using the confirmed tags; preserve earlier draft revisions. |
-| Resume exceeds one page | Target one page; preserve relevant supported evidence up to two pages; fail clearly above two pages. |
-| Master field marked `TODO` | Flag in the report; leave out of the output. |
-| Metric marked Estimate / Projection / Self-reported | Use safe wording from section 6. |
-| Duplicate company-role in same month | `new-application.sh` exits with "Already exists"; the CLI stops, creates nothing and preserves the existing folder. Use a different name. |
-| User edits output after verification or approval | At the next CLI check that relies on approval, compare file hashes; on mismatch, set tracker status to `needs-review` and require re-verification and approval. |
-| Cost estimate exceeds USD 0.50 | Show the estimate and wait for explicit user confirmation before the API call. |
-| Model, verifier, or docx export fails | Report the error, preserve the JD and drafts, and do not mark ready. |
+| Case                                                | Expected behaviour                                                                                                                                              |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| JD asks for a skill not in master                   | Omit; list under "gaps" in the review summary. Never add it.                                                                                                    |
+| User changes tags after model suggestion            | Regenerate using the confirmed tags; preserve earlier draft revisions.                                                                                          |
+| Resume exceeds one page                             | Target one page; preserve relevant supported evidence up to two pages; fail clearly above two pages.                                                            |
+| Master field marked `TODO`                          | Flag in the report; leave out of the output.                                                                                                                    |
+| Metric marked Estimate / Projection / Self-reported | Use safe wording from section 6.                                                                                                                                |
+| Duplicate company-role in same month                | `new-application.sh` exits with "Already exists"; the CLI stops, creates nothing and preserves the existing folder. Use a different name.                       |
+| User edits output after verification or approval    | At the next CLI check that relies on approval, compare file hashes; on mismatch, set tracker status to `needs-review` and require re-verification and approval. |
+| Cost estimate exceeds USD 0.50                      | Show the estimate and wait for explicit user confirmation before the API call.                                                                                  |
+| Model, verifier, or docx export fails               | Report the error, preserve the JD and drafts, and do not mark ready.                                                                                            |
 
 ## Acceptance Criteria
 
@@ -250,15 +251,15 @@ Choices and reasons:
 
 ## Risks & Open Questions
 
-| Risk / Question | Severity | Mitigation | Status |
-|---|---|---|---|
-| LLM fabricates or inflates claims | High | FR5 gate, deterministic number check, human approval | Open |
-| Model API receives content not approved for external use | High | Send only the reusable, user-approved public-safe fact allowlist and displayed JD payload; never send sections 6-10 | Open |
-| Cost exceeds expected USD 0.50 per application | Low | Ask for confirmation when estimated cost exceeds the threshold; track usage | Open |
-| Auto-apply violates job board terms | High | Non-goal in V1; assisted submit only | Decided |
-| Specific open-weight model and API endpoint | Low | Keep the endpoint/model configurable; choose before implementation or first live run | Open |
-| Provider compatibility or retention terms differ | Medium | Validate the selected provider's request/response behaviour and data-retention terms before first live use; fail clearly on unsupported responses | Open |
-| Whether tailored applications improve recruiter response rates | Medium | Defer outcome analytics; decide whether to track callbacks after the core workflow is proven | Open |
+| Risk / Question                                                | Severity | Mitigation                                                                                                                                        | Status  |
+| -------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| LLM fabricates or inflates claims                              | High     | FR5 gate, deterministic number check, human approval                                                                                              | Open    |
+| Model API receives content not approved for external use       | High     | Send only the reusable, user-approved public-safe fact allowlist and displayed JD payload; never send sections 6-10                               | Open    |
+| Cost exceeds expected USD 0.50 per application                 | Low      | Ask for confirmation when estimated cost exceeds the threshold; track usage                                                                       | Open    |
+| Auto-apply violates job board terms                            | High     | Non-goal in V1; assisted submit only                                                                                                              | Decided |
+| Specific open-weight model and API endpoint                    | Low      | Keep the endpoint/model configurable; choose before implementation or first live run                                                              | Open    |
+| Provider compatibility or retention terms differ               | Medium   | Validate the selected provider's request/response behaviour and data-retention terms before first live use; fail clearly on unsupported responses | Open    |
+| Whether tailored applications improve recruiter response rates | Medium   | Defer outcome analytics; decide whether to track callbacks after the core workflow is proven                                                      | Open    |
 
 ## Assumptions Made
 

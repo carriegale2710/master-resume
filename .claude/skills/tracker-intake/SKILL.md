@@ -1,6 +1,6 @@
 ---
 name: tracker-intake
-description: Extract company, role, location, source and opening/closing dates and eligibility criteria from applications/<folder>/job-description.md and fill the empty columns of that application's pending row in applications/tracker.csv. Use right after the job description is pasted, before resume-tailor-quick.
+description: Extract company, role, location, source and opening/closing dates and eligibility criteria from applications/<folder>/job-description.md and fill the empty columns of that application's pending row in applications/tracker.csv. Use right after the job description is pasted, before resume-drafter.
 ---
 
 # Tracker intake
@@ -25,4 +25,4 @@ Inputs: `applications/<folder>/job-description.md`, `applications/tracker.csv`. 
 4. Also copy the dates into `Date posted:` and `Closing date:` in the job description file if those lines are empty.
 5. Report: the final row, and every cell left empty because the posting did not say.
 
-Next step: `resume-tailor-quick`.
+Next step: `resume-drafter`.

@@ -16,7 +16,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - Shell tests for build and application scripts, synthetic data.
 - `docs/PRODUCT-SPEC.md` with user flows.
 - `applications/tracker.csv` row (`pending`) created by `new-application.sh`; new `id`, `opening_date` and `closing_date` columns.
-- `scripts/set-status.sh` moves a row through `pending`, `tailored`, `verified`, `ready`, `exported`; `build.sh` requires `verified`, asks y/N approval (sets `ready`), then sets `exported` after a docx build; `resume-tailor-quick` and `verify-claims` set their own status. `tests/test-set-status.sh` covers it.
+- `scripts/set-status.sh` moves a row through `pending`, `tailored`, `verified`, `ready`, `exported`; `build.sh` requires `verified`, asks y/N approval (sets `ready`), then sets `exported` after a docx build; `resume-drafter` and `verify-claims` set their own status. `tests/test-set-status.sh` covers it.
 - `tracker-intake` skill fills company, role, location, source and opening/closing dates from the job description.
 - `tracker.csv` `eligibility` column, filled by `tracker-intake` from posting criteria.
 - `tracker.csv` `EXAMPLE-` row shows what each column holds.

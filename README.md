@@ -24,19 +24,19 @@ Tests use synthetic data and never read the private master. GitHub Actions runs 
 bash tests/run-all.sh
 ```
 
-| Test | Purpose |
-| --- | --- |
-| `test-build.sh` | tag filtering, dropped sections 6-10, `TODO` warning, `.env` header fill, missing-value errors |
-| `test-new-application.sh` | expected files, unsafe names rejected, duplicates refused, `pending` row added |
-| `test-ready.sh` | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected |
-| `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules |
-| `test-docx-export.sh` | real .docx from a synthetic resume; skips without Pandoc |
-| `test-docx-output-dir.sh` | .docx lands in `$HOME/Downloads` by default; `RESUME_OUT_DIR` overrides; skips without Pandoc |
+| Test                           | Purpose                                                                                        |
+| ------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `test-build.sh`                | tag filtering, dropped sections 6-10, `TODO` warning, `.env` header fill, missing-value errors |
+| `test-new-application.sh`      | expected files, unsafe names rejected, duplicates refused, `pending` row added                 |
+| `test-ready.sh`                | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected      |
+| `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules                                                 |
+| `test-docx-export.sh`          | real .docx from a synthetic resume; skips without Pandoc                                       |
+| `test-docx-output-dir.sh`      | .docx lands in `$HOME/Downloads` by default; `RESUME_OUT_DIR` overrides; skips without Pandoc  |
 
 ## Workflow
 
 1. **Intake.** `bash scripts/new-application.sh acme-frontend`, then paste the posting into `applications/<folder>/job-description.md`.
-2. **Tailor.** In an agent session run `tracker-intake`, `resume-tailor-quick`, then `resume-ats-optimizer`. The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
+2. **Tailor.** In an agent session run `tracker-intake`, `resume-drafter`, then `resume-ats-optimizer`. The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
    then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page.
 3. **Verify.** Run `verify-claims`. Any unsupported claim, uncited claim or `TODO` blocks the next step.
@@ -84,7 +84,7 @@ The build substitutes them and fails if `.env` or a variable the draft uses is m
 ## Agents and skills
 
 - `AGENTS.md` holds the canonical rules; `CLAUDE.md` points to it.
-- `.claude/skills/` holds the skills as plain Markdown. Order: `tracker-intake`, `resume-tailor-quick`, `resume-ats-optimizer`, `verify-claims`, then optionally `cover-letter-generator` and `interview-prep-generator`.
+- `.claude/skills/` holds the skills as plain Markdown. Order: `tracker-intake`, `resume-drafter`, `resume-ats-optimizer`, `verify-claims`, then optionally `cover-letter-generator` and `interview-prep-generator`.
 - Tools without file access: paste `AGENTS.md` into the instructions and upload only the skill, master and job description needed. Never upload private notes to tools you do not control.
 
 ## Repository structure

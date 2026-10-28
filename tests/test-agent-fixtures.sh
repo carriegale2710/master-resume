@@ -33,7 +33,7 @@ for c in "${cases[@]}"; do
   cp "$fixtures/$jd" "$work/applications/2026-10-sample-$name/job-description.md"
 
   (cd "$work" && claude -p \
-    "Follow AGENTS.md and .claude/skills/resume-tailor-quick/SKILL.md. Tailor a resume for applications/2026-10-sample-$name/job-description.md. Write it to applications/2026-10-sample-$name/resume.md." \
+    "Follow AGENTS.md and .claude/skills/resume-drafter/SKILL.md. Tailor a resume for applications/2026-10-sample-$name/job-description.md. Write it to applications/2026-10-sample-$name/resume.md." \
     --permission-mode acceptEdits \
     --allowedTools "Bash(bash scripts/*)" >/dev/null)
 

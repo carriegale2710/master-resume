@@ -5,6 +5,8 @@ description: Customize resume for specific job postings while maintaining truthf
 
 # Resume Tailor
 
+In this repo, also follow `master/universal-checklist.md` and `AGENTS.md`; they override anything below.
+
 ## When to Use This Skill
 
 Use this skill when the user wants to:
