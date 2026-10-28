@@ -13,7 +13,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - Never copy content from sections 6-10 of the master (metrics log, private notes, application log, archive) into a resume or cover letter.
 - Respect the Outlier / Scale AI NDA note: use generic wording for tools and project types unless the user confirms otherwise.
 - Never upload or paste this repo's private files into external services.
-- Contact details are secret. Leave `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` and `${RESUME_LINKS}` placeholders exactly as written; they are intentional, not `TODO`. Never read `.env`, never ask for or write the real values, and never run the docx build (the user runs it locally so `.env` is filled in then).
+- Contact details are secret. Leave `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` and `${RESUME_WORKRIGHTS}` placeholders exactly as written; they are intentional, not `TODO`. Never read `.env`, never ask for or write the real values, and never run the docx build (the user runs it locally so `.env` is filled in then).
 
 ## Writing rules
 

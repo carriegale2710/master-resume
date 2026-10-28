@@ -5,7 +5,7 @@
 # --md-only  print filtered Markdown to stdout instead of building a .docx
 # The .docx needs pandoc only; optional templates/reference.docx styles it.
 # Private sections (6-10), tag/variant keys and "> " notes are always removed.
-# docx build only: ${RESUME_NAME|EMAIL|PHONE|LINKS} placeholders come from .env
+# docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} placeholders come from .env
 # (override path with RESUME_ENV_FILE). --md-only never reads .env.
 # The .docx is saved to ~/Downloads as <folder>-<name>.docx (override with RESUME_OUT_DIR).
 set -euo pipefail
@@ -50,9 +50,10 @@ if grep -q '\${RESUME_' <<<"$md"; then
   env_file="${RESUME_ENV_FILE:-$(dirname "$0")/../.env}"
   [ -f "$env_file" ] || { echo "Missing $env_file" >&2; exit 1; }
   set -a; . "$env_file"; set +a
-  for v in RESUME_NAME RESUME_EMAIL RESUME_PHONE RESUME_LINKS; do
-    [ -n "${!v:-}" ] || { echo "Missing $v in $env_file" >&2; exit 1; }
+  for v in RESUME_NAME RESUME_EMAIL RESUME_LOCATION RESUME_PHONE RESUME_LINKS RESUME_WORKRIGHTS; do
     tok='${'"$v"'}'
+    [[ "$md" == *"$tok"* ]] || continue
+    [ -n "${!v:-}" ] || { echo "Missing $v in $env_file" >&2; exit 1; }
     md="${md//"$tok"/"${!v}"}"
   done
 fi

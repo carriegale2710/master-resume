@@ -6,6 +6,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 ### Added
 
+- `${RESUME_LOCATION}` and `${RESUME_WORKRIGHTS}` header placeholders. `build.sh` now requires only the variables a draft uses.
 - `master/master-resume.md` single source of truth, merged from versions.
 - Universal and role-specific CV checklists for design and software engineering.
 - Sample job descriptions and templates, grouped by `industry` folders.

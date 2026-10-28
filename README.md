@@ -57,16 +57,18 @@ Hard gates: zero unsupported claims in anything `ready`; metrics only from maste
 
 ## Private header
 
-Name, email, phone and links never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` and `${RESUME_LINKS}`. Put real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
+Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` and `${RESUME_WORKRIGHTS}`. Put real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
 
 ```
 RESUME_NAME="Your Name"
 RESUME_EMAIL="you@example.com"
+RESUME_LOCATION="City, State"
 RESUME_PHONE="04xx xxx xxx"
 RESUME_LINKS="github.com/you | linkedin.com/in/you"
+RESUME_WORKRIGHTS="Australian citizen"
 ```
 
-The build substitutes them and fails if `.env` or a variable is missing. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
+The build substitutes them and fails if `.env` or a variable the draft uses is missing. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
 
 ## Tags
 
