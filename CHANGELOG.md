@@ -23,9 +23,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - Contact details moved out of repo and agent view.
 - Moved `skills/` to `.claude/skills/` so Claude Code loads skills directly; updated paths in docs and tests.
 
+- `scripts/build.sh` exports `.docx` via Pandoc only; `tests/test-docx-export.sh` replaces the PDF export test.
+
 ### Removed
 
 - `scripts/link-skills.sh`, its test and CI step, no longer needed.
+- PDF export (`--pdf`, WeasyPrint), `templates/style.css` and `tests/test-pdf-export.sh`.
 
 ### Fixed
 

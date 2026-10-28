@@ -2,9 +2,10 @@
 # Usage:
 #   ./scripts/build.sh [--tags a,b,c] [--md-only] input.md
 # --tags     keep only tagged bullets matching any tag (untagged lines kept)
-# --md-only  print filtered Markdown to stdout instead of building a PDF
+# --md-only  print filtered Markdown to stdout instead of building a .docx
+# The .docx needs pandoc only; optional templates/reference.docx styles it.
 # Private sections (6-10), tag/variant keys and "> " notes are always removed.
-# PDF build only: ${RESUME_NAME|EMAIL|PHONE|LINKS} placeholders come from .env
+# docx build only: ${RESUME_NAME|EMAIL|PHONE|LINKS} placeholders come from .env
 # (override path with RESUME_ENV_FILE). --md-only never reads .env.
 set -euo pipefail
 
@@ -42,9 +43,8 @@ if [ -n "$todo_matches" ]; then
   printf '%s\n' "$todo_matches" >&2
 fi
 
-out="${in%.md}.pdf"
 md="$(filter)"
-# Private header: ${RESUME_*} placeholders are filled from .env at PDF time only.
+# Private header: ${RESUME_*} placeholders are filled from .env at docx build time only.
 if grep -q '\${RESUME_' <<<"$md"; then
   env_file="${RESUME_ENV_FILE:-$(dirname "$0")/../.env}"
   [ -f "$env_file" ] || { echo "Missing $env_file" >&2; exit 1; }
@@ -55,6 +55,8 @@ if grep -q '\${RESUME_' <<<"$md"; then
     md="${md//"$tok"/"${!v}"}"
   done
 fi
-printf '%s\n' "$md" | pandoc -f markdown -t html5 --standalone --metadata title=" " \
-  --css "$(dirname "$0")/../templates/style.css" --pdf-engine=weasyprint -o "$out"
+out="${in%.md}.docx"
+ref="$(dirname "$0")/../templates/reference.docx"
+ref_opt=(); [ -f "$ref" ] && ref_opt=(--reference-doc="$ref")
+printf '%s\n' "$md" | pandoc -f markdown -t docx "${ref_opt[@]}" -o "$out"
 echo "Built $out"

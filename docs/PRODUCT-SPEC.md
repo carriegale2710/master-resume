@@ -4,7 +4,7 @@
 
 ## Overview
 
-Self-reported estimates put manual tailoring at 30-60 minutes per application, with a high-priority application sometimes taking a full day. This MVP turns that into a local CLI workflow: provide a job description, generate editable resume and cover-letter drafts, verify their claims, approve the final Markdown, and export a styled PDF. Drafts are unapproved until the user edits/reviews them and explicitly marks them ready. PDF export and job submission are separate manual steps. Batch processing is deferred until the single-application workflow passes its reliability pilot.
+Self-reported estimates put manual tailoring at 30-60 minutes per application, with a high-priority application sometimes taking a full day. This MVP turns that into a local CLI workflow: provide a job description, generate editable resume and cover-letter drafts, verify their claims, approve the final Markdown, and export a .docx. Drafts are unapproved until the user edits/reviews them and explicitly marks them ready. Docx export and job submission are separate manual steps. Batch processing is deferred until the single-application workflow passes its reliability pilot.
 
 ## Problem Statement
 
@@ -20,7 +20,7 @@ The 30-60 minute and full-day durations and the 20+ draft count are self-reporte
 |---|---|---|---|
 | Median elapsed time from application intake to approved drafts | Manual workflow: self-reported estimate of 30-60 minutes | Set after the first three pilot applications | Pilot |
 | Unsupported claims in final approved output | n/a | 0 | Always |
-| Successful PDF build within page limit | n/a | 100% | Always |
+| Successful docx build | n/a | 100% | Always |
 | Explicit human approval recorded before `ready` | n/a | 100% | Always |
 
 Record intake and approval timestamps for each pilot application; use the first three to set a time-reduction target for subsequent applications.
@@ -59,7 +59,7 @@ A local CLI wrapper around the existing scripts and a configurable OpenAI-compat
 - **FR4: Cover letter.** The model returns an unapproved `cover-letter.md` per `.claude/skills/cover-letter-generator`, using only the approved public-safe facts and job description.
 - **FR5: Verify (approval gate).** Each factual claim in the resume and cover letter must cite an exact supporting line from master sections 1-5 in a sidecar `verify-report.md`. The report lists supported claims, unsupported claims, TODO items, and citations. Local code validates that cited lines exist and checks metric claims against the section 6 metrics log, applying its safe wording where required; section 6 is used locally only, and its contents are never sent to the API. Other numbers must be supported by their cited master line. The user confirms that each citation semantically supports its claim. Ambiguous or uncited claims count as unsupported and block `ready`. A user may resolve a verifier false positive only by supplying an exact supporting master-line citation; genuinely unsupported claims cannot be overridden.
 - **FR6: Review and approval.** Generated Markdown is unapproved and editable. The CLI displays what was cut, what was reworded, gaps, and every claim still needing evidence. After any edits, verification must run against the exact current Markdown. The user explicitly approves in the CLI; only then is the application's row in `tracker.csv` set to `ready`. Whenever a CLI command relies on `ready` or exports approved content, it compares the current Markdown hashes with the approval manifest. A mismatch changes the tracker status to `needs-review` and blocks the operation until verification and approval are repeated.
-- **FR7: PDF export.** A separate CLI command exports approved Markdown via `scripts/build.sh applications/<folder>/resume.md` (new: the CLI adds the page-count check; `build.sh` currently only builds the PDF and fills `${RESUME_*}` contact placeholders from `.env`). One page is the target; up to two pages are allowed when needed to preserve relevant, supported evidence. Export fails above two pages. PDF export is not required to mark the Markdown `ready`, and submission remains manual.
+- **FR7: docx export.** A separate CLI command exports approved Markdown via `scripts/build.sh applications/<folder>/resume.md` (`build.sh` builds the `.docx` and fills `${RESUME_*}` contact placeholders from `.env`). One page is the target; up to two pages are allowed when needed to preserve relevant, supported evidence. Page count is checked manually in Word, because a `.docx` has no fixed page count. Docx export is not required to mark the Markdown `ready`, and submission remains manual.
 - **FR8: Regeneration and failures.** Regeneration creates a separate revision and preserves all existing drafts, including user-edited drafts; the user chooses which version to keep. On model, verification, or export failure, stop that operation with a clear error, preserve the JD and existing drafts, and never mark unsupported or unapproved content ready.
 ## Main User Flows
 
@@ -127,7 +127,7 @@ flowchart TD
     class K success
 ```
 
-### Flow 3: Approved Markdown to PDF
+### Flow 3: Approved Markdown to docx
 
 ```mermaid
 flowchart TD
@@ -135,10 +135,10 @@ flowchart TD
     B -->|Hash mismatch| C[Set tracker status to needs-review]
     C --> D([Refuse export; reverify and reapprove])
     B -->|Not ready| D
-    B -->|Hashes valid| E[Run PDF build]
+    B -->|Hashes valid| E[Run docx build]
     E -->|Build failure| F([Report error; preserve drafts and approval])
-    E --> G{PDF is one or two pages?}
-    G -->|Yes| H([PDF exported])
+    E --> G{Docx is one or two pages in Word?}
+    G -->|Yes| H([Docx exported])
     G -->|More than two pages| I([Fail clearly; no approved export])
     classDef ai fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
     classDef system fill:#e5e7eb,stroke:#6b7280,color:#1f2937
@@ -196,12 +196,12 @@ CLI intake
     -> configurable OpenAI-compatible API (tag suggestions + draft generation)
     -> local citation/number checks + human semantic review
     -> explicit CLI approval bound to verified-file hashes -> tracker.csv (`ready`)
-    -> separate PDF export via existing build.sh + new CLI page-count check
+    -> separate docx export via existing build.sh; page count checked manually in Word
 ```
 
 Choices and reasons:
 
-- **Reuse first:** `new-application.sh`, `build.sh`, `.claude/skills/*` and `tracker.csv` already exist. Keep the shell scripts as the folder-setup and PDF-export layer; the CLI orchestrates them rather than reimplementing them.
+- **Reuse first:** `new-application.sh`, `build.sh`, `.claude/skills/*` and `tracker.csv` already exist. Keep the shell scripts as the folder-setup and docx-export layer; the CLI orchestrates them rather than reimplementing them.
 - **Language:** Python 3 for the orchestrator and verification workflow. Prefer the standard library for CLI parsing, filesystem operations, subprocess calls, CSV/JSON, hashing and HTTP requests; add dependencies only where they materially simplify the implementation. Keep the code in a few focused modules for intake/orchestration, provider interaction, verification and approval instead of growing one script. Continue to run the existing Bash scripts through Git Bash.
 - **Provider compatibility:** Keep the endpoint and model configurable, but do not assume every OpenAI-compatible provider supports identical request parameters or response formats. Validate responses and fail clearly on unsupported or malformed responses. The model proposes tags and drafts; it cannot satisfy the local verification or approval gate.
 - **Local verification:** validate citations against master lines, check metric claims against the section 6 metrics log, and check other numbers against their cited lines. The model may propose source references, but only the local checks and user's semantic review can satisfy the approval gate.
@@ -220,18 +220,18 @@ Choices and reasons:
 | Duplicate company-role in same month | `new-application.sh` exits with "Already exists"; the CLI stops, creates nothing and preserves the existing folder. Use a different name. |
 | User edits output after verification or approval | At the next CLI check that relies on approval, compare file hashes; on mismatch, set tracker status to `needs-review` and require re-verification and approval. |
 | Cost estimate exceeds USD 0.50 | Show the estimate and wait for explicit user confirmation before the API call. |
-| Model, verifier, or PDF export fails | Report the error, preserve the JD and drafts, and do not mark ready. |
+| Model, verifier, or docx export fails | Report the error, preserve the JD and drafts, and do not mark ready. |
 
 ## Acceptance Criteria
 
-- [ ] Given a local JD file, when I run `apply acme-frontend --jd jd.md`, then the application folder contains the JD and unapproved Markdown drafts plus a claim-verification report; no PDF is exported before approval.
+- [ ] Given a local JD file, when I run `apply acme-frontend --jd jd.md`, then the application folder contains the JD and unapproved Markdown drafts plus a claim-verification report; no docx is exported before approval.
 - [ ] Given a metric claim absent from section 6, when local verification runs, then `ready` is blocked and the claim is named; given another number, verification checks that its cited master line supports it.
 - [ ] Given a factual claim without an exact supporting master-line citation, then it is listed as unsupported and blocks approval.
 - [ ] Given a citation to a master line, then local code confirms that the line exists and the user confirms that it semantically supports the claim.
 - [ ] Given a JD requiring a skill absent from master, then it is absent from the resume and listed as a gap.
 - [ ] Given any generated output, then it contains no tag names and no private content from master sections 6-10.
 - [ ] Given a job, then the complete outbound request payload (job description and user-approved public-safe facts) is shown before the API call, with private sections 6-10 never sent; the selected provider's request handling and data-retention terms are reviewed before the first live call.
-- [ ] Given an approved draft, then the user can export a PDF separately; export succeeds at one or two pages and fails clearly above two pages.
+- [ ] Given an approved draft, then the user can export a .docx separately; the user confirms it is one or two pages in Word.
 - [ ] Given any approval-dependent operation on Markdown whose contents no longer match the approval manifest, then the CLI sets tracker status to `needs-review` and refuses to treat it as `ready` or export it as approved until it is reverified and reapproved.
 - [ ] Given regeneration, then a new revision is created without overwriting prior or user-edited drafts.
 - [ ] Given explicit approval of the verified Markdown, then the application's row in `tracker.csv` has status `ready`.
@@ -240,7 +240,7 @@ Choices and reasons:
 
 ## Rollout Plan
 
-1. **Pilot:** implement the single-application flow, local checks, CLI approval state, and separate PDF export. Exercise it on real applications and track failures.
+1. **Pilot:** implement the single-application flow, local checks, CLI approval state, and separate docx export. Exercise it on real applications and track failures.
 2. **Reliability gate:** batch may be added after at least 10 consecutive applications have zero unsupported claims in final approved outputs, successful builds, and recorded explicit approval.
 3. **Batch phase:** after the reliability gate, add `apply-batch jobs.txt`. Process sequentially, continue after item failures, create a review queue, and never auto-approve. No daily-volume or review-time target is a release gate.
 
@@ -267,5 +267,5 @@ Choices and reasons:
 
 - Solo user, Windows with Git Bash, Python 3 is available for the CLI, and existing Bash scripts remain the setup/build layer.
 - The existing skills are good enough to start; tuning them comes after measurement.
-- The CLI is the V1 interface; PDF export is a separate command after content approval.
+- The CLI is the V1 interface; docx export is a separate command after content approval.
 - Any future daily-volume target refers to prepared applications, with submission done by hand.

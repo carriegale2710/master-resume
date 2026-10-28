@@ -10,23 +10,39 @@ Turn a job description into a verified, one-to-two page resume (and optionally a
 
 ## Workflow
 
-1. **Intake.** Run `bash scripts/new-application.sh company-role`. Paste the job description into `applications/<YYYY-MM-company-role>/job-description.md`.
-2. **Tailor.** In the agent session, run `resume-tailor-quick`, then `resume-ats-optimizer`. The agent writes `resume.md` in the application folder and never edits `master/`. Run `cover-letter-generator` only if the job needs a letter.
-3. **Verify.** Run `verify-claims`. It writes `verify-report.md` listing supported claims, unsupported claims, `TODO` items and citations to master lines. Carrie checks that each citation supports its claim. Any unsupported or uncited claim blocks the next step.
-4. **Approve.** After a clean verify, Carrie sets the application's row in `tracker.csv` to `ready`. Editing a draft after approval means running step 3 again.
-5. **Export.** Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the contact header. The only new code is a page-count check that fails above two pages.
+#todo - create a workflow skill that gos through all these steps in a row and only stops if a step fails.
+
+1. **~~Intake.~~**
+   - ~~Run `bash scripts/new-application.sh company-role`~~.
+   - ~~Paste the job description into `applications/<YYYY-MM-company-role>/job-description.md`.~~
+2. **~~Tailor.~~**
+   - In the agent session, run `resume-tailor-quick`
+   - The agent writes `resume.md` in the application folder and never edits `master/`.
+   - Run `cover-letter-generator` only if the job needs a letter.
+3. **~~Verify.~~**
+   - Run `verify-claims`. It writes `verify-report.md` listing supported claims, unsupported claims, `TODO` items and citations to master lines.
+   - Carrie checks that each citation supports its claim. Any unsupported or uncited claim blocks the next step.
+4. **Approve.**
+   - After a clean verify, Carrie sets the application's row in `tracker.csv` to `ready`. #todo - create a skill for this
+   - Editing a draft after approval means running step 4 again.
+5. **Export.**
+   - Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the contact header. It writes `resume.docx`.
+   - A `.docx` has no fixed page count, so Carrie opens it in Word and checks it is one page (two at most) before submitting.
 
 ## Build checklist
 
 Everything the workflow needs already exists except the items below. Do them in order.
 
-- [ ] **1. Confirm the existing pieces run end to end.** Run steps 1-4 of the workflow on one real or synthetic job description. Note anything that breaks; fix only what blocks the MVP.
-- [ ] **2. Check `verify-claims` output.** Confirm it writes `verify-report.md` with supported claims, unsupported claims, `TODO` items and master-line citations. If it doesn't, adjust the skill, not the workflow.
-- [ ] **3. Add the page-count check.** After the PDF build in `scripts/build.sh`, count the pages and exit non-zero with a clear message above two pages. Use a tool already installed with weasyprint or pandoc; add no new dependency.
-- [ ] **4. Test the page-count check.** Extend `tests/test-pdf-export.sh` with synthetic fixtures: one that builds at one or two pages and passes, and one over two pages that fails. The CI step for it already exists in `.github/workflows/tests.yml`.
-- [ ] **5. Add `ready` status helper (optional).** A one-line script or a documented manual edit that sets the row's `status` to `ready` in `tracker.csv`. Skip it if editing by hand is fine.
-- [ ] **6. Run the pilot.** Do three real applications through the full workflow, noting intake and approval times. Fix only problems that block or mislead.
-- [ ] **7. Update the docs.** Point `README.md` at this workflow, and add a line to `docs/CHANGELOG.md`.
+- [ ] **1. Confirm the existing pieces run end to end.**
+      Run steps 1-5 of the workflow on one real or synthetic job description. Note anything that breaks; fix only what blocks the MVP.
+- [ ] **2. Check `verify-claims` output.**
+      Confirm it writes `verify-report.md` with supported claims, unsupported claims, `TODO` items and master-line citations. If it doesn't, adjust the skill, not the workflow.
+- [ ] **3. Add `ready` status helper (optional).**
+      A one-line script or a documented manual edit that sets the row's `status` to `ready` in `tracker.csv`. Skip it if editing by hand is fine.
+- [ ] **4. Run the pilot.**
+      Do three real applications through the full workflow, noting intake and approval times. Fix only problems that block or mislead.
+- [ ] **5. Update the docs.**
+      Point `README.md` at this workflow, and add a line to `docs/CHANGELOG.md`.
 
 ## Hard gates
 
@@ -38,11 +54,9 @@ Everything the workflow needs already exists except the items below. Do them in 
 
 ## New work
 
-| Item | Size |
-|---|---|
-| Page-count check after the PDF build (fail above 2 pages) | Small addition to `build.sh` or a wrapper |
-| One test for the page-count check using a synthetic fixture, run in `.github/workflows/tests.yml` | Small |
-| Optional: a one-line script to set a `tracker.csv` row to `ready` | Trivial |
+| Item                                                                                              | Size                                      |
+| ------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Optional: a one-line script to set a `tracker.csv` row to `ready`                                 | Trivial                                   |
 
 Everything else reuses `new-application.sh`, `build.sh`, the skills and `tracker.csv`.
 
@@ -56,11 +70,11 @@ Everything else reuses `new-application.sh`, `build.sh`, the skills and `tracker
 
 ## Add later only if triggered
 
-| Trigger | Add |
-|---|---|
-| A draft is edited after approval and the change goes unnoticed | Hash check against an approval manifest |
-| Running the pipeline in the agent session is too slow or costly | The API CLI from `PRODUCT-SPEC.md` |
-| Ten consecutive applications with zero unsupported claims, clean builds and recorded approval | Batch processing |
+| Trigger                                                                                       | Add                                     |
+| --------------------------------------------------------------------------------------------- | --------------------------------------- |
+| A draft is edited after approval and the change goes unnoticed                                | Hash check against an approval manifest |
+| Running the pipeline in the agent session is too slow or costly                               | The API CLI from `PRODUCT-SPEC.md`      |
+| Ten consecutive applications with zero unsupported claims, clean builds and recorded approval | Batch processing                        |
 
 ## Pilot measure
 
@@ -70,5 +84,5 @@ For the first three applications, note the intake and approval times in `tracker
 
 - [ ] A JD goes in and a verified `resume.md` comes out without manual rewriting from scratch.
 - [ ] `verify-report.md` shows no unsupported claims before `ready` is set.
-- [ ] The PDF builds and the page-count check passes at one or two pages, and fails above two.
+- [ ] The `.docx` builds and is one or two pages when opened in Word.
 - [ ] No tag names or section 6-10 content appear in the output.

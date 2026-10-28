@@ -10,7 +10,7 @@ Inputs: the file to check, `master/master-resume.md` (especially section 6 metri
 Check, in order:
 1. **Numbers.** Every number, percentage and count must match a metrics-log row. Classify each as Fact, Estimate, Projection, Self-reported or Unlisted.
 2. **Unsafe claims.** Estimates, projections and unlisted numbers must use the log's safe wording, or be flagged for the user to supply evidence.
-3. **TODO.** Any remaining `TODO` or missing contact/link must be listed. `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` and `${RESUME_LINKS}` are intentional placeholders filled from `.env` at PDF build: do not flag them, and never read `.env`.
+3. **TODO.** Any remaining `TODO` or missing contact/link must be listed. `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` and `${RESUME_LINKS}` are intentional placeholders filled from `.env` at docx build: do not flag them, and never read `.env`.
 4. **Private content.** No text from sections 6-10 of the master. No NDA-restricted tool or client names beyond what the private notes allow.
 5. **Consistency.** Dates, titles, employers and tech stacks match the master. Overlapping dates are explainable per the private notes. A project stack in the resume matches the project entry (e.g. database names).
 6. **Leftovers.** No tag names, variant labels, or "(see Metrics Log)" notes.

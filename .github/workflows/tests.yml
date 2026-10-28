@@ -19,9 +19,9 @@ jobs:
         run: bash tests/test-new-application.sh
       - name: Test skill evidence rules
         run: bash tests/test-skill-evidence-rules.sh
-      - name: Install PDF export dependencies
+      - name: Install docx export dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends -y pandoc weasyprint
-      - name: Test PDF export
-        run: bash tests/test-pdf-export.sh
+          sudo apt-get install --no-install-recommends -y pandoc
+      - name: Test docx export
+        run: bash tests/test-docx-export.sh
