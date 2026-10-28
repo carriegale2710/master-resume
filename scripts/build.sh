@@ -3,6 +3,7 @@
 #   ./scripts/build.sh [--tags a,b,c] [--md-only] input.md
 # --tags     keep only tagged bullets matching any tag (untagged lines kept)
 # --md-only  print filtered Markdown to stdout instead of building a .docx
+# docx build requires tracker status "verified" and a y/N approval (sets ready, then exported).
 # The .docx needs pandoc only; optional templates/reference.docx styles it.
 # Private sections (6-10), tag/variant keys and "> " notes are always removed.
 # docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} placeholders come from .env
@@ -38,6 +39,15 @@ filter() {
 
 if [ "$md_only" -eq 1 ]; then filter; exit 0; fi
 
+stem="$(basename "$in" .md)"; folder="$(basename "$(dirname "$(realpath "$in")")")"
+# Approval gate: only a verified draft builds; the y/N prompt is the human sign-off (sets ready).
+tracker="${TRACKER:-$(dirname "$0")/../applications/tracker.csv}"
+status="$(awk -F, -v k="$folder" 'NR==1 { for (i=1;i<=NF;i++) c[$i]=i; next } $(c["id"])==k { print $(c["status"]) }' "$tracker")"
+[ "$status" = "verified" ] || { echo "Status is '${status:-no tracker row}', not verified. Run verify-claims first." >&2; exit 1; }
+read -r -p "Approve $folder and build docx? [y/N] " ok
+[[ "$ok" =~ ^[Yy]$ ]] || { echo "Not approved." >&2; exit 1; }
+bash "$(dirname "$0")/set-status.sh" "$folder" ready
+
 todo_matches="$(filter | grep -n 'TODO' || true)"
 if [ -n "$todo_matches" ]; then
   echo "WARNING: TODO placeholders remain in output:" >&2
@@ -59,7 +69,6 @@ if grep -q '\${RESUME_' <<<"$md"; then
 fi
 out_dir="${RESUME_OUT_DIR:-$HOME/Downloads}"
 mkdir -p "$out_dir"
-stem="$(basename "$in" .md)"; folder="$(basename "$(dirname "$(realpath "$in")")")"
 out="$out_dir/$folder-$stem.docx"
 ref="$(dirname "$0")/../templates/reference.docx"
 ref_opt=(); [ -f "$ref" ] && ref_opt=(--reference-doc="$ref")

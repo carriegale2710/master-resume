@@ -49,4 +49,4 @@ At the end of any task, list: what was cut, what was reworded, and every claim t
 
 ## Tracker status
 
-`applications/tracker.csv` status moves `pending` (new-application.sh) -> `tailored` (resume-tailor-quick) -> `verified` (verify-claims, on PASS) -> `ready` (user runs `scripts/ready.sh`) -> `exported` (build.sh sets it after a docx build). Skills set their own status with `bash scripts/set-status.sh <folder> <status>` before finishing. The row `id` is the application folder name. Agents never set `ready` or `exported`.
+`applications/tracker.csv` status moves `pending` (new-application.sh) -> `tailored` (resume-tailor-quick) -> `verified` (verify-claims, on PASS) -> `ready` (build.sh sets it when the user answers y at its approval prompt) -> `exported` (build.sh sets it after a docx build). Skills set their own status with `bash scripts/set-status.sh <folder> <status>` before finishing. The row `id` is the application folder name. Agents never set `ready` or `exported`.

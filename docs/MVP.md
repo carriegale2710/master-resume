@@ -15,16 +15,14 @@ Turn a job description into a verified, one-to-two page resume (and optionally a
 1. ~~**Intake.**~~ `bash scripts/new-application.sh company-role`, then paste the job description into `applications/<YYYY-MM-company-role>/job-description.md`.
 2. ~~**Tailor.**~~ Run `resume-tailor-quick`. The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed.
 3. ~~**Verify.**~~ Run `verify-claims`; it writes `verify-report.md` (supported claims, unsupported claims, `TODO` items, master-line citations). Carrie checks each citation. Any unsupported or uncited claim blocks the next step.
-4. **Approve.** After a clean verify, Carrie runs `bash scripts/ready.sh <folder>`. The agent never runs it. Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported` (`build.sh` sets the last). Editing a draft after approval means verifying again.
-5. **Export.** Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the header. It writes `<folder>-resume.docx` to `~/Downloads`. A `.docx` has no fixed page count, so Carrie checks in Word that it is one page (two at most).
+4. **Approve and export.** After a clean verify, Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the header. `build.sh` refuses unless status is `verified`, then asks y/N; yes sets `ready`, builds, and sets `exported`. The agent never runs it. Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported`. Editing a draft after verify means verifying again. It writes `<folder>-resume.docx` to `~/Downloads`. A `.docx` has no fixed page count, so Carrie checks in Word that it is one page (two at most).
 
 ## Build checklist
 
-- [ ] **1. End-to-end run.** Run workflow steps 1-5 on one real or synthetic job description. Fix only what blocks the MVP.
-- [ ] **2. Check `verify-claims` output.** Confirm `verify-report.md` has the sections above. If not, fix the skill, not the workflow.
-- [x] **3. `ready` helper.** Done: `scripts/ready.sh`.
-- [ ] **4. Pilot.** Three real applications through the full workflow, noting intake and approval times.
-- [ ] **5. Update docs.** Point `README.md` at this workflow; add a `CHANGELOG.md` line.
+- [x] **1. End-to-end run.** Run workflow steps 1-5 on one real or synthetic job description. Fix only what blocks the MVP.
+- [x] **2. Check `verify-claims` output.** Confirm `verify-report.md` has the sections above. If not, fix the skill, not the workflow.
+- [x] **3. `ready` helper.** Done: folded into `build.sh` as a y/N approval prompt.
+- [/] **4. Pilot.** Three real applications through the full workflow, noting intake and approval times.
 
 ## Hard gates
 

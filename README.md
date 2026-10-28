@@ -13,9 +13,8 @@ To style the `.docx`, create `templates/reference.docx` with `pandoc -o template
 ## Scripts
 
 - `scripts/new-application.sh company-role`: creates `applications/<YYYY-MM>-company-role/` with `job-description.md`, `notes.md` and an empty `cover-letter.md`, and appends a `pending` row to `applications/tracker.csv`. Names allow ASCII letters, numbers and hyphens only; it refuses to overwrite a folder.
-- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: filters bullets by tag, drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown and never reads `.env`. Otherwise it fills the `${RESUME_*}` header from `.env`, writes `~/Downloads/<folder>-<name>.docx` (override with `RESUME_OUT_DIR`) and sets the tracker status to `exported`.
+- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: filters bullets by tag, drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown and never reads `.env`. Otherwise it requires tracker status `verified`, asks `Approve and build docx? [y/N]` (yes sets `ready`), fills the `${RESUME_*}` header from `.env`, writes `~/Downloads/<folder>-<name>.docx` (override with `RESUME_OUT_DIR`) and sets the tracker status to `exported`.
 - `scripts/set-status.sh <folder> <status>`: sets `status` and `last_update` on the tracker row whose `id` is the folder name. Skills call it; `TRACKER` overrides the file.
-- `scripts/ready.sh <folder>`: human-run approval; same as `set-status.sh <folder> ready`.
 
 ## Tests
 
@@ -29,7 +28,7 @@ bash tests/run-all.sh
 | --- | --- |
 | `test-build.sh` | tag filtering, dropped sections 6-10, `TODO` warning, `.env` header fill, missing-value errors |
 | `test-new-application.sh` | expected files, unsafe names rejected, duplicates refused, `pending` row added |
-| `test-ready.sh` | `set-status.sh` and `ready.sh` update only the matching row; unknown statuses and missing rows rejected |
+| `test-ready.sh` | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected |
 | `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules |
 | `test-docx-export.sh` | real .docx from a synthetic resume; skips without Pandoc |
 | `test-docx-output-dir.sh` | .docx lands in `$HOME/Downloads` by default; `RESUME_OUT_DIR` overrides; skips without Pandoc |
@@ -41,12 +40,12 @@ bash tests/run-all.sh
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
    then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page.
 3. **Verify.** Run `verify-claims`. Any unsupported claim, uncited claim or `TODO` blocks the next step.
-4. **Approve.** `bash scripts/ready.sh <folder>`. The agent never sets `ready`. Editing a draft after approval means verifying again.
-5. **Export.** Run the build yourself so `.env` fills the header:
+4. **Approve and export.** Run the build yourself so `.env` fills the header; answer `y` at the prompt to approve:
    `bash scripts/build.sh applications/<folder>/resume.md`
-6. **Submit.** `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`, then update the `tracker.csv` row.
+   The agent never sets `ready`. Editing a draft after verify means verifying again.
+5. **Submit.** `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`, then update the `tracker.csv` row.
 
-Status flow: `pending` -> `tailored` -> `verified` -> `ready` (`ready.sh`) -> `exported` (`build.sh`). `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date, eligibility`.
+Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported` (both set by `build.sh` after your y/N approval). `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date, eligibility`.
 
 Hard gates: zero unsupported claims in anything `ready`; metrics only from master section 6 using its safe wording; nothing from master sections 6-10 in output; one page target, two pages limit.
 
@@ -102,7 +101,7 @@ master-resume/
 ├── industry/                      # design/ and dev/ tailoring guides
 ├── .claude/skills/                # README.md and <skill-name>/SKILL.md
 ├── templates/                     # dev.md, hybrid.md, design.md
-├── scripts/                       # build.sh, new-application.sh, set-status.sh, ready.sh
+├── scripts/                       # build.sh, new-application.sh, set-status.sh
 ├── tests/                         # test-*.sh, fixtures/dummy-resume.md
 └── docs/                          # MVP.md, PRODUCT-SPEC.md
 ```

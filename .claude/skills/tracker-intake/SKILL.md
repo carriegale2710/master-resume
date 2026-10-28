@@ -20,7 +20,7 @@ Inputs: `applications/<folder>/job-description.md`, `applications/tracker.csv`. 
    - Fill only empty cells, except `company` (overwrite the slug). Never change `id`, `version_folder` or `status`; set `last_update` to today.
    - Leave `date_applied`, `contact`, `outcome`, `notes` untouched. `date_applied` is the submission date, not the posting date.
    - Unknown or not stated: leave the cell empty and list it in the report. Never guess a date or infer a location.
-   - No commas inside values (use `;`). `scripts/ready.sh` splits on plain commas.
+   - No commas inside values (use `;`). `scripts/set-status.sh` splits on plain commas.
    - Keep exactly 15 columns per row.
 4. Also copy the dates into `Date posted:` and `Closing date:` in the job description file if those lines are empty.
 5. Report: the final row, and every cell left empty because the posting did not say.
