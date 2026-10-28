@@ -33,7 +33,7 @@ To style the `.docx`, add `templates/reference.docx` (create it with
 The scripts in this repository help automate the process of creating tailored resumes, building .docx files, and managing skills. Here's a brief overview:
 
 - `scripts/new-application.sh company-role`: Creates `applications/<YYYY-MM>-company-role/` containing `job-description.md`, `notes.md` and an empty `cover-letter.md`. Names allow ASCII letters, numbers and hyphens only; it refuses to overwrite an existing folder.
-- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: Filters bullets by tag, always drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown to stdout and never reads `.env`. Without it, the script fills the `${RESUME_*}` header from `.env` and writes `<input>.docx` via Pandoc.
+- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: Filters bullets by tag, always drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown to stdout and never reads `.env`. Without it, the script fills the `${RESUME_*}` header from `.env` and writes `~/Downloads/<folder>-<name>.docx` via Pandoc (override the folder with `RESUME_OUT_DIR`).
 
 ## Tests
 
@@ -52,6 +52,7 @@ bash tests/test-docx-export.sh
 | `test-new-application.sh` | `scripts/new-application.sh`: creates the expected files, rejects unsafe names and paths outside `applications/`, refuses duplicates |
 | `test-skill-evidence-rules.sh` | Skill docs keep the evidence and privacy rules (metrics, cover letter, ATS) |
 | `test-docx-export.sh` | Real .docx output from a synthetic resume; skips if Pandoc is missing |
+| `test-docx-output-dir.sh` | .docx lands in `$HOME/Downloads` by default, not next to the input; `RESUME_OUT_DIR` overrides; skips if Pandoc is missing |
 
 On Windows, run these commands from Git Bash.
 
@@ -63,7 +64,7 @@ On Windows, run these commands from Git Bash.
    then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page.
 3. **Verify.** Run `verify-claims`. Check that each claim cites a master line. Any unsupported claim, uncited claim or `TODO` blocks the next step.
 4. **Approve.** After a clean verify, set the application's `status` to `ready` in `tracker.csv` by hand. The agent never sets `ready`. Editing a draft after approval means verifying again.
-5. **Export.** Run the build yourself so `.env` fills the contact header. It writes `resume.docx` next to the markdown:
+5. **Export.** Run the build yourself so `.env` fills the contact header. It writes `<folder>-resume.docx` to your Downloads folder, outside the repo (set `RESUME_OUT_DIR` to change it):
    `bash scripts/build.sh applications/<folder>/resume.md`
 6. **Submit.** Commit and tag:
    `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`, then update the `tracker.csv` row.

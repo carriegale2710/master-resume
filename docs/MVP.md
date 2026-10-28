@@ -26,7 +26,7 @@ Turn a job description into a verified, one-to-two page resume (and optionally a
    - After a clean verify, Carrie sets the application's row in `tracker.csv` to `ready`. #todo - create a skill for this
    - Editing a draft after approval means running step 4 again.
 5. **Export.**
-   - Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the contact header. It writes `resume.docx`.
+   - Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the contact header. It writes `<folder>-resume.docx` to `~/Downloads`.
    - A `.docx` has no fixed page count, so Carrie opens it in Word and checks it is one page (two at most) before submitting.
 
 ## Build checklist
