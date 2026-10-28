@@ -42,7 +42,6 @@ The scripts in this repository help automate the process of creating tailored re
 
 - `scripts/new-application.sh company-role`: Creates `applications/<YYYY-MM>-company-role/` containing `job-description.md`, `notes.md` and an empty `cover-letter.md`. Names allow ASCII letters, numbers and hyphens only; it refuses to overwrite an existing folder.
 - `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: Filters bullets by tag, always drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown to stdout and never reads `.env`. Without it, the script fills the `${RESUME_*}` header from `.env` and writes `<input>.pdf` via Pandoc and WeasyPrint.
-- `scripts/link-skills.sh [--copy]`: Links or copies skills from the `skills/` directory to the tool-specific directories. Use `--copy` if the tool does not follow symlinks.
 
 ## Tests
 
@@ -51,7 +50,6 @@ The build, application-generator, and PDF-export tests use synthetic resume data
 ```bash
 bash tests/test-build.sh
 bash tests/test-new-application.sh
-bash tests/test-link-skills.sh
 bash tests/test-skill-evidence-rules.sh
 bash tests/test-pdf-export.sh
 ```
@@ -60,7 +58,6 @@ bash tests/test-pdf-export.sh
 | --- | --- |
 | `test-build.sh` | `scripts/build.sh`: tag filtering, dropped sections 6-10, `TODO` warning, `.env` header fill and missing-value errors |
 | `test-new-application.sh` | `scripts/new-application.sh`: creates the expected files, rejects unsafe names and paths outside `applications/`, refuses duplicates |
-| `test-link-skills.sh` | `scripts/link-skills.sh`: link and `--copy` modes, tool-name validation, never overwrites unrelated paths |
 | `test-skill-evidence-rules.sh` | Skill docs keep the evidence and privacy rules (metrics, cover letter, ATS) |
 | `test-pdf-export.sh` | Real PDF output from a synthetic resume; skips if Pandoc or WeasyPrint is missing |
 
@@ -119,30 +116,26 @@ RESUME_LINKS="github.com/you | linkedin.com/in/you"
 
 ## Rules and maintenance
 
-- Treat `master/master-resume.md` as the source of truth; edit canonical files only in `master/`, `skills/` or `AGENTS.md`.
+- Treat `master/master-resume.md` as the source of truth; edit canonical files only in `master/`, `.claude/skills/` or `AGENTS.md`.
 - Use one `applications/YYYY-MM-company-role/` folder per application; copy improved bullets to the master the same day.
 - Log every number in section 6. Weekly, update the master and metrics log; monthly, check links; quarterly, archive stale bullets.
 - Keep this repo **private**.
 
 ## Things to know
 
-- **Skill links:** `bash scripts/link-skills.sh` creates tool-specific skill directories for Claude Code, Codex and Gemini. Re-run it after editing skills; do not edit copied skill directories.
 - **Applications:** `new-application.sh` creates the `applications/` directory and each application folder as needed.
 - **Master sections:** Section references are documented in `AGENTS.md` and the relevant skills. Keep them in sync if sections move.
 
-## Agents and skills (tool-neutral)
+## Agents and skills
 
 - `AGENTS.md` holds the canonical rules. `CLAUDE.md` points to it.
-- `skills/` holds the canonical skills as plain Markdown.
-- Run `bash scripts/link-skills.sh` to expose them to Claude Code, Codex and Gemini (symlinks), or `bash scripts/link-skills.sh --copy` if a tool does not follow symlinks.
-- Edit skills only in `skills/`. Never edit the linked or copied folders.
+- `.claude/skills/` holds the canonical skills as plain Markdown.
 - Tools without file access: paste `AGENTS.md` into the instructions and upload only the skill, master and job description needed. Never upload private notes to tools you do not control.
 - Typical order of use: `resume-tailor-quick`, `resume-ats-optimizer`, `verify-claims`, then optionally `cover-letter-generator` and `interview-prep-generator`.
 
 ## Repository Tree Structure
 
-This is the tracked repository structure. Application folders and tool-specific
-skill links are created when needed.
+This is the tracked repository structure. Application folders are created when needed.
 
 ```
 master-resume/
@@ -163,7 +156,7 @@ master-resume/
 │   ├── design/
 │   └── dev/
 │
-├── skills/                        # canonical skills (edit these)
+├── .claude/skills/                # skills (edit these)
 │   ├── README.md
 │   └── <skill-name>/SKILL.md
 │
@@ -175,14 +168,12 @@ master-resume/
 │
 ├── scripts/
 │   ├── build.sh                   # tag filter and PDF export
-│   ├── new-application.sh         # creates an application folder
-│   └── link-skills.sh             # links or copies skills for each tool
+│   └── new-application.sh         # creates an application folder
 ├── tests/
 │   ├── fixtures/
 │   │   └── dummy-resume.md        # synthetic input for build.sh tests
 │   ├── test-build.sh              # tests tag filtering and private-section removal
 │   ├── test-new-application.sh    # tests application-folder creation
-│   ├── test-link-skills.sh        # tests skill linking and copying
 │   ├── test-skill-evidence-rules.sh # checks skills keep the evidence rules
 │   └── test-pdf-export.sh         # checks PDF export when dependencies are available
 │

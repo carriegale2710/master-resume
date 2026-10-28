@@ -28,12 +28,12 @@ for c in "${cases[@]}"; do
   work="$tmp_dir/$name"
   mkdir -p "$work/master" "$work/applications/2026-10-sample-$name"
   cp "$repo_root/AGENTS.md" "$repo_root/CLAUDE.md" "$work/"
-  cp -r "$repo_root/skills" "$repo_root/scripts" "$work/"
+  mkdir -p "$work/.claude" && cp -r "$repo_root/.claude/skills" "$work/.claude/" && cp -r "$repo_root/scripts" "$work/"
   cp "$fixtures/dummy-master.md" "$work/master/master-resume.md"
   cp "$fixtures/$jd" "$work/applications/2026-10-sample-$name/job-description.md"
 
   (cd "$work" && claude -p \
-    "Follow AGENTS.md and skills/resume-tailor-quick/SKILL.md. Tailor a resume for applications/2026-10-sample-$name/job-description.md. Write it to applications/2026-10-sample-$name/resume.md." \
+    "Follow AGENTS.md and .claude/skills/resume-tailor-quick/SKILL.md. Tailor a resume for applications/2026-10-sample-$name/job-description.md. Write it to applications/2026-10-sample-$name/resume.md." \
     --permission-mode acceptEdits \
     --allowedTools "Bash(bash scripts/*)" >/dev/null)
 

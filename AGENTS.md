@@ -28,12 +28,11 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - `bash scripts/build.sh --tags a,b --md-only master/master-resume.md` filters master bullets by tag.
 - `bash scripts/build.sh applications/<folder>/resume.md` builds the PDF (user-run only; it fills the header from `.env`).
 - `bash scripts/new-application.sh company-role` creates an application folder.
-- `bash scripts/link-skills.sh` links or copies skills for each tool.
 - Prefer these scripts over re-implementing their logic.
 
 ## Skills
 
-Repo-specific skills live in `skills/<name>/SKILL.md`. Typical order for an application:
+Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for an application:
 
 1. `resume-tailor-quick`
 2. `resume-ats-optimizer`
@@ -41,7 +40,7 @@ Repo-specific skills live in `skills/<name>/SKILL.md`. Typical order for an appl
 4. `cover-letter-generator` (optional)
 5. `interview-prep-generator` (after applying)
 
-View `skills/README.md` for the full list of available other skills imported into this repo.
+View `.claude/skills/README.md` for the full list of available other skills imported into this repo.
 
 ## Always report
 

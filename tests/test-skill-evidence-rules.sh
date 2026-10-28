@@ -2,10 +2,10 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-quantifier="$repo_root/skills/resume-quantifier/SKILL.md"
-cover_letter="$repo_root/skills/cover-letter-generator/SKILL.md"
-ats_optimizer="$repo_root/skills/resume-ats-optimizer/SKILL.md"
-skill_catalog="$repo_root/skills/README.md"
+quantifier="$repo_root/.claude/skills/resume-quantifier/SKILL.md"
+cover_letter="$repo_root/.claude/skills/cover-letter-generator/SKILL.md"
+ats_optimizer="$repo_root/.claude/skills/resume-ats-optimizer/SKILL.md"
+skill_catalog="$repo_root/.claude/skills/README.md"
 
 fail() {
   echo "FAIL: $1" >&2
