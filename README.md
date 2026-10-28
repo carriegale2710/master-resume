@@ -2,6 +2,8 @@
 
 Private repo for my master resume and every tailored application.
 
+**Goal (V1):** turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using the scripts and skills here. No CLI, model API or database. See [docs/MVP.md](docs/MVP.md) for the scope and [docs/PRODUCT-SPEC.md](docs/PRODUCT-SPEC.md) for the longer-term target. Where they differ, the MVP wins.
+
 ## Requirements
 
 The PDF build in `scripts/build.sh` requires both the Pandoc executable and the
@@ -38,8 +40,8 @@ bash scripts/build.sh applications/<folder>/resume.md
 
 The scripts in this repository help automate the process of creating tailored resumes, building PDFs, and managing skills. Here's a brief overview:
 
-- `scripts/new-application.sh <folder>`: Creates a new application folder with the necessary files.
-- `scripts/build.sh [options] <input>`: Builds a resume or cover letter. Use `--tags` to filter bullets by tags and `--md-only` to output only Markdown.
+- `scripts/new-application.sh company-role`: Creates `applications/<YYYY-MM>-company-role/` containing `job-description.md`, `notes.md` and an empty `cover-letter.md`. Names allow ASCII letters, numbers and hyphens only; it refuses to overwrite an existing folder.
+- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: Filters bullets by tag, always drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown to stdout and never reads `.env`. Without it, the script fills the `${RESUME_*}` header from `.env` and writes `<input>.pdf` via Pandoc and WeasyPrint.
 - `scripts/link-skills.sh [--copy]`: Links or copies skills from the `skills/` directory to the tool-specific directories. Use `--copy` if the tool does not follow symlinks.
 
 ## Tests
@@ -53,6 +55,14 @@ bash tests/test-link-skills.sh
 bash tests/test-skill-evidence-rules.sh
 bash tests/test-pdf-export.sh
 ```
+
+| Test | Purpose |
+| --- | --- |
+| `test-build.sh` | `scripts/build.sh`: tag filtering, dropped sections 6-10, `TODO` warning, `.env` header fill and missing-value errors |
+| `test-new-application.sh` | `scripts/new-application.sh`: creates the expected files, rejects unsafe names and paths outside `applications/`, refuses duplicates |
+| `test-link-skills.sh` | `scripts/link-skills.sh`: link and `--copy` modes, tool-name validation, never overwrites unrelated paths |
+| `test-skill-evidence-rules.sh` | Skill docs keep the evidence and privacy rules (metrics, cover letter, ATS) |
+| `test-pdf-export.sh` | Real PDF output from a synthetic resume; skips if Pandoc or WeasyPrint is missing |
 
 For a manual PDF-export check when those dependencies are available, create a synthetic input and verify the resulting file:
 
@@ -69,17 +79,26 @@ On Windows, run these commands from Git Bash.
 
 ## Workflow
 
-1. Create the application folder:
-   `bash scripts/new-application.sh acme-frontend`
-2. Paste the job posting into `job-description.md`.
-3. Draft a starting resume filtered by tags:
+1. **Intake.** `bash scripts/new-application.sh acme-frontend`, then paste the posting into `applications/<folder>/job-description.md`.
+2. **Tailor.** In an agent session, run `resume-tailor-quick`, then `resume-ats-optimizer`. The agent writes `resume.md` in the application folder and never edits `master/`. Run `cover-letter-generator` only if the job needs a letter. To draft by hand instead:
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
-4. Edit `resume.md` by hand: pick the 5-7 strongest bullets, mirror true keywords from the posting, reword the summary, cut to one page.
-5. Export to PDF:
+   then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page.
+3. **Verify.** Run `verify-claims`. Check that each claim cites a master line. Any unsupported claim, uncited claim or `TODO` blocks the next step.
+4. **Approve.** After a clean verify, set the application's `status` to `ready` in `tracker.csv` by hand. The agent never sets `ready`. Editing a draft after approval means verifying again.
+5. **Export.** Run the PDF build yourself so `.env` fills the contact header:
    `bash scripts/build.sh applications/<folder>/resume.md`
-6. Submit, then commit and tag:
-   `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`
-7. Add a row to `tracker.csv`.
+6. **Submit.** Commit and tag:
+   `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`, then update the `tracker.csv` row.
+
+Hard gates: zero unsupported claims in anything `ready`; metrics only from master section 6 using its safe wording; nothing from master sections 6-10 in output; one page is the target, two is the limit.
+
+### Not built yet (MVP checklist)
+
+- **Page-count check:** `build.sh` does not yet fail above two pages. Check the PDF manually until it does.
+- **`verify-report.md`:** the `verify-claims` skill is meant to write this file; confirm its output before relying on it.
+- **`ready` helper script:** optional; edit `tracker.csv` by hand for now.
+
+`tracker.csv` columns: `date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes`.
 
 ## Private header (contact details)
 
@@ -130,14 +149,16 @@ master-resume/
 ├── README.md                      # workflow and setup
 ├── AGENTS.md                      # canonical agent rules (edit this)
 ├── CLAUDE.md                      # one line: @AGENTS.md
-├── tracker.csv                    # application log
+├── tracker.csv                    # application log and status (`ready` is set by hand)
 ├── .env.example                   # sample resume content in Markdown, not environment variables
-├── .gitignore
+├── .gitignore                     # ignores .env
+├── .claude/settings.json          # denies Claude's Read tool on .env
+├── .github/workflows/tests.yml    # runs the shell tests on push and PR
 │
 ├── master/
 │   ├── master-resume.md
 │   └── universal-checklist.md
-
+│
 ├── industry/                      # industry-specific resume tailoring guides + templates
 │   ├── design/
 │   └── dev/
@@ -161,7 +182,12 @@ master-resume/
 │   │   └── dummy-resume.md        # synthetic input for build.sh tests
 │   ├── test-build.sh              # tests tag filtering and private-section removal
 │   ├── test-new-application.sh    # tests application-folder creation
+│   ├── test-link-skills.sh        # tests skill linking and copying
+│   ├── test-skill-evidence-rules.sh # checks skills keep the evidence rules
 │   └── test-pdf-export.sh         # checks PDF export when dependencies are available
 │
 └── docs/
+    ├── MVP.md                     # V1 scope and build checklist
+    ├── PRODUCT-SPEC.md            # longer-term target
+    └── CHANGELOG.md
 ```
