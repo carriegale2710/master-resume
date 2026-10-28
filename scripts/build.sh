@@ -7,6 +7,7 @@
 # Private sections (6-10), tag/variant keys and "> " notes are always removed.
 # docx build only: ${RESUME_NAME|EMAIL|PHONE|LINKS} placeholders come from .env
 # (override path with RESUME_ENV_FILE). --md-only never reads .env.
+# The .docx is saved to ~/Downloads as <folder>-<name>.docx (override with RESUME_OUT_DIR).
 set -euo pipefail
 
 tags=""; md_only=0; in=""
@@ -55,7 +56,10 @@ if grep -q '\${RESUME_' <<<"$md"; then
     md="${md//"$tok"/"${!v}"}"
   done
 fi
-out="${in%.md}.docx"
+out_dir="${RESUME_OUT_DIR:-$HOME/Downloads}"
+mkdir -p "$out_dir"
+stem="$(basename "$in" .md)"; folder="$(basename "$(dirname "$(realpath "$in")")")"
+out="$out_dir/$folder-$stem.docx"
 ref="$(dirname "$0")/../templates/reference.docx"
 ref_opt=(); [ -f "$ref" ] && ref_opt=(--reference-doc="$ref")
 printf '%s\n' "$md" | pandoc -f markdown -t docx "${ref_opt[@]}" -o "$out"

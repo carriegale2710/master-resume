@@ -11,7 +11,7 @@ fi
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
 input="$tmp_dir/synthetic-resume.md"
-docx="$tmp_dir/synthetic-resume.docx"
+out_dir="$tmp_dir/out"
 
 cat > "$input" <<'EOF'
 # Synthetic Docx Export Check
@@ -19,7 +19,8 @@ cat > "$input" <<'EOF'
 Docx export regression fixture.
 EOF
 
-bash "$repo_root/scripts/build.sh" "$input" >/dev/null
+RESUME_OUT_DIR="$out_dir" bash "$repo_root/scripts/build.sh" "$input" >/dev/null
+docx="$(ls "$out_dir"/*-synthetic-resume.docx)"
 [[ -s "$docx" ]] || {
   echo "FAIL: build.sh did not create a non-empty docx" >&2
   exit 1

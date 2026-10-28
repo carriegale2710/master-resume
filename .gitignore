@@ -2,5 +2,6 @@
 .DS_Store
 *.tmp
 *.log
-# Uncomment to keep PDFs out of git:
-# *.pdf
+# keep final versions with contact info out of git:
+*.pdf
+*.docx
