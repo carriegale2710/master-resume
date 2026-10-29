@@ -2,7 +2,7 @@
 
 ## **Junior Full-Stack Developer | React, TypeScript, Node.js, Java, Spring Boot, SQL, AWS**
 
-${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${RESUME_LINKS}
+${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 Career-transition junior full-stack developer with hands-on experience delivering NestJS/MySQL and Next.js features in an Agile team, and building deployed applications with React, TypeScript, Java/Spring Boot and SQL. Combines end-to-end engineering delivery with UX and accessibility expertise to build practical, user-centred web products.
 

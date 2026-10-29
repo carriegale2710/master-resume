@@ -1,6 +1,6 @@
 # ${RESUME_NAME}
 IT Helpdesk Trainee | Customer Support, Testing, Plain-Language Communication, SQL, AWS
-${RESUME_LOCATION} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS} | ${RESUME_WORKRIGHTS}
+${RESUME_LOCATION} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL} | ${RESUME_WORKRIGHTS}
 
 ## Summary
 Graduate with an IT postgraduate qualification, moving into IT support. Tests web features end to end, checks AI-generated code against requirements, and explains technical issues in plain language to non-technical people. Brings customer service experience from fast-paced retail and food service.

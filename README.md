@@ -58,7 +58,7 @@ Hard gates: zero unsupported claims in anything `ready`; metrics only from `mast
 
 ## Private header
 
-Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}` (older drafts may still use `${RESUME_LINKS}`). Put real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
+Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}`. Put real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
 
 ```
 RESUME_NAME="Your Name"
@@ -71,7 +71,7 @@ LINKEDIN_URL="linkedin.com/in/you"
 PORTFOLIO_URL="yourportfolio.com"
 ```
 
-The build substitutes them and fails if `.env` or a variable the draft uses is missing. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
+The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its ` | ` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
 
 ## Tags
 

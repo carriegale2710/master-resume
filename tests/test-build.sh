@@ -123,7 +123,7 @@ EOF
 chmod +x "$capture_bin/pandoc"
 
 header_resume="$tmp_dir/header-resume.md"
-printf '# ${RESUME_NAME}\n${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}\n${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}\nSaved $5 for ${RESUME_NAME}\n' > "$header_resume"
+printf '# ${RESUME_NAME}\n${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE}\n${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}\nSaved $5 for ${RESUME_NAME}\n' > "$header_resume"
 
 env_file="$tmp_dir/test.env"
 cat > "$env_file" <<'EOF'
@@ -132,7 +132,6 @@ RESUME_EMAIL="test@example.invalid"
 RESUME_LOCATION="Testville, NSW"
 RESUME_WORKRIGHTS="Test work rights"
 RESUME_PHONE="0400 000 000"
-RESUME_LINKS="example.invalid/test"
 GITHUB_URL="github.invalid/test"
 LINKEDIN_URL="linkedin.invalid/test"
 PORTFOLIO_URL="portfolio.invalid"
@@ -142,7 +141,7 @@ export PANDOC_CAPTURE="$tmp_dir/captured.md"
 RESUME_ENV_FILE="$env_file" PATH="$capture_bin:$PATH" docx_build "$header_resume" >/dev/null
 captured="$(<"$PANDOC_CAPTURE")"
 contains "$captured" 'Test & Name \ Synthetic'
-contains "$captured" "Testville, NSW | Test work rights | test@example.invalid | 0400 000 000 | example.invalid/test"
+contains "$captured" "Testville, NSW | Test work rights | test@example.invalid | 0400 000 000"
 contains "$captured" 'Saved $5 for Test & Name \ Synthetic'
 contains "$captured" "github.invalid/test | linkedin.invalid/test | portfolio.invalid"
 omits "$captured" 'RESUME_'
@@ -159,6 +158,13 @@ contains "$missing_err" "Missing RESUME_EMAIL"
 grep -v '^RESUME_WORKRIGHTS=' "$env_file" > "$tmp_dir/partial2.env"
 wr_err="$(RESUME_ENV_FILE="$tmp_dir/partial2.env" PATH="$capture_bin:$PATH" docx_build "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when RESUME_WORKRIGHTS is unset"
 contains "$wr_err" "Missing RESUME_WORKRIGHTS"
+
+grep -Ev '^(LINKEDIN|PORTFOLIO)_URL=' "$env_file" > "$tmp_dir/nourls.env"
+RESUME_ENV_FILE="$tmp_dir/nourls.env" PATH="$capture_bin:$PATH" docx_build "$header_resume" >/dev/null || fail "Expected build to pass when optional URLs are unset"
+nourls="$(<"$PANDOC_CAPTURE")"
+contains "$nourls" $'\ngithub.invalid/test\n'
+omits "$nourls" '_URL}'
+omits "$nourls" '| |'
 
 nofile_err="$(RESUME_ENV_FILE="$tmp_dir/does-not-exist.env" PATH="$capture_bin:$PATH" docx_build "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when .env is missing"
 contains "$nofile_err" "Missing $tmp_dir/does-not-exist.env"

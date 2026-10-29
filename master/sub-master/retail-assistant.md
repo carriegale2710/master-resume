@@ -2,7 +2,7 @@
 
 ## **Retail Assistant | React, TypeScript, Node.js, Java, Spring Boot, SQL, AWS**
 
-${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${RESUME_LINKS}
+${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 ## About
 

@@ -2,7 +2,7 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No versions tagged yet.
 
-## [Unreleased] - 2026-10-29
+## [0.1.0] - 2026-10-29
 
 ### Added
 
@@ -25,7 +25,9 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - `tracker.csv` `eligibility` column, filled by `tracker-intake` from posting criteria.
 - `tracker.csv` `EXAMPLE-` row shows what each column holds.
 - `tracker.csv` `source` column holds original posting URL.
-- `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` placeholders filled from `.env` at build.
+- `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_PHONE}` placeholders filled from `.env` at build.
+- `${GITHUB_URL}`, `${LINKEDIN_URL}`, `${PORTFOLIO_URL}` header placeholders, filled from `.env`.
+- Unset `*_URL` optional; build drops it plus `|`.
 
 ### Changed
 
@@ -45,6 +47,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 - `scripts/link-skills.sh`, its test and CI step, no longer needed.
 - PDF export (`--pdf`, WeasyPrint), `templates/style.css` and `tests/test-pdf-export.sh`.
+- Breaking: `${RESUME_LINKS}` gone; old drafts print it literally.
 
 ### Fixed
 

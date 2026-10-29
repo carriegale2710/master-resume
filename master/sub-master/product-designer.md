@@ -2,7 +2,7 @@
 
 ## Graduate Product Designer | Figma, Webflow
 
-${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${RESUME_LINKS}
+${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 Product Design graduate passionate about creating user-centered, data-driven solutions for startups. Skilled in UX/UI design, generative user research, and rapid prototyping, with a track record of shaping product direction in fast-paced cross-functional teams.
 

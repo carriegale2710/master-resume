@@ -9,7 +9,7 @@
 
 ## 0. Header and admin facts
 
-${RESUME_NAME} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
+${RESUME_NAME} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 ### Summary variants
 

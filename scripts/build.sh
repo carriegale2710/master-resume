@@ -63,10 +63,15 @@ if grep -Eq '\$\{(RESUME_|GITHUB_URL|LINKEDIN_URL|PORTFOLIO_URL)' <<<"$md"; then
   env_file="${RESUME_ENV_FILE:-$(dirname "$0")/../.env}"
   [ -f "$env_file" ] || { echo "Missing $env_file" >&2; exit 1; }
   set -a; . "$env_file"; set +a
-  for v in RESUME_NAME RESUME_EMAIL RESUME_LOCATION RESUME_PHONE RESUME_LINKS RESUME_WORKRIGHTS GITHUB_URL LINKEDIN_URL PORTFOLIO_URL; do
+  for v in RESUME_NAME RESUME_EMAIL RESUME_LOCATION RESUME_PHONE RESUME_WORKRIGHTS GITHUB_URL LINKEDIN_URL PORTFOLIO_URL; do
     tok='${'"$v"'}'
     [[ "$md" == *"$tok"* ]] || continue
-    [ -n "${!v:-}" ] || { echo "Missing $v in $env_file" >&2; exit 1; }
+    if [ -z "${!v:-}" ]; then
+      # *_URL placeholders are optional: drop them with their " | " separator.
+      [[ "$v" == *_URL ]] || { echo "Missing $v in $env_file" >&2; exit 1; }
+      md="${md//" | $tok"/}"; md="${md//"$tok | "/}"; md="${md//"$tok"/}"
+      continue
+    fi
     md="${md//"$tok"/"${!v}"}"
   done
 fi

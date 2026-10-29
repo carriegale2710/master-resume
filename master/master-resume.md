@@ -13,7 +13,7 @@
 - Name: ${RESUME_NAME}
 - Location: ${RESUME_LOCATION}
 - Phone / Email: ${RESUME_PHONE} / ${RESUME_EMAIL}
-- LinkedIn / GitHub / Portfolio: ${RESUME_LINKS}
+- LinkedIn / GitHub / Portfolio: ${LINKEDIN_URL} / ${GITHUB_URL} / ${PORTFOLIO_URL}
 - Work rights / visa status: ${RESUME_WORKRIGHTS}
 - Languages: English (native) | Korean: semi-fluent / intermediate-to-advanced (2 years of university electives) | Japanese: beginner
 

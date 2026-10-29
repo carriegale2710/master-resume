@@ -1,7 +1,7 @@
 # ${RESUME_NAME}
 
 Technology Associate (Engineering) | Java, Spring Boot, React, TypeScript, NestJS, SQL, AWS
-${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
+${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 ## Summary
 

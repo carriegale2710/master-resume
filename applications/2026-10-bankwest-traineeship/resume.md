@@ -1,7 +1,7 @@
 # ${RESUME_NAME}
 
 Junior Full-Stack Developer | React, TypeScript, Node.js, Java, Spring Boot, SQL, AWS
-${RESUME_LOCATION} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
+${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 ## Summary
 
@@ -29,11 +29,11 @@ Selected in the top 12 of 1,000+ applicants; learnt HTML/CSS, JavaScript, React,
 **Employee Creator** | React, TypeScript, Java, Spring Boot, MySQL, AWS (EC2, S3), GitHub Actions | ${GITHUB_URL}/employee-creator
 
 - Built a React and TypeScript frontend on a Spring Boot REST API and MySQL database, so users could register employees, manage contract details and retrieve records in the browser.
-- Wrote a 40+ automated test suite (JUnit, Vitest) and ran backend tests in GitHub Actions CI, so changes were checked automatically.
+- Wrote 40+ automated tests (JUnit, Vitest) and ran backend tests in GitHub Actions CI, so changes were checked automatically.
 
 **Trivia Game** (2-person team) | React, TypeScript, Tailwind CSS, Java, Spring Boot, MySQL, Docker, AWS (EC2, S3) | mytriviagame.lol | github.com/CodeByFred/trivia
 
-- Designed the UX/UI and built most of the React frontend (97 of the repo's 128 commits), alongside a teammate-led Spring Boot and MySQL backend that saved every completed game, so players could finish a round and see their results on any device.
+- Designed the UX/UI and built most of the React frontend (97 of the repo's 128 commits), with a responsive game flow and scoring, so players could finish a round and see their results on any device; a teammate led the Spring Boot and MySQL backend that saved every completed game.
 
 **Indigenous Library Portal** (5-person team) | Python, Flask, MySQL, Bootstrap, AWS (EC2, S3), GitHub Actions | ${GITHUB_URL}/indigenous-library
 
