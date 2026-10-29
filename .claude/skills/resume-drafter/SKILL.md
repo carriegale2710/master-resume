@@ -5,9 +5,9 @@ description: Draft a tailored one-page resume from master/master-resume.md for a
 
 # Draft a tailored one-page resume
 
-Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `master/universal-checklist.md`, a template in `templates/` (dev, hybrid or design), and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
+Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `checklists/universal-checklist.md`, a template in `templates/` (dev, hybrid or design), and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
 
-Read `master/universal-checklist.md` first. The draft must pass every item (one target role, headline states stack, what+how+why bullets, no generic Skills section, Education & Training placement, fully typed links). Report any item that fails or cannot be met from the master.
+Read `checklists/universal-checklist.md` first. The draft must pass every item (one target role, headline states stack, what+how+why bullets, no generic Skills section, Education & Training placement, fully typed links). Report any item that fails or cannot be met from the master.
 
 1. Read the job description. List required skills, tools, seniority and the role family (full-stack, frontend, QA, UX/accessibility, AI evaluation).
 2. Pick the matching template. If unclear, choose hybrid and say so.

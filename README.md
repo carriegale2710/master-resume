@@ -97,7 +97,8 @@ master-resume/
 ├── .env.example                   # sample resume content, not env variables
 ├── .claude/settings.json          # denies Read on .env
 ├── .github/workflows/tests.yml
-├── master/                        # master-resume.md, skills-inventory.csv, metrics-log.csv, narrative-notes.md, archive.md, universal-checklist.md
+├── master/                        # master-resume.md, skills-inventory.csv, metrics-log.csv, narrative-notes.md, archive.md
+├── checklists/                    # universal-checklist.md plus role checklists
 ├── industry/                      # design/ and dev/ tailoring guides
 ├── .claude/skills/                # README.md and <skill-name>/SKILL.md
 ├── templates/                     # dev.md, hybrid.md, design.md
