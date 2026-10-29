@@ -40,6 +40,13 @@ omits "$all_tags" "PRIVATE_SENTINEL"
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
 
+# Docx builds need a verified tracker row: use a throwaway tracker, reset before each build, approve with y.
+export TRACKER="$tmp_dir/tracker.csv"
+docx_build() {
+  printf 'id,status,last_update\n%s,verified,\n' "$(basename "$(dirname "$(realpath "${@: -1}")")")" > "$TRACKER"
+  bash "$repo_root/scripts/build.sh" "$@" <<< y
+}
+
 mock_bin="$tmp_dir/bin"
 mkdir -p "$mock_bin"
 cat << 'EOF' > "$mock_bin/pandoc"
@@ -58,7 +65,7 @@ large_todo="$tmp_dir/large-todo.md"
   done
 } > "$large_todo"
 
-todo_err="$(PATH="$mock_bin:$PATH" bash "$repo_root/scripts/build.sh" "$large_todo" 2>&1 >/dev/null)"
+todo_err="$(PATH="$mock_bin:$PATH" docx_build "$large_todo" 2>&1 >/dev/null)"
 contains "$todo_err" "WARNING: TODO placeholders remain in output:"
 contains "$todo_err" "3:- TODO: synthetic placeholder item"
 
@@ -72,7 +79,7 @@ clean_resume="$tmp_dir/clean-resume.md"
   done
 } > "$clean_resume"
 
-clean_err="$(PATH="$mock_bin:$PATH" bash "$repo_root/scripts/build.sh" "$clean_resume" 2>&1 >/dev/null)"
+clean_err="$(PATH="$mock_bin:$PATH" docx_build "$clean_resume" 2>&1 >/dev/null)"
 omits "$clean_err" "WARNING: TODO placeholders remain in output:"
 omits "$clean_err" "TODO"
 
@@ -100,10 +107,10 @@ tagged_todo="$tmp_dir/tagged-todo.md"
   echo "- \`frontend\` Clean frontend bullet"
 } > "$tagged_todo"
 
-filtered_todo_err="$(PATH="$mock_bin:$PATH" bash "$repo_root/scripts/build.sh" --tags frontend "$tagged_todo" 2>&1 >/dev/null)"
+filtered_todo_err="$(PATH="$mock_bin:$PATH" docx_build --tags frontend "$tagged_todo" 2>&1 >/dev/null)"
 omits "$filtered_todo_err" "WARNING: TODO placeholders remain in output:"
 
-tagged_todo_err="$(PATH="$mock_bin:$PATH" bash "$repo_root/scripts/build.sh" --tags qa "$tagged_todo" 2>&1 >/dev/null)"
+tagged_todo_err="$(PATH="$mock_bin:$PATH" docx_build --tags qa "$tagged_todo" 2>&1 >/dev/null)"
 contains "$tagged_todo_err" "WARNING: TODO placeholders remain in output:"
 contains "$tagged_todo_err" "TODO: qa item"
 
@@ -129,7 +136,7 @@ RESUME_LINKS="example.invalid/test"
 EOF
 
 export PANDOC_CAPTURE="$tmp_dir/captured.md"
-RESUME_ENV_FILE="$env_file" PATH="$capture_bin:$PATH" bash "$repo_root/scripts/build.sh" "$header_resume" >/dev/null
+RESUME_ENV_FILE="$env_file" PATH="$capture_bin:$PATH" docx_build "$header_resume" >/dev/null
 captured="$(<"$PANDOC_CAPTURE")"
 contains "$captured" 'Test & Name \ Synthetic'
 contains "$captured" "Testville, NSW | Test work rights | test@example.invalid | 0400 000 000 | example.invalid/test"
@@ -141,14 +148,14 @@ contains "$header_md" '${RESUME_EMAIL}'
 omits "$header_md" "test@example.invalid"
 
 grep -v '^RESUME_EMAIL=' "$env_file" > "$tmp_dir/partial.env"
-missing_err="$(RESUME_ENV_FILE="$tmp_dir/partial.env" PATH="$capture_bin:$PATH" bash "$repo_root/scripts/build.sh" "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when RESUME_EMAIL is unset"
+missing_err="$(RESUME_ENV_FILE="$tmp_dir/partial.env" PATH="$capture_bin:$PATH" docx_build "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when RESUME_EMAIL is unset"
 contains "$missing_err" "Missing RESUME_EMAIL"
 
 grep -v '^RESUME_WORKRIGHTS=' "$env_file" > "$tmp_dir/partial2.env"
-wr_err="$(RESUME_ENV_FILE="$tmp_dir/partial2.env" PATH="$capture_bin:$PATH" bash "$repo_root/scripts/build.sh" "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when RESUME_WORKRIGHTS is unset"
+wr_err="$(RESUME_ENV_FILE="$tmp_dir/partial2.env" PATH="$capture_bin:$PATH" docx_build "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when RESUME_WORKRIGHTS is unset"
 contains "$wr_err" "Missing RESUME_WORKRIGHTS"
 
-nofile_err="$(RESUME_ENV_FILE="$tmp_dir/does-not-exist.env" PATH="$capture_bin:$PATH" bash "$repo_root/scripts/build.sh" "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when .env is missing"
+nofile_err="$(RESUME_ENV_FILE="$tmp_dir/does-not-exist.env" PATH="$capture_bin:$PATH" docx_build "$header_resume" 2>&1 >/dev/null)" && fail "Expected build to fail when .env is missing"
 contains "$nofile_err" "Missing $tmp_dir/does-not-exist.env"
 
 sub_bullet="$tmp_dir/sub-bullet.md"
@@ -169,5 +176,11 @@ printf '%s\n' "# Trailing Tag Resume" "" '- Built a thing `frontend`' > "$traili
 trailing_out="$(bash "$repo_root/scripts/build.sh" --tags frontend --md-only "$trailing_tag")"
 contains "$trailing_out" "Built a thing"
 omits "$trailing_out" '`frontend`'
+
+new_tags="$tmp_dir/new-tags.md"
+printf '%s\n' "# New Tag Resume" "" '- `research` `customer-service` Ran a synthetic survey.' > "$new_tags"
+new_tags_out="$(bash "$repo_root/scripts/build.sh" --tags research --md-only "$new_tags")"
+contains "$new_tags_out" "- Ran a synthetic survey."
+omits "$new_tags_out" '`'
 
 echo "PASS: build.sh filters tags, removes private metadata, warns on TODO placeholders, and fills the private header from .env"

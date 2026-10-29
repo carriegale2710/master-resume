@@ -2,3 +2,4 @@ Claim,Where used,Type,How derived / source,Safe wording
 3 REST endpoints,Acme,Fact,PR link,n/a
 40% faster reports,Acme,Estimate,"Single local timing, no sample",Improved report generation time
 25 automated tests,Task Board,Fact,CI run,n/a
+PRIVATE_SENTINEL synthetic metrics row,None,Fact,Synthetic leak check,n/a

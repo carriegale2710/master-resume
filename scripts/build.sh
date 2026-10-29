@@ -34,7 +34,8 @@ filter() {
     }
     /^  - / { if (keep) print; next }
     { keep = 1; print }
-  ' "$in" | sed -E 's/`(fullstack|backend|frontend|qa|ux|a11y|ai-eval|devops|product|leadership|security)` ?//g'
+  ' "$in" | sed -E 's/`[a-z][a-z0-9-]*` ?//g'
+  # ponytail: strips any lowercase-kebab `token` (every Tag key tag); list tags explicitly if a resume needs inline code like `npm`.
 }
 
 if [ "$md_only" -eq 1 ]; then filter; exit 0; fi

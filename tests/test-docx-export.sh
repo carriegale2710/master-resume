@@ -19,7 +19,10 @@ cat > "$input" <<'EOF'
 Docx export regression fixture.
 EOF
 
-RESUME_OUT_DIR="$out_dir" bash "$repo_root/scripts/build.sh" "$input" >/dev/null
+# Throwaway tracker with a verified row so the approval gate passes; y answers the prompt.
+export TRACKER="$tmp_dir/tracker.csv"
+printf 'id,status,last_update\n%s,verified,\n' "$(basename "$tmp_dir")" > "$TRACKER"
+RESUME_OUT_DIR="$out_dir" bash "$repo_root/scripts/build.sh" "$input" <<< y >/dev/null
 docx="$(ls "$out_dir"/*-synthetic-resume.docx)"
 [[ -s "$docx" ]] || {
   echo "FAIL: build.sh did not create a non-empty docx" >&2
