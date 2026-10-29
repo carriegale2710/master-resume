@@ -5,3 +5,6 @@
 # keep final versions with contact info out of git:
 *.pdf
 *.docx
+
+# personal scratch pad
+TODO.md
