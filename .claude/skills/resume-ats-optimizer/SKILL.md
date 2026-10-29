@@ -7,7 +7,7 @@ description: Review resume formatting and evidence-backed keyword alignment for 
 
 ## Source-of-truth rules
 
-Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent or infer skills, tools, experience, dates, titles, metrics, or outcomes. Use job-description terminology only when the master supports the claim. Treat `TODO` as unknown, and follow section 6 safe-wording rules for numbers. Examples in this skill are illustrative only and must not be reused as facts or claims.
+Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent or infer skills, tools, experience, dates, titles, metrics, or outcomes. Use job-description terminology only when the master supports the claim. Treat `TODO` as unknown, and follow `master/metrics-log.csv` safe-wording rules for numbers. Examples in this skill are illustrative only and must not be reused as facts or claims.
 
 ## When to Use This Skill
 

@@ -13,7 +13,7 @@ To style the `.docx`, create `templates/reference.docx` with `pandoc -o template
 ## Scripts
 
 - `scripts/new-application.sh company-role`: creates `applications/<YYYY-MM>-company-role/` with `job-description.md`, `notes.md` and an empty `cover-letter.md`, and appends a `pending` row to `applications/tracker.csv`. Names allow ASCII letters, numbers and hyphens only; it refuses to overwrite a folder.
-- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: filters bullets by tag, drops master sections 6-10, tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown and never reads `.env`. Otherwise it requires tracker status `verified`, asks `Approve and build docx? [y/N]` (yes sets `ready`), fills the `${RESUME_*}` header from `.env`, writes `~/Downloads/<folder>-<name>.docx` (override with `RESUME_OUT_DIR`) and sets the tracker status to `exported`.
+- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: filters bullets by tag, drops master section 6 (and any later section), tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown and never reads `.env`. Otherwise it requires tracker status `verified`, asks `Approve and build docx? [y/N]` (yes sets `ready`), fills the `${RESUME_*}` header from `.env`, writes `~/Downloads/<folder>-<name>.docx` (override with `RESUME_OUT_DIR`) and sets the tracker status to `exported`.
 - `scripts/set-status.sh <folder> <status>`: sets `status` and `last_update` on the tracker row whose `id` is the folder name. Skills call it; `TRACKER` overrides the file.
 
 ## Tests
@@ -47,7 +47,7 @@ bash tests/run-all.sh
 
 Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported` (both set by `build.sh` after your y/N approval). `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date, eligibility`.
 
-Hard gates: zero unsupported claims in anything `ready`; metrics only from master section 6 using its safe wording; nothing from master sections 6-10 in output; one page target, two pages limit.
+Hard gates: zero unsupported claims in anything `ready`; metrics only from `master/metrics-log.csv` using its safe wording; nothing from master section 6, `master/narrative-notes.md` or `master/archive.md` in output; one page target, two pages limit.
 
 ### Not built yet
 
@@ -77,7 +77,7 @@ The build substitutes them and fails if `.env` or a variable the draft uses is m
 
 - `master/master-resume.md` is the source of truth. Edit canonical files only in `master/`, `.claude/skills/` or `AGENTS.md`.
 - One `applications/YYYY-MM-company-role/` folder per application; copy improved bullets to the master the same day.
-- Log every number in section 6. Weekly: update master and metrics log. Monthly: check links. Quarterly: archive stale bullets.
+- Log every number in `master/metrics-log.csv`. Weekly: update master and metrics log. Monthly: check links. Quarterly: move stale bullets to `master/archive.md`.
 - Master section references live in `AGENTS.md` and the skills; keep them in sync if sections move.
 - Keep this repo **private**.
 
@@ -85,7 +85,7 @@ The build substitutes them and fails if `.env` or a variable the draft uses is m
 
 - `AGENTS.md` holds the canonical rules; `CLAUDE.md` points to it.
 - `.claude/skills/` holds the skills as plain Markdown. Order: `tracker-intake`, `resume-drafter`, `resume-ats-optimizer`, `verify-claims`, then optionally `cover-letter-generator` and `interview-prep-generator`.
-- Tools without file access: paste `AGENTS.md` into the instructions and upload only the skill, master and job description needed. Never upload private notes to tools you do not control.
+- Tools without file access: paste `AGENTS.md` into the instructions and upload only the skill, master and job description needed. Never upload `master/metrics-log.csv`, `master/narrative-notes.md` or `master/archive.md` to tools you do not control.
 
 ## Repository structure
 
@@ -97,7 +97,7 @@ master-resume/
 ├── .env.example                   # sample resume content, not env variables
 ├── .claude/settings.json          # denies Read on .env
 ├── .github/workflows/tests.yml
-├── master/                        # master-resume.md, universal-checklist.md
+├── master/                        # master-resume.md, skills-inventory.csv, metrics-log.csv, narrative-notes.md, archive.md, universal-checklist.md
 ├── industry/                      # design/ and dev/ tailoring guides
 ├── .claude/skills/                # README.md and <skill-name>/SKILL.md
 ├── templates/                     # dev.md, hybrid.md, design.md

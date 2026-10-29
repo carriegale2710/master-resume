@@ -59,27 +59,14 @@ TypeScript, React, Express, PostgreSQL | 2023
 - `fullstack` Built a task board with login, drag-and-drop columns and a REST API.
 - `qa` Reached 25 automated tests in CI.
 
-## 6. Metrics log (evidence for every number)
+## 6. Private constraints and evidence (NEVER on a resume)
 
-| Claim                    | Where used  | Type     | How derived / source           | Safe wording                         |
-| ------------------------ | ----------- | -------- | ------------------------------ | ------------------------------------ |
-| 3 REST endpoints         | Acme        | Fact     | PR link                        | n/a                                  |
-| 40% faster reports       | Acme        | Estimate | Single local timing, no sample | Improved report generation time      |
-| 25 automated tests       | Task Board  | Fact     | CI run                         | n/a                                  |
+- Skills inventory: `master/skills-inventory.csv`.
+- Metrics log (evidence for every number): `master/metrics-log.csv`.
+- Narrative notes (private): `master/narrative-notes.md`.
+- Maintenance checklist and archive (private): `master/archive.md`.
+- Application log: `applications/tracker.csv`.
 
-## 7. Private notes (NEVER on a resume)
-
-PRIVATE_SENTINEL: synthetic private note that must not appear in output.
 Synthetic NDA note: do not name the client tool "SyntheticTool".
 
-## 8. Application log
-
-PRIVATE_SENTINEL: synthetic application log row.
-
-## 9. Maintenance checklist
-
-- [ ] Synthetic item
-
-## 10. Archive
-
-PRIVATE_SENTINEL: synthetic retired bullet.
+PRIVATE_SENTINEL: synthetic private constraint.

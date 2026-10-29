@@ -31,6 +31,9 @@ for c in "${cases[@]}"; do
   mkdir -p "$work/.claude" && cp -r "$repo_root/.claude/skills" "$work/.claude/" && cp -r "$repo_root/scripts" "$work/"
   cp "$fixtures/dummy-master.md" "$work/master/master-resume.md"
   cp "$fixtures/dummy-skills-inventory.csv" "$work/master/skills-inventory.csv"
+  cp "$fixtures/dummy-metrics-log.csv" "$work/master/metrics-log.csv"
+  cp "$fixtures/dummy-narrative-notes.md" "$work/master/narrative-notes.md"
+  cp "$fixtures/dummy-archive.md" "$work/master/archive.md"
   cp "$fixtures/$jd" "$work/applications/2026-10-sample-$name/job-description.md"
 
   (cd "$work" && claude -p \

@@ -7,7 +7,7 @@ description: Identify evidence-backed opportunities to quantify resume achieveme
 
 ## Source-of-truth rules
 
-Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent, infer, calculate from unverified inputs, or estimate a metric for application content. A number may be used only when it is supported by section 6 of the master, with the required safe wording for estimates, projections, or self-reported entries. Treat `TODO` as unknown.
+Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent, infer, calculate from unverified inputs, or estimate a metric for application content. A number may be used only when it is supported by `master/metrics-log.csv`, with the required safe wording for estimates, projections, or self-reported entries. Treat `TODO` as unknown.
 
 If an applicable metric is not in the master, ask the user questions to locate supporting evidence. Do not add the answer to an application until the evidence is recorded in the master and complies with its rules. If evidence is unavailable, omit the metric and retain a factual, non-quantified description.
 
@@ -22,13 +22,13 @@ For each relevant experience, ask questions that may help locate existing eviden
 - What scope or volume is recorded in the master?
 - Is there a documented before-and-after result?
 - Is a budget, timeframe, team size, or customer count recorded?
-- Does the metrics log specify safe wording or mark the figure as an estimate, projection, or self-reported?
+- Does `master/metrics-log.csv` specify safe wording or mark the figure as an estimate, projection, or self-reported?
 
 Potential metric categories include money, time, percentages, volume, quality, and frequency. These are prompts for searching the source, not permission to infer or calculate a claim.
 
 ## Workflow
 
-1. Review the relevant experience and section 6 of `master/master-resume.md`.
+1. Review the relevant experience in `master/master-resume.md` and its rows in `master/metrics-log.csv`.
 2. Identify claims already supported by the master and preserve any required safe wording.
 3. Ask the user focused questions only when they could help find or verify evidence for an existing master entry.
 4. Flag missing evidence or `TODO` entries; never fill them in.
@@ -56,7 +56,7 @@ Potential metric categories include money, time, percentages, volume, quality, a
 ## Quality Checklist
 
 - Every factual claim is supported by the master.
-- Numbers follow section 6 and use required safe wording.
+- Numbers follow `master/metrics-log.csv` and use required safe wording.
 - Unknowns and `TODO` entries are flagged, not filled in.
 - Unsupported metrics are omitted; no metric is required when none applies.
 - The final bullet describes the user's contribution without exaggeration.

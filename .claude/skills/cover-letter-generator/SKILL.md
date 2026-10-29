@@ -7,7 +7,7 @@ description: Create personalized, compelling cover letters from resume and job d
 
 ## Source-of-truth rules
 
-Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent or infer skills, tools, dates, titles, metrics, or outcomes. Use a number only when supported by section 6 of the master and follow its required safe wording; treat `TODO` as unknown. Any examples in this skill are fictional illustrations and must not be reused as facts or claims. A complete cover letter does not need a metric: include one only when a relevant, supported metric exists.
+Follow the repository's `AGENTS.md` and evidence rules before using this skill. `master/master-resume.md` is the only source of facts. Never invent or infer skills, tools, dates, titles, metrics, or outcomes. Use a number only when supported by `master/metrics-log.csv` and follow its required safe wording; treat `TODO` as unknown. For story, differentiators and likely objections, read `master/narrative-notes.md`: rewrite, never paste verbatim, and back each point with a proof point from the master. Any examples in this skill are fictional illustrations and must not be reused as facts or claims. A complete cover letter does not need a metric: include one only when a relevant, supported metric exists.
 
 ## When to Use This Skill
 

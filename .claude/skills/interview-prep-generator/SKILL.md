@@ -5,6 +5,10 @@ description: Generate STAR stories, practice questions, and talking points from 
 
 # Interview Prep Generator
 
+## Source-of-truth rules
+
+Follow the repository's `AGENTS.md`. `master/master-resume.md` is the only source of facts. For personal story, differentiators and likely objections, read `master/narrative-notes.md`: rewrite, never paste verbatim, and back each point with a proof point from the master.
+
 ## When to Use This Skill
 
 Use this skill when the user wants to:

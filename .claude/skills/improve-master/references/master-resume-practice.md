@@ -23,25 +23,25 @@ Also: gaps in dates explained, languages and memberships, and strengths other pe
 ## Maintenance rules
 
 1. Update when something is learnt, finished or shipped, not later. Raw wins can be trimmed afterwards, but a forgotten fact is hard to recover (summary).
-2. Hold a scheduled review as well. CPA Australia ties it to the performance-review cycle. This repo uses section 9 of the master (weekly, monthly, quarterly).
+2. Hold a scheduled review as well. CPA Australia ties it to the performance-review cycle. This repo uses the maintenance checklist in `master/archive.md` (weekly, monthly, quarterly).
 3. Edit only the master. Tailored copies are disposable.
-4. Retire material to the archive. Do not delete it.
+4. Retire material to the "Archive" section of `master/archive.md`. Do not delete it.
 5. Keep one core story. Dates, titles and levels must agree across the master, LinkedIn and every tailored copy.
 
 ## Quality bar for a bullet
 
 - What was done, how, and why it mattered. Past tense, plain words.
-- A number only if it has a metrics-log row. Otherwise use the safe wording.
+- A number only if it has a `master/metrics-log.csv` row. Otherwise use the safe wording.
 - No filler adjectives. Australian English.
 
 ## Gaps this repo should check on every review
 
 - Any `TODO` field.
-- Metrics-log rows typed Estimate, Projection, Self-reported, Unverified, Conflict or Unquantified, and any TODO evidence cell.
-- Items in the "Conflicts between this master and older CVs" list.
-- Skills-inventory level placements unconfirmed, and skills with no evidencing bullet.
-- Interview stories (STAR) still `TODO` in the private notes.
-- Section 9 checklist items overdue.
+- `master/metrics-log.csv` rows typed Estimate, Projection, Self-reported, Unverified, Conflict or Unquantified, and any TODO evidence cell.
+- Items in the "Conflicts between this master and older CVs" list (master section 6).
+- `master/skills-inventory.csv` level placements unconfirmed, and skills with no evidencing bullet.
+- Interview stories (STAR) still `TODO` in master section 6.
+- `master/archive.md` maintenance checklist items overdue.
 - Recent work not yet in the master.
 
 ## Limits

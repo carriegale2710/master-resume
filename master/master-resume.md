@@ -1,7 +1,7 @@
 # MASTER RESUME (source of truth: never submit this directly)
 
 > **Use:** `bash scripts/new-application.sh company-role`, filter bullets by tag, cut to one page, tick `checklists/universal-checklist.md`, export as **.docx**.
-> **Rules:** Edit facts here only. Every number needs a Metrics Log row (section 6). Fill every `TODO` before reusing a claim. Swap unproven numbers for the safe wording.
+> **Rules:** Edit facts here only. Every number needs a row in `master/metrics-log.csv` (section 6). Fill every `TODO` before reusing a claim. Swap unproven numbers for the safe wording.
 
 **Tag key:** `fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security` `research` `ecommerce` `startup` `retail` `customer-service`
 **Variant key:** **S** = short one-liner, **M** = standard, **Q** = quantified
@@ -400,47 +400,12 @@ Seoul, South Korea and Saitama, Japan | Jun 2018 – Feb 2019 | Rikkyo grade: 90
 
 ---
 
-## 6. Metrics log (evidence for every number)
+## 6. Private constraints and evidence (NEVER on a resume)
 
-| Claim                                                                  | Where used                 | Type          | How derived / source                                                                                                                                                                                     | Safe wording if unproven                            |
-| ---------------------------------------------------------------------- | -------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| 3 REST endpoints                                                       | \_nology                   | Self-reported | Private \_nology repo, checked by user; not shareable                                                                                                                                                    | "REST endpoints"                                    |
-| 50 seeded records                                                      | \_nology                   | Self-reported | Private \_nology repo, checked by user; not shareable                                                                                                                                                    | "seeded the database"                               |
-| 40+ automated tests                                                    | Employee Creator           | Fact          | Repo test sources: 61 JUnit @Test + 27 Vitest blocks (static count, 2026-10-29); backend CI: spring-boot-test.yml                                                                                        | "automated test suite"                              |
-| Two-week project timeframe                                             | Library Portal             | Fact          | Project Documentation                                                                                                                                                                                    | TODO                                                |
-| 20 seeded collection items                                             | Library Portal             | Fact          | project/db/database.sql in repo (20 CollectionItem rows)                                                                                                                                                 | n/a                                                 |
-| 5-person team                                                          | Library Portal             | Fact          | Repo README (team contribution section)                                                                                                                                                                  | n/a                                                 |
-| 60% token-cost reduction                                               | GAIA 2.0                   | **Estimate**  | Unmeasured own estimate; repo README calls 40–60% 'architectural'; 80% not in repo; A/B test plan never run                                                                                              | "reduced context-memory calls"                      |
-| 80% fewer instruction inconsistencies                                  | GAIA 2.0                   | **Estimate**  | Unmeasured own estimate; repo README calls 40–60% 'architectural'; 80% not in repo; A/B test plan never run                                                                                              | "reduced prompt inconsistencies"                    |
-| 15–30% accessibility improvement (draft says 25%)                      | Freelance                  | Self-reported | Lighthouse accessibility score (contrast and WCAG checks), before/after per client site (user-stated); no records; a newer draft quotes 25% (Hotjar session data used to find issues), inside this range | "improved accessibility scores"                     |
-| 20% higher engagement                                                  | Freelance (fashion/retail) | Self-reported | Post-test user survey engagement scores, old vs refreshed design (user-stated); no records                                                                                                               | "refreshed UI and branding"                         |
-| +15% task completion                                                   | Gapmash                    | Fact          | Pilot usability tests with real users; project documents in Google Drive (user-verified)                                                                                                                 | "turned usability findings into onboarding changes" |
-| +15% Day-1 retention                                                   | Gapmash                    | **Estimate**  | Estimated from pilot usability tests; project documents in Google Drive (user-verified)                                                                                                                  | "proposed to improve retention"                     |
-| 50–100 tasks, 2–6 hrs, 4–6 projects                                    | Outlier                    | Self-reported | TODO (platform dashboard)                                                                                                                                                                                | "50+ evaluation tasks"                              |
-| Top 12 of 1,000+                                                       | \_nology                   | Fact          | Acceptance email (user-verified)                                                                                                                                                                         | n/a                                                 |
-| Top 6 of 60 teams                                                      | Startmate                  | Fact          | Linked post and photo (user-verified)                                                                                                                                                                    | n/a                                                 |
-| 5+ VC investors pitched                                                | Startmate                  | Self-reported | Co-founder testimony; social posts (user-stated)                                                                                                                                                         | "pitched to VC investors"                           |
-| 100+ members, 15–20 exec, 10–20 events/yr, 300+ attendees              | MIXSOC                     | Fact          | Social media links and posts (user-verified)                                                                                                                                                             | "grew membership from zero and ran regular events"  |
-| 15+ usability issues found                                             | Freelance                  | **Estimate**  | User-stated; no records                                                                                                                                                                                  | "identified usability issues"                       |
-| 15–30% conversion-rate improvement                                     | Freelance                  | **Estimate**  | User-stated; no records                                                                                                                                                                                  | "redesigned checkout flows"                         |
-| 10–15% bounce-rate reduction                                           | Freelance                  | **Estimate**  | User-stated; no records                                                                                                                                                                                  | "restructured information architecture"             |
-| 30% membership increase                                                | MIXSOC                     | Self-reported | User-stated; no records. Sits alongside "zero to 100+" members, so the base is unclear                                                                                                                   | "grew membership"                                   |
-| 40+ user surveys analysed                                              | Gapmash                    | Self-reported | User-stated; project documents in Google Drive not yet checked                                                                                                                                           | "analysed user surveys"                             |
-| 30–50% turnout increase; 40+ average attendees                         | MIXSOC                     | Fact          | User-verified (no records linked)                                                                                                                                                                        | "increased event turnout"                           |
-| 25% funding increase                                                   | MIXSOC                     | Fact          | Social media links and posts (user-verified)                                                                                                                                                             | "secured increased funding"                         |
-| 3+ partnerships                                                        | MIXSOC                     | Fact          | Social media links and posts (user-verified)                                                                                                                                                             | "built partnerships"                                |
-| Finalist among 20+ societies                                           | MIXSOC                     | Fact          | Nomination email (user-verified)                                                                                                                                                                         | "Best New Society nomination"                       |
-| Virtual festival, 100–200+ participants                                | MIXSOC                     | Fact          | Social media links and posts (user-verified)                                                                                                                                                             | "virtual multicultural festival"                    |
-| 97 of 128 commits                                                      | Trivia Game                | Fact          | GitHub contributors page                                                                                                                                                                                 | n/a                                                 |
-| 4–5 Perplexity sandbox workspaces; 1–2 Spaces                          | GAIA 2.0                   | Self-reported | User-stated; no records                                                                                                                                                                                  | "several Perplexity workspaces"                     |
-| Prototyping time down 20–30% (asset reuse)                             | Gapmash                    | Self-reported | User-stated (from older draft); no records                                                                                                                                                               | "reused assets from earlier prototypes"             |
-| 50+ product reviews, 10+ insights                                      | Gapmash                    | Self-reported | User-stated (from older draft); no records. Separate from the 40+ user surveys row                                                                                                                       | "synthesised user product reviews into insights"    |
-| Praise from 2 investors (Boson Ventures, OneVentures); "perfect pitch" | Startmate                  | Self-reported | User-stated (from older drafts); pitch delivered by co-founder, not me                                                                                                                                   | "pitched to VC investors"                           |
-| GPA 6.5/7, WAM 63, Rikkyo grade 90                                     | Education                  | Fact          | Transcripts                                                                                                                                                                                              | n/a                                                 |
-
----
-
-## 7. Private notes (NEVER on a resume)
+- **Metrics evidence:** `master/metrics-log.csv`. Every number on a CV needs a row; Estimate, Projection and Self-reported rows use the Safe wording column.
+- **Narrative material:** `master/narrative-notes.md` (personal story, differentiators, likely objections, target industries).
+- **Retired content and the maintenance checklist:** `master/archive.md`.
+- **Applications:** `applications/tracker.csv`.
 
 - **Outlier / Scale AI NDA:** may name the platform (Outlier / Scale AI), the processes, the types of tools and the work done. Must not name any project or the client it was for. Tool names (Figma, Google Stitch, v0) are cleared to name. Public reporting links Scale AI to OpenAI as a customer, but nothing public ties your work to any client, so never name one on a resume.
 - **WAM 63 (eligibility only):** quote only when an application form asks for WAM or a minimum average. Never put it on a resume or cover letter (the resume uses GPA 6.5/7 for QUT only).
@@ -455,68 +420,3 @@ Seoul, South Korea and Saitama, Japan | Jun 2018 – Feb 2019 | Rikkyo grade: 90
 ### Conflicts between this master and older CVs (resolve once, then delete this list)
 
 None. All older CVs have been merged into master.
-
-### Personal story and motivations (interviews, cover letters, "about me" answers)
-
-- **Journey to tech:** A first-year data visualisation elective, where my first Python script turned raw data into scatterplots, sparked an interest in how technology works. That grew into a Bachelors degree in UX/UI design and digital cultures, where I learnt user research and designing products from scratch. After graduating, Startmate's fellowship let me lead design on a startup pitch (top 6 of 60 teams), and \_nology's training turned that into a deployed first full-stack app within four months.
-- **What drives me:** Building user-centred products from the ground up, bridging design, technology and business, and understanding why something works, not just how. Treating hard problems as strategic puzzles. Designing scalable, modular systems, and working in cross-functional teams where user empathy and open dialogue shape the product. Using technology to make positive, accessible changes to people's daily lives, especially through accessibility and inclusion. Staying engaged with emerging tech, especially AI (GAIA 2.0, Outlier model evaluation).
-- **Career objective:** Join a team where design, data and software meet, and apply full-stack engineering, UX and analytics to deliver scalable, user-focused products. Connects business needs, user requirements and technical implementation.
-- **Personal achievements to mention:** Built and deployed a full-stack HR app solo with no engineering background; co-founded an accessibility startup that reached the Startmate finals (research workshops, MVP prototypes, investor pitch); founded a society of 100+ members and earned the Global Citizenship Award.
-
-### Differentiators (deduplicated; pick 2-3 per application, always with a proof point from this master)
-
-- **UX + engineering blend:** runs the research-to-code loop: turns user research and requirements into technical requirements and working features, reducing back-and-forth between design and development.
-- **Learning speed:** UX to a shipped full-stack app in about four months, then an Agile internship.
-- **Accessibility early:** WCAG-first habits (semantic HTML, keyboard use, contrast checks) reduce compliance risk and widen the user base.
-- **Communication:** investor pitching, client consulting and workshop facilitation; can explain technical trade-offs to non-technical people.
-- **Founder instincts:** comfortable with ambiguity, scoping an MVP and weighing business impact, not just code.
-- **Leadership:** founded and led a 15–20-person society; paired with a junior developer in the internship.
-- **Bilingual (English/Korean):** useful for APAC collaboration and user research (confirm level first).
-- **Stack breadth:** React, Java/Spring Boot, NestJS, SQL, AWS, which fits typical enterprise web stacks.
-
-### Likely objections and honest answers (from reviewer-style feedback)
-
-- **Limited production experience:** one Agile internship with PR review and daily stand-ups, plus deployed projects with CI, logging and health checks.
-- **Metrics missing:** the Metrics Log; quote only proven numbers and say what was measured.
-- **Breadth over depth / backend depth:** name the concrete work (role-based authorisation, migrations, audit-trail data model) and say you want a senior mentor on API design, security and observability.
-- **Testing is light:** point to JUnit, Mockito, REST Assured, Vitest, Playwright and Postman across projects and backend CI on every push and pull request; mention wanting to grow integration and contract testing.
-- **AWS is intro-level:** EC2 with HTTPS, custom domain, Log4j and health checks; moved to Render to control cost. Be upfront about IAM and monitoring being next to learn.
-- **Several concurrent commitments:** the \_nology internship was part of the training program, so those dates are one commitment, not two (section 3 note). Show completed, delivered work.
-- **Growth areas to name yourself:** production hardening (logging, observability, failure modes), security, data-modelling trade-offs, and measuring impact from day one.
-
-### Target industries and roles
-
-- **Dev / product / design:** startups and tech, e-commerce, accessibility and disability-tech, edtech, health tech, fintech, government and public services, nonprofit and social impact, UX research agencies, design consultancies. Lean on: MVP work, Shopify/checkout experience, accessibility, research and prototyping.
-- **Retail / service (use the Earlier roles section):** fashion, homeware, tech and beauty retail assistant; customer service representative; sales associate; visual merchandiser assistant; retail supervisor; e-commerce support; customer support or community manager (Korean-speaking markets); marketing assistant; events coordinator assistant; library assistant.
-
----
-
-## 8. Application log
-
-See `applications/tracker.csv`.
-
-## 9. Maintenance checklist
-
-- [ ] Within 1 week of finishing anything: add bullets, tags, and metrics evidence
-- [ ] Monthly (10 min): add new work, check links, update demo URLs
-- [ ] Quarterly: move stale material to an Archive section
-- [ ] Commit after every change (or save a dated copy)
-- [ ] Before exporting any tailored CV: follow `checklists/universal-checklist.md`
-
-## 10. Archive
-
-(Move retired bullets here instead of deleting.)
-
-### Retired bullets
-
-- `fullstack` `devops` Built a task-management app with a React, TypeScript and SCSS frontend and a Spring Boot REST API, deployed on AWS so users could manage their tasks online. _(Retired Todos App bullet: the "deployed on AWS" claim is unsupported. Project restored in section 4 as unfinished.)_
-- `backend` Built a REST API that filters questions so players only see questions matching their chosen options. _(Retired from Trivia Game: repo shows no commits for it; the filtering endpoint is a retry-mode query.)_
-- `qa` `devops` Wrote 20+ end-to-end tests and set up CI/CD for deployment to AWS. _(Retired from Trivia Game: the repo has one default test and no CI workflows or AWS config; AWS deployment is now recorded in the Trivia Game bullets as user-stated.)_
-- `backend` Improved record-retrieval responsiveness by refining concurrent query handling and structuring the MySQL data layer. _(Retired from Employee Creator: no before/after evidence; metrics row removed.)_
-- Skills: Jira/Confluence, Adobe XD. _(Retired from the skills inventory: no evidence, and removed at user request. TDD restored as \_nology training only.)_
-- Skill: Jest as a project tool. _(Retired from Employee Creator: the repo uses Vitest. Jest restored as \_nology training only, not tied to any project.)_
-- Skill: conversion optimisation. _(Retired from the E-commerce skills row: conversion was never measured.)_
-- `product` Built end-to-end experience in requirements gathering, analytical problem-solving, accessibility testing, stakeholder management and delivery ownership. _(Retired from Freelance UX/UI Designer: a skills list rather than a what/how/why bullet, and it repeated the project-management bullet.)_
-- `ai-eval` `ux` `frontend` Assigned to expertise-level model and agent evaluation projects for UX/UI design and frontend coding. _(Retired from Outlier: no how/why; merged into the "Scouted for design and frontend expertise" bullet.)_
-
-### Older-CV claims not merged (unverified or contradicted by the master; add back only with evidence)

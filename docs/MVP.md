@@ -27,8 +27,8 @@ Turn a job description into a verified, one-to-two page resume (and optionally a
 ## Hard gates
 
 - Zero unsupported claims in anything marked `ready`.
-- Metrics only from master section 6, using its safe wording for Estimate, Projection and Self-reported rows.
-- Master sections 6-10 never appear in output.
+- Metrics only from `master/metrics-log.csv`, using its safe wording for Estimate, Projection and Self-reported rows.
+- Master section 6, `master/narrative-notes.md` and `master/archive.md` never appear in output.
 - One page target; two pages limit.
 
 ## Out of scope for V1
@@ -56,4 +56,4 @@ Note intake and approval times for the first three applications in `tracker.csv`
 - [x] A JD goes in and a verified `resume.md` comes out without rewriting from scratch.
 - [x] `verify-report.md` shows no unsupported claims before `ready` is set.
 - [x] The `.docx` builds and is one or two pages in Word.
-- [x] No tag names or section 6-10 content appear in the output.
+- [x] No tag names or private master content (section 6, metrics log, narrative notes, archive) appear in the output.

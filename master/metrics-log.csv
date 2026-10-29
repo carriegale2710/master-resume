@@ -1,0 +1,34 @@
+Claim,Where used,Type,How derived / source,Safe wording if unproven
+3 REST endpoints,\_nology,Self-reported,"Private \_nology repo, checked by user; not shareable","""REST endpoints"""
+50 seeded records,\_nology,Self-reported,"Private \_nology repo, checked by user; not shareable","""seeded the database"""
+40+ automated tests,Employee Creator,Fact,"Repo test sources: 61 JUnit @Test + 27 Vitest blocks (static count, 2026-10-29); backend CI: spring-boot-test.yml","""automated test suite"""
+Two-week project timeframe,Library Portal,Fact,Project Documentation,TODO
+20 seeded collection items,Library Portal,Fact,project/db/database.sql in repo (20 CollectionItem rows),n/a
+5-person team,Library Portal,Fact,Repo README (team contribution section),n/a
+60% token-cost reduction,GAIA 2.0,**Estimate**,Unmeasured own estimate; repo README calls 40–60% 'architectural'; 80% not in repo; A/B test plan never run,"""reduced context-memory calls"""
+80% fewer instruction inconsistencies,GAIA 2.0,**Estimate**,Unmeasured own estimate; repo README calls 40–60% 'architectural'; 80% not in repo; A/B test plan never run,"""reduced prompt inconsistencies"""
+15–30% accessibility improvement (draft says 25%),Freelance,Self-reported,"Lighthouse accessibility score (contrast and WCAG checks), before/after per client site (user-stated); no records; a newer draft quotes 25% (Hotjar session data used to find issues), inside this range","""improved accessibility scores"""
+20% higher engagement,Freelance (fashion/retail),Self-reported,"Post-test user survey engagement scores, old vs refreshed design (user-stated); no records","""refreshed UI and branding"""
++15% task completion,Gapmash,Fact,Pilot usability tests with real users; project documents in Google Drive (user-verified),"""turned usability findings into onboarding changes"""
++15% Day-1 retention,Gapmash,**Estimate**,Estimated from pilot usability tests; project documents in Google Drive (user-verified),"""proposed to improve retention"""
+"50–100 tasks, 2–6 hrs, 4–6 projects",Outlier,Self-reported,TODO (platform dashboard),"""50+ evaluation tasks"""
+"Top 12 of 1,000+",\_nology,Fact,Acceptance email (user-verified),n/a
+Top 6 of 60 teams,Startmate,Fact,Linked post and photo (user-verified),n/a
+5+ VC investors pitched,Startmate,Self-reported,Co-founder testimony; social posts (user-stated),"""pitched to VC investors"""
+"100+ members, 15–20 exec, 10–20 events/yr, 300+ attendees",MIXSOC,Fact,Social media links and posts (user-verified),"""grew membership from zero and ran regular events"""
+15+ usability issues found,Freelance,**Estimate**,User-stated; no records,"""identified usability issues"""
+15–30% conversion-rate improvement,Freelance,**Estimate**,User-stated; no records,"""redesigned checkout flows"""
+10–15% bounce-rate reduction,Freelance,**Estimate**,User-stated; no records,"""restructured information architecture"""
+30% membership increase,MIXSOC,Self-reported,"User-stated; no records. Sits alongside ""zero to 100+"" members, so the base is unclear","""grew membership"""
+40+ user surveys analysed,Gapmash,Self-reported,User-stated; project documents in Google Drive not yet checked,"""analysed user surveys"""
+30–50% turnout increase; 40+ average attendees,MIXSOC,Fact,User-verified (no records linked),"""increased event turnout"""
+25% funding increase,MIXSOC,Fact,Social media links and posts (user-verified),"""secured increased funding"""
+3+ partnerships,MIXSOC,Fact,Social media links and posts (user-verified),"""built partnerships"""
+Finalist among 20+ societies,MIXSOC,Fact,Nomination email (user-verified),"""Best New Society nomination"""
+"Virtual festival, 100–200+ participants",MIXSOC,Fact,Social media links and posts (user-verified),"""virtual multicultural festival"""
+97 of 128 commits,Trivia Game,Fact,GitHub contributors page,n/a
+4–5 Perplexity sandbox workspaces; 1–2 Spaces,GAIA 2.0,Self-reported,User-stated; no records,"""several Perplexity workspaces"""
+Prototyping time down 20–30% (asset reuse),Gapmash,Self-reported,User-stated (from older draft); no records,"""reused assets from earlier prototypes"""
+"50+ product reviews, 10+ insights",Gapmash,Self-reported,User-stated (from older draft); no records. Separate from the 40+ user surveys row,"""synthesised user product reviews into insights"""
+"Praise from 2 investors (Boson Ventures, OneVentures); ""perfect pitch""",Startmate,Self-reported,"User-stated (from older drafts); pitch delivered by co-founder, not me","""pitched to VC investors"""
+"GPA 6.5/7, WAM 63, Rikkyo grade 90",Education,Fact,Transcripts,n/a

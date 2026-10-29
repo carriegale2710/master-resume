@@ -5,12 +5,13 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 ## Source of truth
 
 - `master/master-resume.md` is the only source of facts. Never invent or infer a skill, tool, date, title, metric or outcome.
-- Numbers are valid only if `master/master-resume.md` section 6 (metrics log) lists them. Rows marked **Estimate**, **Projection** or **Self-reported** must use the "safe wording" column unless the user says the evidence is ready.
+- Numbers are valid only if `master/metrics-log.csv` lists them. Rows marked **Estimate**, **Projection** or **Self-reported** must use the "Safe wording" column unless the user says the evidence is ready.
+- Skills reference: `master/skills-inventory.csv` (Strong, Proficient, Weak / exposure only). Never lead with Weak / exposure only. A skill no master bullet evidences is a `TODO`.
 - Anything marked `TODO` is unknown. Flag it; never fill it in.
 
 ## Privacy
 
-- Never copy content from sections 6-10 of the master (metrics log, private notes, application log, archive) into a resume or cover letter.
+- Never copy content from master section 6 (private constraints), `master/metrics-log.csv` (numbers only as evidenced, worded per "Safe wording"), `master/narrative-notes.md` (may inform cover letters and interview prep, rewritten; never a resume) or `master/archive.md` into a resume or cover letter.
 - Respect the Outlier / Scale AI NDA note: use generic wording for tools and project types unless the user confirms otherwise.
 - Never upload or paste this repo's private files into external services.
 - Contact details are secret. Leave `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` and `${RESUME_WORKRIGHTS}` placeholders exactly as written; they are intentional, not `TODO`. Never read `.env`, never ask for or write the real values, and never run the docx build (the user runs it locally so `.env` is filled in then).
