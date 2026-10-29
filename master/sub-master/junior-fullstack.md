@@ -37,7 +37,7 @@ Career-transition junior full-stack developer with hands-on experience deliverin
 
 ## **Projects**
 
-### [**Employee Creator | Full-Stack Web Application**](https://github.com/carriegale2710/employee-creator)
+### [**Employee Creator | Full-Stack Web Application**](https://${GITHUB_URL}/employee-creator)
 
 #### _Secure employee and contract-management platform that brings employee record administration into one application._
 
@@ -49,7 +49,7 @@ Career-transition junior full-stack developer with hands-on experience deliverin
 - Used AI to maintain changelog documentation and explore implementation options, then reviewed, selected and adapted the approach that best fit the codebase and requirements.
 - Managed personal project tickets, sprint priorities and delivery documentation in Trello using Agile sprint templates, creating a structured workflow for planning, implementation, testing and follow-up work.
 
-### [**Indigenous Library Portal | Full-Stack Web Application for Indigenous Collections**](https://github.com/carriegale2710/indigenous-library)
+### [**Indigenous Library Portal | Full-Stack Web Application for Indigenous Collections**](https://${GITHUB_URL}/indigenous-library)
 
 #### _Secure collections portal that protects culturally sensitive material and gives authorised curators and collection owners an auditable process for reviewing access._
 
@@ -60,7 +60,7 @@ Career-transition junior full-stack developer with hands-on experience deliverin
 - Coordinated a five-person team over two weeks by standardising Flask routes with Blueprints, resolving inconsistent data naming and adding automated tests, reducing integration risk before delivery.
 - Deployed the portal on AWS and later migrated the live demo to Render with HTTPS, a custom domain and GitHub Actions CI/CD to refresh database data and run tests, maintaining public access while reducing manual release checks and hosting overhead.
 
-### [**GAIA 2.0 | Perplexity-Based Agent Prompting System**](https://github.com/carriegale2710/gaia-2.0)
+### [**GAIA 2.0 | Perplexity-Based Agent Prompting System**](https://${GITHUB_URL}/gaia-2.0)
 
 #### _Improved an open-source AI-agent framework by reorganising memory, planning, permissions and reusable skills across projects._
 

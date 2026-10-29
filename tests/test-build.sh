@@ -123,7 +123,7 @@ EOF
 chmod +x "$capture_bin/pandoc"
 
 header_resume="$tmp_dir/header-resume.md"
-printf '# ${RESUME_NAME}\n${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}\nSaved $5 for ${RESUME_NAME}\n' > "$header_resume"
+printf '# ${RESUME_NAME}\n${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}\n${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}\nSaved $5 for ${RESUME_NAME}\n' > "$header_resume"
 
 env_file="$tmp_dir/test.env"
 cat > "$env_file" <<'EOF'
@@ -133,6 +133,9 @@ RESUME_LOCATION="Testville, NSW"
 RESUME_WORKRIGHTS="Test work rights"
 RESUME_PHONE="0400 000 000"
 RESUME_LINKS="example.invalid/test"
+GITHUB_URL="github.invalid/test"
+LINKEDIN_URL="linkedin.invalid/test"
+PORTFOLIO_URL="portfolio.invalid"
 EOF
 
 export PANDOC_CAPTURE="$tmp_dir/captured.md"
@@ -141,7 +144,9 @@ captured="$(<"$PANDOC_CAPTURE")"
 contains "$captured" 'Test & Name \ Synthetic'
 contains "$captured" "Testville, NSW | Test work rights | test@example.invalid | 0400 000 000 | example.invalid/test"
 contains "$captured" 'Saved $5 for Test & Name \ Synthetic'
+contains "$captured" "github.invalid/test | linkedin.invalid/test | portfolio.invalid"
 omits "$captured" 'RESUME_'
+omits "$captured" '_URL}'
 
 header_md="$(RESUME_ENV_FILE="$tmp_dir/does-not-exist.env" bash "$repo_root/scripts/build.sh" --md-only "$header_resume")"
 contains "$header_md" '${RESUME_EMAIL}'

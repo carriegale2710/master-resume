@@ -211,7 +211,7 @@ Launceston, TAS | Nov 2011 – Feb 2012
 
 Role: solo | Team: solo
 Stack: React, TypeScript, SCSS, Java, Spring Boot, MySQL → PostgreSQL (Render), AWS (EC2, S3), Log4j, JUnit, Mockito, REST Assured, Vitest, GitHub Actions, Trello
-Live: https://employeecreator.site/ (currently not working; do not link until restored) | Repo: github.com/carriegale2710/employee-creator
+Live: https://employeecreator.site/ (currently not working; do not link until restored) | Repo: ${GITHUB_URL}/employee-creator
 
 **One-liners:**
 
@@ -230,7 +230,7 @@ Live: https://employeecreator.site/ (currently not working; do not link until re
 
 Role: controller layer, authentication and role-based access, part of the view layer, demo deployment and CI (per repo README) | Team: 5 people (supported the team leader)
 Stack: Python, Flask (Blueprints), MySQL, Jinja, WTForms, Bootstrap 5, AWS (EC2, S3) → Render, GitHub Actions (model tests are plain Python assert scripts run as modules; no test framework)
-Live: https://indigenouslibrary.site/ (static only; the API must be rebooted manually before the full app works) | Repo: github.com/carriegale2710/indigenous-library
+Live: https://indigenouslibrary.site/ (static only; the API must be rebooted manually before the full app works) | Repo: ${GITHUB_URL}/indigenous-library
 
 **One-liners:**
 
@@ -272,7 +272,7 @@ Live: https://mytriviagame.lol/ (the main game is playable via OpenTDB; the game
 
 Role: solo | Team: solo
 Stack: React, Firestore, SCSS
-Repo: github.com/carriegale2710/e-commerce | Live: n/a
+Repo: ${GITHUB_URL}/e-commerce | Live: n/a
 
 **Bullets:**
 
@@ -308,7 +308,7 @@ Repo: TODO
 ### GAIA 2.0 | Perplexity-Based Agent Prompting System
 
 Role: refactored and extended an open-source Perplexity agent prompt system (original GAIA Code v3.4 by alexey-max-fedorov); solo, 5 commits | Stack: Perplexity Spaces/sandboxes, GitHub MCP, Claude Code, Git, GitHub
-Repo: github.com/carriegale2710/gaia-2.0 (original: github.com/alexey-max-fedorov/gaia-ai)
+Repo: ${GITHUB_URL}/gaia-2.0 (original: github.com/alexey-max-fedorov/gaia-ai)
 
 **One-liners:**
 

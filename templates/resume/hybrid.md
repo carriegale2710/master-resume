@@ -1,6 +1,6 @@
 # ${RESUME_NAME}
 Junior Full-Stack Developer | React, TypeScript, Node.js, Java, Spring Boot, SQL, AWS
-${RESUME_LOCATION} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
+${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
 
 ## Summary
 (2-3 lines from master summary variants)

@@ -7,7 +7,8 @@
 # The .docx needs pandoc only; optional templates/reference.docx styles it.
 # Everything from the first "## 6."-"## 10." heading on (master section 6 is private), tag/variant keys
 # and "> " notes are always removed. Private side files in master/ are never read.
-# docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} placeholders come from .env
+# docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} and ${GITHUB_URL|LINKEDIN_URL|PORTFOLIO_URL}
+# placeholders come from .env
 # (override path with RESUME_ENV_FILE). --md-only never reads .env.
 # The .docx is saved to ~/Downloads as <folder>-<name>.docx (override with RESUME_OUT_DIR).
 set -euo pipefail
@@ -57,12 +58,12 @@ if [ -n "$todo_matches" ]; then
 fi
 
 md="$(filter)"
-# Private header: ${RESUME_*} placeholders are filled from .env at docx build time only.
-if grep -q '\${RESUME_' <<<"$md"; then
+# Private header: ${RESUME_*} and ${*_URL} placeholders are filled from .env at docx build time only.
+if grep -Eq '\$\{(RESUME_|GITHUB_URL|LINKEDIN_URL|PORTFOLIO_URL)' <<<"$md"; then
   env_file="${RESUME_ENV_FILE:-$(dirname "$0")/../.env}"
   [ -f "$env_file" ] || { echo "Missing $env_file" >&2; exit 1; }
   set -a; . "$env_file"; set +a
-  for v in RESUME_NAME RESUME_EMAIL RESUME_LOCATION RESUME_PHONE RESUME_LINKS RESUME_WORKRIGHTS; do
+  for v in RESUME_NAME RESUME_EMAIL RESUME_LOCATION RESUME_PHONE RESUME_LINKS RESUME_WORKRIGHTS GITHUB_URL LINKEDIN_URL PORTFOLIO_URL; do
     tok='${'"$v"'}'
     [[ "$md" == *"$tok"* ]] || continue
     [ -n "${!v:-}" ] || { echo "Missing $v in $env_file" >&2; exit 1; }
