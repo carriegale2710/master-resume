@@ -30,6 +30,7 @@ for c in "${cases[@]}"; do
   cp "$repo_root/AGENTS.md" "$repo_root/CLAUDE.md" "$work/"
   mkdir -p "$work/.claude" && cp -r "$repo_root/.claude/skills" "$work/.claude/" && cp -r "$repo_root/scripts" "$work/"
   cp "$fixtures/dummy-master.md" "$work/master/master-resume.md"
+  cp "$fixtures/dummy-skills-inventory.csv" "$work/master/skills-inventory.csv"
   cp "$fixtures/$jd" "$work/applications/2026-10-sample-$name/job-description.md"
 
   (cd "$work" && claude -p \

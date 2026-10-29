@@ -39,7 +39,7 @@ Also: gaps in dates explained, languages and memberships, and strengths other pe
 - Any `TODO` field.
 - Metrics-log rows typed Estimate, Projection, Self-reported, Unverified, Conflict or Unquantified, and any TODO evidence cell.
 - Items in the "Conflicts between this master and older CVs" list.
-- Skills-inventory R/F/O markers not set, and skills with no evidencing bullet.
+- Skills-inventory level placements unconfirmed, and skills with no evidencing bullet.
 - Interview stories (STAR) still `TODO` in the private notes.
 - Section 9 checklist items overdue.
 - Recent work not yet in the master.

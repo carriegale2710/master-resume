@@ -17,9 +17,7 @@ ${RESUME_NAME} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
 
 ## 1. Skills inventory (reference only; not a CV section)
 
-- Languages: TypeScript, SQL
-- Frameworks: Express, React
-- Testing: Playwright, Postman
+**Main tech stack** (strongest first, not exhaustive): TypeScript, SQL, React, Express, Playwright.
 
 ## 2. Education
 
