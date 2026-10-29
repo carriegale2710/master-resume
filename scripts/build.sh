@@ -5,6 +5,8 @@
 # --md-only  print filtered Markdown to stdout instead of building a .docx
 # docx build requires tracker status "verified" and a y/N approval (sets ready, then exported).
 # The .docx needs pandoc only; optional templates/reference.docx styles it.
+# Single line breaks are kept. cover-letter.md: gated on cover_letter_status=verified (no ready/exported change),
+# styled by templates/cover-letter/reference.docx if present, else templates/reference.docx.
 # Everything from the first "## 6."-"## 10." heading on (master section 6 is private), tag/variant keys
 # and "> " notes are always removed. Private side files in master/ are never read.
 # docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} and ${GITHUB_URL|LINKEDIN_URL|PORTFOLIO_URL}
@@ -43,13 +45,16 @@ filter() {
 if [ "$md_only" -eq 1 ]; then filter; exit 0; fi
 
 stem="$(basename "$in" .md)"; folder="$(basename "$(dirname "$(realpath "$in")")")"
+# cover-letter.md is gated on cover_letter_status and leaves the resume status alone.
+cover=0; [ "$stem" = cover-letter ] && cover=1
+col=status; [ "$cover" -eq 1 ] && col=cover_letter_status
 # Approval gate: only a verified draft builds; the y/N prompt is the human sign-off (sets ready).
 tracker="${TRACKER:-$(dirname "$0")/../applications/tracker.csv}"
-status="$(awk -F, -v k="$folder" 'NR==1 { for (i=1;i<=NF;i++) c[$i]=i; next } $(c["id"])==k { print $(c["status"]) }' "$tracker")"
-[ "$status" = "verified" ] || { echo "Status is '${status:-no tracker row}', not verified. Run verify-claims first." >&2; exit 1; }
-read -r -p "Approve $folder and build docx? [y/N] " ok
+status="$(awk -F, -v k="$folder" -v col="$col" 'NR==1 { for (i=1;i<=NF;i++) c[$i]=i; next } $(c["id"])==k { print $(c[col]) }' "$tracker")"
+[ "$status" = "verified" ] || { echo "$col is '${status:-no tracker row}', not verified. Run verify-claims first." >&2; exit 1; }
+read -r -p "Approve $folder $stem and build docx? [y/N] " ok
 [[ "$ok" =~ ^[Yy]$ ]] || { echo "Not approved." >&2; exit 1; }
-bash "$(dirname "$0")/set-status.sh" "$folder" ready
+[ "$cover" -eq 1 ] || bash "$(dirname "$0")/set-status.sh" "$folder" ready
 
 todo_matches="$(filter | grep -n 'TODO' || true)"
 if [ -n "$todo_matches" ]; then
@@ -79,7 +84,12 @@ out_dir="${RESUME_OUT_DIR:-$HOME/Downloads}"
 mkdir -p "$out_dir"
 out="$out_dir/$folder-$stem.docx"
 ref="$(dirname "$0")/../templates/reference.docx"
+if [ "$cover" -eq 1 ]; then
+  cref="$(dirname "$0")/../templates/cover-letter/reference.docx"
+  [ -f "$cref" ] && ref="$cref"
+fi
 ref_opt=(); [ -f "$ref" ] && ref_opt=(--reference-doc="$ref")
-printf '%s\n' "$md" | pandoc -f markdown -t docx "${ref_opt[@]}" -o "$out"
+# hard_line_breaks: each source line (headline, contacts, education entries, letter address block) stays its own line.
+printf '%s\n' "$md" | pandoc -f markdown+hard_line_breaks -t docx "${ref_opt[@]}" -o "$out"
 echo "Built $out"
-bash "$(dirname "$0")/set-status.sh" "$folder" exported || true
+[ "$cover" -eq 1 ] || bash "$(dirname "$0")/set-status.sh" "$folder" exported || true

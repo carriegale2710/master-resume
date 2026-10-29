@@ -8,12 +8,12 @@ Private repo for my master resume and every tailored application.
 
 `scripts/build.sh` needs the Pandoc executable (not the Python `pandoc` package). Install it from the [official instructions](https://pandoc.org/installing.html) and check `pandoc --version`. Run scripts with `bash scripts/<name>.sh`; on Windows use Git Bash.
 
-To style the `.docx`, create `templates/reference.docx` with `pandoc -o templates/reference.docx --print-default-data-file reference.docx` and edit its styles in Word. `build.sh` uses it when present.
+`.docx` styling comes from Word reference templates: `templates/reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and `templates/cover-letter/reference.docx` (A4, 2.5 cm margins, Calibri 11 pt). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save. Without a cover-letter template, letters use `templates/reference.docx`.
 
 ## Scripts
 
 - `scripts/new-application.sh company-role`: creates `applications/<YYYY-MM>-company-role/` with `job-description.md`, `notes.md` and an empty `cover-letter.md`, and appends a `pending` row to `applications/tracker.csv`. Names allow ASCII letters, numbers and hyphens only; it refuses to overwrite a folder.
-- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: filters bullets by tag, drops master section 6 (and any later section), tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown and never reads `.env`. Otherwise it requires tracker status `verified`, asks `Approve and build docx? [y/N]` (yes sets `ready`), fills the `${RESUME_*}` header from `.env`, writes `~/Downloads/<folder>-<name>.docx` (override with `RESUME_OUT_DIR`) and sets the tracker status to `exported`.
+- `scripts/build.sh [--tags a,b] [--md-only] <input.md>`: filters bullets by tag, drops master section 6 (and any later section), tag keys and blockquote notes, and warns if `TODO` remains. `--md-only` prints Markdown and never reads `.env`. Otherwise it requires tracker status `verified`, asks `Approve and build docx? [y/N]` (yes sets `ready`), fills the `${RESUME_*}` header from `.env`, writes `~/Downloads/<folder>-<name>.docx` (override with `RESUME_OUT_DIR`) and sets the tracker status to `exported`. For `cover-letter.md` it requires `cover_letter_status` `verified` instead, keeps each line on its own line, and leaves `status` unchanged.
 - `scripts/set-status.sh <folder> <status>`: sets `status` and `last_update` on the tracker row whose `id` is the folder name. Skills call it; `TRACKER` overrides the file.
 
 ## Tests

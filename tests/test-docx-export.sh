@@ -34,3 +34,23 @@ docx="$(ls "$out_dir"/*-synthetic-resume.docx)"
 }
 
 echo "PASS: build.sh exports a synthetic docx"
+
+# Cover letter: gated on cover_letter_status, keeps line breaks, leaves resume status alone.
+letter_dir="$tmp_dir/synthetic-app"
+mkdir -p "$letter_dir"
+printf 'Synthetic Sender\nSynthetic Street\n\nYours sincerely,\nSynthetic Sender\n' > "$letter_dir/cover-letter.md"
+printf 'id,status,last_update,cover_letter_status\nsynthetic-app,exported,,drafted\n' > "$TRACKER"
+if RESUME_OUT_DIR="$out_dir" bash "$repo_root/scripts/build.sh" "$letter_dir/cover-letter.md" <<< y >/dev/null 2>&1; then
+  echo "FAIL: build.sh built a cover letter that is not verified" >&2
+  exit 1
+fi
+printf 'id,status,last_update,cover_letter_status\nsynthetic-app,exported,,verified\n' > "$TRACKER"
+RESUME_OUT_DIR="$out_dir" bash "$repo_root/scripts/build.sh" "$letter_dir/cover-letter.md" <<< y >/dev/null
+[[ -s "$out_dir/synthetic-app-cover-letter.docx" ]] || { echo "FAIL: no cover letter docx" >&2; exit 1; }
+grep -q '^synthetic-app,exported,' "$TRACKER" || { echo "FAIL: cover letter build changed resume status" >&2; exit 1; }
+if command -v unzip >/dev/null 2>&1; then
+  unzip -p "$out_dir/synthetic-app-cover-letter.docx" word/document.xml | grep -q '<w:br' ||
+    { echo "FAIL: cover letter lost its line breaks" >&2; exit 1; }
+fi
+
+echo "PASS: build.sh exports a verified cover letter"
