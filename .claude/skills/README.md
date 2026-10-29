@@ -17,6 +17,7 @@ Markdown files that give agents a workflow for one task. Claude Code loads them 
 | [job-description-analyzer](/.claude/skills/job-description-analyzer)       | Analyze job postings, calculate match scores, identify gaps, create application strategy        |
 | [resume-tailor](/.claude/skills/resume-tailor)                             | Customize resume for specific job postings while maintaining truthfulness                       |
 | [cover-letter-generator](/.claude/skills/cover-letter-generator)           | Create personalized, compelling cover letters from resume + job description                     |
+| [humanize-prose](/.claude/skills/humanize-prose)                           | Remove AI writing patterns from cover letters and other prose (never resumes), then hand off to verify-claims |
 | [linkedin-profile-optimizer](/.claude/skills/linkedin-profile-optimizer)   | Sync resume with LinkedIn, optimize for searchability and engagement                            |
 | [interview-prep-generator](/.claude/skills/interview-prep-generator)       | Generate STAR stories, practice questions, talking points from resume                           |
 | [salary-negotiation-prep](/.claude/skills/salary-negotiation-prep)         | Research market rates, build negotiation strategy, create counter-offer scripts                 |

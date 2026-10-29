@@ -2,6 +2,17 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No versions tagged yet.
 
+## [Unreleased]
+
+### Added
+
+- `humanize-prose` skill strips AI patterns from cover letters.
+- `humanize-prose` refuses `resume.md`; edits wording only, adds no facts.
+
+### Changed
+
+- `AGENTS.md` order: cover letter, `humanize-prose`, then `verify-claims`.
+
 ## [0.1.0] - 2026-10-29
 
 ### Added

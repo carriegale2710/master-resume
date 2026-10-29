@@ -41,7 +41,7 @@ Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for
 1. `tracker-intake`
 2. `resume-orchestrator` (runs `job-description-analyzer`, `resume-drafter`, `resume-ats-optimizer`, and other `resume-*` skills as needed, then `verify-claims`)
 3. `verify-claims` (mandatory final step before any file is called ready)
-4. `cover-letter-generator` (optional)
+4. `cover-letter-generator` (optional), then `humanize-prose` on the letter (never on the resume), then `verify-claims` on the letter
 5. `interview-prep-generator` (after applying)
 
 View `.claude/skills/README.md` for the full list of available other skills imported into this repo.
