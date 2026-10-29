@@ -21,3 +21,5 @@ Read `master/universal-checklist.md` first. The draft must pass every item (one 
 10. Report: bullets cut, wording changed, claims needing evidence, `TODO` fields still blank.
 
 Do not add skills, tools or outcomes that are not in the master.
+
+Project entries carry no dates or years (master section 4 rule). Dates belong on work experience and education only. Add a project date only for a work in progress, and only if the master gives it.

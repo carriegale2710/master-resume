@@ -277,7 +277,7 @@ Google Analytics Certified | Google | 2023
 
 ### Format Examples
 
-**Projects:**
+**Projects** (no dates or years on project entries; dates go on experience and education only):
 ```
 PROJECTS
 E-commerce Platform | React, Node.js, PostgreSQL | github.com/user/project

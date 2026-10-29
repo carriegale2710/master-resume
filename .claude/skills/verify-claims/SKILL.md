@@ -13,6 +13,7 @@ Check, in order:
 3. **TODO.** Any remaining `TODO` or missing contact/link must be listed. `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_LINKS}` and `${RESUME_WORKRIGHTS}` are intentional placeholders filled from `.env` at docx build: do not flag them, and never read `.env`.
 4. **Private content.** No text from sections 6-10 of the master. No NDA-restricted tool or client names beyond what the private notes allow.
 5. **Consistency.** Dates, titles, employers and tech stacks match the master. Overlapping dates are explainable per the private notes. A project stack in the resume matches the project entry (e.g. database names).
+   Project entries must carry no dates or years (master section 4 rule). Flag any project date, except a work-in-progress marker the master supports.
 6. **Leftovers.** No tag names, variant labels, or "(see Metrics Log)" notes.
 7. **Length.** Estimate whether it fits one page; suggest what to cut if not.
 

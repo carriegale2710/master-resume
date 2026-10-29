@@ -16,6 +16,7 @@ Tick these before anything else.
 - **Tailored to the job post**: mirror keywords/tech from the description (truthfully).
 - if its a graduate role, put education & training at the top just under summary, else put at bottom.
 - make sure any links are fully typed out (excluding ‘https://’), not just hyperlinked to a word.
+- Projects have no dates or years (only a work-in-progress marker if the master gives one). Dates go on work experience and education only.
 - For each application:
   - Mirror the job’s stack/keywords in your headline and project bullets.
   - Trim anything not directly relevant to that role.

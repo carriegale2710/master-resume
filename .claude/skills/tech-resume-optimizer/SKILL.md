@@ -208,6 +208,8 @@ Skills: Python, JavaScript, TypeScript, React, Node.js, Django, PostgreSQL, Mong
 
 ### Project Format
 
+No dates or years on project entries; dates go on experience and education only.
+
 ```
 Project Name | Technologies | Link
 • Description of what it does

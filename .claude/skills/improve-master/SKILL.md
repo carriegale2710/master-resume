@@ -26,7 +26,7 @@ Show the user the top 5 gaps in one short list and let them pick, or start at th
 
 One question at a time. Each answer decides the next question. Open from the gap type:
 
-- **Fact gap** (TODO, conflict): "What is the correct value for X, and what proves it?"
+- **Fact gap** (TODO, conflict): "What is the correct value for X, and what proves it?" Never ask about project dates, years or deployment dates, and never add them: the master's section 4 rule is that projects do not need dates.
 - **Number gap** (metrics log): "How was this measured, against what baseline, and where is the evidence (PR, CI run, dashboard, email)?"
 - **Skill gap** (inventory or missing bullet): "Where did you last use X, and what did you build or fix with it?"
 - **Recent work**: "What have you done in the last month or two that is not in the master?"
