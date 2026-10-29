@@ -32,5 +32,6 @@ Markdown files that give agents a workflow for one task. Claude Code loads them 
 | [resume-version-manager](/.claude/skills/resume-version-manager)           | Track different resume versions, maintain master resume, manage tailored versions               |
 | [creative-portfolio-resume](/.claude/skills/creative-portfolio-resume)     | Balance visual design with ATS compatibility for creative roles                                 |
 | [resume-section-builder](/.claude/skills/resume-section-builder)           | Create targeted sections optimized for different experience levels and roles                    |
+| [resume-orchestrator](/.claude/skills/resume-orchestrator)                 | Run the tailoring step: analyse the posting, pick a template, draft, review, call other resume skills as needed |
 
 Install, usage examples and contribution notes: see the upstream repo above.

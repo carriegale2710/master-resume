@@ -35,6 +35,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - Moved `skills/` to `.claude/skills/` so Claude Code loads skills directly; updated paths in docs and tests.
 - Breaking: master sections 7-10 gone; docs and skills read side files.
 - Universal checklist path now `checklists/universal-checklist.md`.
+- `scripts/tailor.sh` now has 6 steps: new `resume-orchestrator` skill replaces the template, `resume-drafter` and `resume-ats-optimizer` steps and runs `verify-claims` itself; step 4 skips a row already `verified`.
 
 - `scripts/build.sh` exports `.docx` via Pandoc only; `tests/test-docx-export.sh` replaces the PDF export test.
 

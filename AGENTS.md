@@ -31,6 +31,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - `bash scripts/build.sh --tags a,b --md-only master/master-resume.md` filters master bullets by tag.
 - `bash scripts/build.sh applications/<folder>/resume.md` builds the .docx (user-run only; it fills the header from `.env`).
 - `bash scripts/new-application.sh company-role` creates an application folder.
+- `bash scripts/tailor.sh` runs the whole tailoring flow interactively (user-run only; it opens Claude sessions and its last step runs the docx build, so agents never run it).
 - Prefer these scripts over re-implementing their logic.
 
 ## Skills
@@ -38,11 +39,10 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for an application:
 
 1. `tracker-intake`
-2. `resume-drafter`
-3. `resume-ats-optimizer`
-4. `verify-claims` (mandatory final step before any file is called ready)
-5. `cover-letter-generator` (optional)
-6. `interview-prep-generator` (after applying)
+2. `resume-orchestrator` (runs `job-description-analyzer`, `resume-drafter`, `resume-ats-optimizer`, and other `resume-*` skills as needed, then `verify-claims`)
+3. `verify-claims` (mandatory final step before any file is called ready)
+4. `cover-letter-generator` (optional)
+5. `interview-prep-generator` (after applying)
 
 View `.claude/skills/README.md` for the full list of available other skills imported into this repo.
 
