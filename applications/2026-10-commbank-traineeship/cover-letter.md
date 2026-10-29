@@ -1,21 +1,24 @@
 ${RESUME_NAME}
 ${RESUME_EMAIL} | ${RESUME_PHONE} | ${RESUME_LINKS}
+${RESUME_LOCATION}
 
-28 October 2026
+29 October 2026
 
-Technology Associate Program Hiring Team
+Hiring Team
+Technology Associate Program (Traineeship), REQ267530
 Commonwealth Bank
-Re: Technology Associate Program (Traineeship), REQ267530
 
 Dear Hiring Team,
 
-Deciding how 17 million customers access their money is a serious responsibility, and it is the kind of engineering I want to learn properly. I am applying for the Technology Associate Program because it offers real projects from day one and the coaching I need as I move from design into software engineering.
+Keeping sensitive data in the right hands, without making software harder to use, is the engineering problem I most want to work on. That is why the Engineering stream of CommBank's Technology Associate Program appeals to me: the work sits behind how 17 million+ customers access their money, and the program is built for people who have reskilled into tech.
 
-My pathway is non-traditional. I studied design and digital cultures at the University of Sydney, was selected for \_nology's Software Engineering training program (top 12 of 1,000+ applicants), and completed a Graduate Certificate of IT (Computer Science major) at QUT in July 2026 with a GPA of 6.5/7. In a three-month internship at \_nology, I delivered a Student Tracker notes feature in an Agile team. I built the NestJS and MySQL backend with three REST API endpoints, added the Next.js functionality, and wrote Playwright and Postman tests that covered the workflow from the UI to the database.
+I came to engineering from UX/UI design. After a Bachelor of Arts in Design & Digital Cultures, I was selected for \_nology's software engineering training program (top 12 of 1,000+ applicants), then completed a Graduate Certificate of IT (Computer Science major) at QUT in July 2026 with a GPA of 6.5/7. In my \_nology internship I worked in an Agile team to deliver a Student Tracker notes feature in NestJS, MySQL and Next.js. I modelled the SQL data and implemented role-based authorisation for Admin, Coach and Student users, so sensitive student information was available only to the right people. I covered the workflow with Playwright and Postman tests, and tightened input validation in the API after pull-request feedback so invalid data was rejected before it reached the database.
 
-Security is what draws me most. In that feature, I implemented role-based authorisation for Admin, Coach and Student users so sensitive student information reached only the right people, and I strengthened input validation after pull-request feedback. In the Indigenous Library Portal, a five-person, two-week project, I built Flask login, session management and role-based access control to restrict sensitive collection records to authorised users. In Employee Creator, a Java/Spring Boot and React app, I added automated Jest, JUnit, Mockito and REST Assured tests and GitHub Actions checks on every pull request.
+Outside the internship, I built Employee Creator, a React, TypeScript and Spring Boot app on MySQL. It has an automated Jest, JUnit, Mockito and REST Assured test suite, GitHub Actions checks on every pull request, and an AWS EC2 deployment with HTTPS, Log4j logging and health checks. On the Indigenous Library Portal, a team of five built a Flask portal in two weeks, where I worked on role-based access and a decision history that gave restricted and culturally sensitive records an audit trail. Both projects taught me to treat access control, testing and visibility of failures as part of the feature, not an afterthought, which I expect matters even more in a bank.
 
-I want to keep adding tools and languages, and I would value learning from CommBank's engineers and cybersecurity specialists and sharing what I learn with the early career community. I would welcome the chance to discuss which team, in Engineering or Cybersecurity, would suit my skills best. Thank you for considering my application.
+My design background means I can explain technical choices to non-technical colleagues and I check my work against what users need. I also know my production experience is still early, and your coaching, real projects from day one and community of experienced engineers are what I want to build on.
+
+I would welcome the chance to discuss which Engineering team could use these skills. Thank you for considering my application.
 
 Yours sincerely,
 ${RESUME_NAME}
