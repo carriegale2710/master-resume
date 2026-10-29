@@ -2,9 +2,13 @@
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No versions tagged yet.
 
-## [Unreleased] - 2026-10-28
+## [Unreleased] - 2026-10-29
 
 ### Added
+
+- `master/skills-inventory.csv` replaces master section 1 skills table.
+- `master/metrics-log.csv`, `narrative-notes.md`, `archive.md` split from master.
+- `tests/test-master-split.sh` checks side files; master ends section 6.
 
 - `${RESUME_LOCATION}` and `${RESUME_WORKRIGHTS}` header placeholders. `build.sh` now requires only the variables a draft uses.
 - `master/master-resume.md` single source of truth, merged from versions.
@@ -29,6 +33,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - Renamed `role` folder to `industry`.
 - Contact details moved out of repo and agent view.
 - Moved `skills/` to `.claude/skills/` so Claude Code loads skills directly; updated paths in docs and tests.
+- Breaking: master sections 7-10 gone; docs and skills read side files.
+- Universal checklist path now `checklists/universal-checklist.md`.
 
 - `scripts/build.sh` exports `.docx` via Pandoc only; `tests/test-docx-export.sh` replaces the PDF export test.
 
@@ -45,3 +51,5 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - `build.sh` pipefail hid SIGPIPE failures; TODO check remains.
 - `new-application.sh` validates folder names and resolved paths.
 - Build and PDF export regression tests expanded.
+- `build.sh` strips every lowercase-kebab tag, not a fixed list.
+- Docx tests use throwaway verified `TRACKER`; real tracker untouched.

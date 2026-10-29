@@ -5,7 +5,8 @@
 # --md-only  print filtered Markdown to stdout instead of building a .docx
 # docx build requires tracker status "verified" and a y/N approval (sets ready, then exported).
 # The .docx needs pandoc only; optional templates/reference.docx styles it.
-# Private sections (6-10), tag/variant keys and "> " notes are always removed.
+# Everything from the first "## 6."-"## 10." heading on (master section 6 is private), tag/variant keys
+# and "> " notes are always removed. Private side files in master/ are never read.
 # docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} placeholders come from .env
 # (override path with RESUME_ENV_FILE). --md-only never reads .env.
 # The .docx is saved to ~/Downloads as <folder>-<name>.docx (override with RESUME_OUT_DIR).

@@ -24,14 +24,15 @@ Tests use synthetic data and never read the private master. GitHub Actions runs 
 bash tests/run-all.sh
 ```
 
-| Test                           | Purpose                                                                                        |
-| ------------------------------ | ---------------------------------------------------------------------------------------------- |
-| `test-build.sh`                | tag filtering, dropped sections 6-10, `TODO` warning, `.env` header fill, missing-value errors |
-| `test-new-application.sh`      | expected files, unsafe names rejected, duplicates refused, `pending` row added                 |
-| `test-ready.sh`                | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected      |
-| `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules                                                 |
-| `test-docx-export.sh`          | real .docx from a synthetic resume; skips without Pandoc                                       |
-| `test-docx-output-dir.sh`      | .docx lands in `$HOME/Downloads` by default; `RESUME_OUT_DIR` overrides; skips without Pandoc  |
+| Test                           | Purpose                                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `test-build.sh`                | tag filtering, dropped private sections, `TODO` warning, `.env` header fill, missing-value errors |
+| `test-master-split.sh`         | master stops at section 6; metrics log, skills inventory, narrative notes and archive files exist |
+| `test-new-application.sh`      | expected files, unsafe names rejected, duplicates refused, `pending` row added                    |
+| `test-set-status.sh`           | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected         |
+| `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules                                                    |
+| `test-docx-export.sh`          | real .docx from a synthetic resume; skips without Pandoc                                          |
+| `test-docx-output-dir.sh`      | .docx lands in `$HOME/Downloads` by default; `RESUME_OUT_DIR` overrides; skips without Pandoc     |
 
 ## Workflow
 
@@ -103,6 +104,6 @@ master-resume/
 ├── .claude/skills/                # README.md and <skill-name>/SKILL.md
 ├── templates/                     # dev.md, hybrid.md, design.md
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh
-├── tests/                         # test-*.sh, fixtures/dummy-resume.md
+├── tests/                         # test-*.sh, fixtures/ (dummy master, side files, resume)
 └── docs/                          # MVP.md, PRODUCT-SPEC.md
 ```
