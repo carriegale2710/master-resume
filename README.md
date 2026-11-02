@@ -54,7 +54,6 @@ Hard gates: zero unsupported claims in anything `ready`; metrics only from `mast
 ### Not built yet
 
 - **Page-count check:** `build.sh` does not fail above two pages. Check the .docx manually.
-- **`verify-report.md`:** `verify-claims` should write it; confirm its output before relying on it.
 
 ## Private header
 
