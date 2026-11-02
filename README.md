@@ -38,9 +38,9 @@ bash tests/run-all.sh
 
 1. **Intake.** `bash scripts/new-application.sh acme-frontend`, then paste the posting into `applications/<folder>/job-description.md`.
    Or run `bash scripts/tailor.sh` (no arguments) to do steps 1-3 interactively in 6 steps: it asks for the company, role, URL, posting and closing date, then opens one Claude session per skill, loops `verify-claims` until it passes, offers a cover letter, then at step 6 Enter runs `build.sh` (with its own y/N approval) and the CLI exits once the row is `exported` (`c` re-checks status without building). Every prompt takes `b N` (back to step N) and `q` (quit). Pick an existing folder by number to resume.
-2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, asks for a template, drafts with `resume-drafter`, reviews with `resume-ats-optimizer` and pulls in other `resume-*` skills as needed). The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
+2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, drafts with `resume-drafter`, reviews with `resume-ats-optimizer` and pulls in other `resume-*` skills as needed). The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
-   then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page.
+   then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page (two pages maximum).
 3. **Verify.** Run `verify-claims`. Any unsupported claim, uncited claim or `TODO` blocks the next step.
 4. **Approve and export.** Run the build yourself so `.env` fills the header; answer `y` at the prompt to approve:
    `bash scripts/build.sh applications/<folder>/resume.md`

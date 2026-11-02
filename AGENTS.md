@@ -19,7 +19,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 ## Writing rules
 
 - Tailored resumes go in `applications/<YYYY-MM-company-role>/resume.md`. Never edit `master/` unless explicitly asked.
-- Target one page: 5-7 strongest bullets per role family, older leadership items cut first.
+- Length: aim for one page; two pages is the hard maximum. Use the 5-7 strongest bullets per role family and cut older leadership items first.
 - Mirror a job posting's keywords only where the master supports them.
 - Plain, specific, past-tense bullets. No filler adjectives. Australian English spelling.
 - Do not use tag names (`fullstack`, `qa`, etc.) in final output.
