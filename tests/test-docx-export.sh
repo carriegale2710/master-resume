@@ -54,3 +54,25 @@ if command -v unzip >/dev/null 2>&1; then
 fi
 
 echo "PASS: build.sh exports a verified cover letter"
+
+# Output dir: default $HOME/Downloads, RESUME_OUT_DIR overrides.
+mkdir -p "$tmp_dir/home" "$tmp_dir/applications/2026-01-acme-dev"
+od_input="$tmp_dir/applications/2026-01-acme-dev/resume.md"
+printf '# Output Dir Check\n\nFixture.\n' > "$od_input"
+
+fail() { echo "FAIL: $1" >&2; exit 1; }
+
+# Reset before each build because a build sets it to exported.
+verify() { printf 'id,status,last_update\n2026-01-acme-dev,verified,\n' > "$TRACKER"; }
+
+# Default: saved in $HOME/Downloads (created if missing), named <folder>-<name>.docx.
+verify; HOME="$tmp_dir/home" bash "$repo_root/scripts/build.sh" "$od_input" <<< y >/dev/null
+default_out="$tmp_dir/home/Downloads/2026-01-acme-dev-resume.docx"
+[[ -s "$default_out" ]] || fail "default output not at $default_out"
+[[ -e "${od_input%.md}.docx" ]] && fail "docx was also written next to the input"
+
+# RESUME_OUT_DIR overrides the default.
+verify; HOME="$tmp_dir/home" RESUME_OUT_DIR="$tmp_dir/custom" bash "$repo_root/scripts/build.sh" "$od_input" <<< y >/dev/null
+[[ -s "$tmp_dir/custom/2026-01-acme-dev-resume.docx" ]] || fail "RESUME_OUT_DIR was ignored"
+
+echo "PASS: build.sh saves docx to Downloads or RESUME_OUT_DIR, not the repo"

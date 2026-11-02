@@ -23,10 +23,22 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - `resume-orchestrator`, `tailor.sh` and docs call `job-application-agent:job-ad-decoder`, `application-lint`, `achievement-statements`, `cover-letter` and `interview-prep`.
 
 - `AGENTS.md` order: cover letter, `humanize-prose`, then `verify-claims`.
+- `design.md`, `software-engineer.md` cut to role-specific tick boxes.
+- `set-status.sh`, `build.sh` now need gawk; CI installs it.
+- `set-status.sh` prints `<column> <status>: <folder>`.
+- `test-docx-output-dir.sh` folded into `test-docx-export.sh`.
+
+### Removed
+
+- `tailor.sh` `b N` back-navigation; quit with `q`, re-run instead.
+- `tailor.sh` step 2/3 toggle checklist screen.
+- `tailor.sh` "Replace existing JD?" prompt.
 
 ### Fixed
 
 - `build.sh` keeps single line breaks in the `.docx`; the headline, contact line and education entries no longer merge into one paragraph.
+- Quoted commas in `tracker.csv` no longer shift status columns.
+- `tailor.sh` status read is quote-aware too; test 11 covers it.
 
 ## [0.1.0] - 2026-10-29
 

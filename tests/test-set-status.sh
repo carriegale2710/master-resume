@@ -12,4 +12,10 @@ grep -q '^2026-10-acme-dev,.*,exported,' "$t" || fail "set-status did not mark e
 grep -q ',pending,2026-10-01,' <(sed -n 3p "$t") || fail "other row changed"
 bash "$repo_root/scripts/set-status.sh" nope ready >/dev/null 2>&1 && fail "missing row accepted"
 bash "$repo_root/scripts/set-status.sh" 2026-10-acme-dev bogus >/dev/null 2>&1 && fail "bad status accepted"
+printf 'id,status,last_update,notes,cover_letter_status
+q-app,pending,,"Acme, Sydney ""HQ""",none
+' > "$t"
+bash "$repo_root/scripts/set-status.sh" q-app tailored >/dev/null
+bash "$repo_root/scripts/set-status.sh" q-app drafted cover >/dev/null
+grep -q '^q-app,tailored,.*,"Acme, Sydney ""HQ""",drafted$' "$t" || fail "quoted comma shifted columns"
 echo "PASS: set-status.sh updates only the matching row"

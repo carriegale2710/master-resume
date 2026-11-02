@@ -34,12 +34,11 @@ bash tests/run-all.sh
 | `test-set-status.sh`           | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected         |
 | `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules                                                    |
 | `test-docx-export.sh`          | real .docx from a synthetic resume; skips without Pandoc                                          |
-| `test-docx-output-dir.sh`      | .docx lands in `$HOME/Downloads` by default; `RESUME_OUT_DIR` overrides; skips without Pandoc     |
 
 ## Workflow
 
 1. **Intake.** `bash scripts/new-application.sh acme-frontend`, then paste the posting into `applications/<folder>/job-description.md`.
-   Or run `bash scripts/tailor.sh` (no arguments) to do steps 1-3 interactively in 6 steps: it asks for the company, role, URL, posting and closing date, then opens one Claude session per skill, loops `verify-claims` until it passes, offers a cover letter, then at step 6 Enter runs `build.sh` (with its own y/N approval) and the CLI exits once the row is `exported` (`c` re-checks status without building). Every prompt takes `b N` (back to step N) and `q` (quit). Pick an existing folder by number to resume.
+   Or run `bash scripts/tailor.sh` (no arguments) to do steps 1-3 interactively in 6 steps: it asks for the company, role, URL, posting and closing date, then opens one Claude session per skill, loops `verify-claims` until it passes, offers a cover letter, then at step 6 Enter runs `build.sh` (with its own y/N approval) and the CLI exits once the row is `exported` (`c` re-checks status without building). Every prompt takes `q` (quit). Pick an existing folder by number to resume.
 2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, drafts with `resume-drafter`, reviews with `job-application-agent:application-lint` and pulls in other plugin skills as needed). The agent writes `resume.md` and never edits `master/`. Run `job-application-agent:cover-letter` only if a letter is needed. To draft by hand:
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
    then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page (two pages maximum).
@@ -102,7 +101,6 @@ master-resume/
 ├── AGENTS.md                      # canonical agent rules (edit this)
 ├── CLAUDE.md                      # one line: @AGENTS.md
 ├── ISSUES.md                      # open repo issues
-├── CHANGELOG.md
 ├── .env.example                   # placeholder header values; copy to .env
 ├── .claude/
 │   ├── settings.json              # denies Read on .env

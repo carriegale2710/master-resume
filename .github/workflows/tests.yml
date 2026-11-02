@@ -16,6 +16,6 @@ jobs:
       - name: Install docx export dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --no-install-recommends -y pandoc
+          sudo apt-get install --no-install-recommends -y pandoc gawk
       - name: Run all tests
         run: bash tests/run-all.sh

@@ -49,13 +49,13 @@ count() { grep -c "^/verify-claims " "$T/claude.log" || true; }
 
 dir="applications/$(date +%Y-%m)-acme-corp-frontend-dev"
 jd() { echo "$T/$dir/job-description.md"; }
-# Start (Enter = new), company, role, checklist Enter, URL, JD + END, closing date,
+# Start (Enter = new), company, role, URL, JD + END, closing date,
 # run tracker-intake, run orchestrator. Step 4 verify runs next with no pre-prompt.
-pre="\nAcme Corp\nFrontend Dev\n\nhttps://example.com/job\nJD line one\nJD line two\nEND\n2026-12-01\n\n\n"
+pre="\nAcme Corp\nFrontend Dev\nhttps://example.com/job\nJD line one\nJD line two\nEND\n2026-12-01\n\n\n"
 
 # 1. New app + JD capture. At step 6: c checks status, Enter runs build.sh (stub leaves status verified);
-# b 4 after q must never run.
-new; rc=0; run 1 "${pre}n\nc\n\nq\nb 4\n" || rc=$?
+# input after q must never run.
+new; rc=0; run 1 "${pre}n\nc\n\nq\nn\n" || rc=$?
 [[ -f "$(jd)" ]] || fail "1: $dir not created"
 grep -q 'https://example.com/job' "$(jd)" || fail "1: URL missing from JD"
 grep -q 'JD line one' "$(jd)" && grep -q 'JD line two' "$(jd)" || fail "1: JD lines missing"
@@ -75,11 +75,11 @@ expected="/tracker-intake $dir
 [[ "$(cat "$T/build.log")" == "$dir/resume.md" ]] || fail "6: want one build.sh $dir/resume.md, got: $(cat "$T/build.log")"
 [[ "$(status "$dir")" == verified ]] || fail "6: status should stay verified, got: $(status "$dir")"
 
-# 7. Commands shown once in the welcome screen, before step 1, with b <N> and q.
+# 7. Commands shown once in the welcome screen, before step 1, with q.
 [[ "$(grep -c '^Step [1-6]/6' "$T/out")" -ge 6 ]] || fail "7: fewer than 6 step headers"
 [[ "$(grep -c '^Commands' "$T/out")" -eq 1 ]] || fail "7: want exactly one Commands block"
 [[ "$(grep -n '^Commands' "$T/out" | cut -d: -f1)" -lt "$(grep -n '^Step 1/6' "$T/out" | head -1 | cut -d: -f1)" ]] || fail "7: Commands not before step 1"
-grep -q 'b <N>' "$T/out" && grep -q '^  q ' "$T/out" || fail "7: welcome missing b <N> or q"
+grep -q '^  q ' "$T/out" || fail "7: welcome missing q"
 
 # 3. verify-claims loops until pass: Enter re-runs, stub passes on call 2.
 new; run 2 "${pre}\nn\nq\n" || fail "3: tailor.sh exited non-zero"
@@ -90,20 +90,22 @@ new; run "" "${pre}s\nskip\nn\nq\n" || fail "4: tailor.sh exited non-zero"
 [[ "$(count)" -eq 2 ]] || fail "4: verify-claims ran $(count) times, want 2"
 [[ "$(status "$dir")" == verified ]] || fail "4: skip did not mark verified"
 
-# 5. Back: b 4 resets to tailored and re-verifies (fails, skip); b 5 + y runs cover letter then verify.
-new; run "1 3" "${pre}n\nb 4\nskip\nn\nb 5\ny\nq\n" || fail "5: tailor.sh exited non-zero"
-grep -q 'Not verified yet' "$T/out" || fail "5: b 4 did not reset to tailored before verify"
-[[ "$(count)" -eq 3 ]] || fail "5: verify-claims ran $(count) times, want 3"
+# 5. Cover letter: skip verify, then y runs cover letter followed by verify.
+new; run 2 "${pre}skip
+y
+q
+" || fail "5: tailor.sh exited non-zero"
 [[ "$(tail -n 2 "$T/claude.log")" == "/job-application-agent:cover-letter $dir
 /verify-claims $dir" ]] || fail "5: cover letter not followed by verify, got: $(tail -n 2 "$T/claude.log")"
 
-# 8. Edge input: b N before a new app still starts at step 1; JD ending at EOF (no END, no newline) is saved.
-new; run 1 "b 5\n\nAcme Corp\nFrontend Dev\n\nhttps://example.com/job\nJD line one\nJD tail" || fail "8: tailor.sh exited non-zero"
-grep -q 'JD line one' "$(jd)" && grep -q 'JD tail' "$(jd)" || fail "8: JD not saved (b N skipped step 1, or EOF lost the paste)"
-# Replace JD (Y), then quit mid-step: old JD stays.
-run 1 "1\n\nb 1\nY\nq\n" || fail "8: tailor.sh exited non-zero on replace"
-grep -q 'Job URL' "$T/out" || fail "8: Y not accepted at Replace existing JD"
-grep -q 'JD line one' "$(jd)" || fail "8: quitting mid-replace deleted the old JD"
+# 8. Edge input: JD ending at EOF (no END, no newline) is saved.
+new; run 1 "
+Acme Corp
+Frontend Dev
+https://example.com/job
+JD line one
+JD tail" || fail "8: tailor.sh exited non-zero"
+grep -q 'JD line one' "$(jd)" && grep -q 'JD tail' "$(jd)" || fail "8: EOF lost the paste"
 # Leading-zero number picks folder 8, no base-8 crash.
 new; mkdir -p "$T"/applications/a{1..9}; touch "$T"/applications/a{1..9}/job-description.md
 run 1 "08\n\nq\n" || fail "8: 08 crashed tailor.sh"
@@ -119,4 +121,10 @@ new; STUB_ORCH_VERIFIES=1 run "" "${pre}n\nq\n" || fail "10: tailor.sh exited no
 grep -q 'Already verified, skipping' "$T/out" || fail "10: step 4 did not skip a verified row"
 [[ "$(count)" -eq 0 ]] || fail "10: verify-claims ran $(count) times, want 0"
 
-echo "PASS: tailor.sh guardrails (JD capture, order, verify loop, skip, back, build + export, commands, edge input)"
+# 11. Quoted comma in another column does not hide a verified status.
+new; mkdir -p "$T/applications/q-app"; echo filled > "$T/applications/q-app/job-description.md"
+printf 'id,notes,status,last_update\nq-app,"Acme, Sydney",tailored,\n' > "$TRACKER"
+STUB_ORCH_VERIFIES=1 run "" "1\n\n\nn\nq\n" || fail "11: tailor.sh exited non-zero"
+grep -q 'Already verified, skipping' "$T/out" || fail "11: quoted comma shifted status column"
+
+echo "PASS: tailor.sh guardrails (JD capture, order, verify loop, skip, build + export, commands, edge input)"
