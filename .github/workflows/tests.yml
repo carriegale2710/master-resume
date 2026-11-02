@@ -13,15 +13,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Test build script
-        run: bash tests/test-build.sh
-      - name: Test application generator
-        run: bash tests/test-new-application.sh
-      - name: Test skill evidence rules
-        run: bash tests/test-skill-evidence-rules.sh
       - name: Install docx export dependencies
         run: |
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y pandoc
-      - name: Test docx export
-        run: bash tests/test-docx-export.sh
+      - name: Run all tests
+        run: bash tests/run-all.sh
