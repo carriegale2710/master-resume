@@ -2,9 +2,11 @@
 .DS_Store
 *.tmp
 *.log
-# keep final versions with contact info out of git:
-*.pdf
-*.docx
 
 # personal scratch pad
 TODO.md
+
+# tool state
+copilot/
+.copilot/
+.obsidian/

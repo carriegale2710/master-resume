@@ -1,7 +1,7 @@
 # **No-bullshit CV checklist specific by the role (Software Engineering)**
 
 > Tailor your CV for the specific software engineering role you are applying for.
-> You MUST check CV follows universal-rules.md first before applying the role-specific guidelines below.
+> You MUST check CV follows every-resume.md first before applying the role-specific guidelines below.
 
 ## **1\. Full‑Stack Software Engineer (Junior)**
 
@@ -15,6 +15,16 @@
   - Backend (Node/Express/FastAPI/Spring/etc.)
   - Database \+ schema/migrations
   - Auth \+ deployment
+
+### **Portfolio projects to show**
+
+Pick from what the master already evidences; never invent a project.
+
+- **A complete CRUD product with auth**: user accounts, a relational database, a deployed live URL (e.g. a booking, inventory or task app).
+- **A project with a real integration**: payments, a third-party API, file uploads or email, showing you can work beyond your own code.
+- **A project with real users or a real client**, even if small. Beats a tutorial clone.
+- **Show the whole chain** in at least one: frontend, API, database, deployment, and basic tests or CI.
+- **Skip**: tutorial clones (to-do lists, weather apps) unless extended with something of your own.
 
 ### **Project bullets (for each full‑stack project)**
 
@@ -53,6 +63,17 @@ For 3–5 key projects, ensure each has:
   - State management (React Query/Zustand/Redux/etc.)
   - API integration
   - Responsive, accessible UI
+
+### **Portfolio projects to show**
+
+Pick from what the master already evidences; never invent a project.
+
+- **A polished, responsive UI**: a landing page, dashboard or e-commerce front end that works on mobile and desktop.
+- **A component-driven project**: reusable components, a small design system or Storybook, showing structure not just pages.
+- **A data-driven interface**: consumes a live API with loading, error and empty states, plus search, filtering or forms.
+- **A performance or accessibility case study**: before and after (Lighthouse, bundle size, keyboard and screen-reader checks), using only figures you can evidence.
+- **A design-to-code build**: a Figma design implemented faithfully, linked to the design where possible.
+- **Skip**: pixel-perfect clones with no interactivity, and projects with no live demo.
 
 ### **Project bullets**
 

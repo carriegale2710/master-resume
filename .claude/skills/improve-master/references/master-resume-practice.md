@@ -5,7 +5,7 @@ Distilled from `docs/research/2026-10-29-master-resume.md`. Consensus from caree
 ## Purpose
 
 - A private, complete record. Never submitted. Tailored copies are cut from it.
-- Length is irrelevant in the master. It matters only in the tailored copy (one page for graduate and early-career in Australia).
+- Length is irrelevant in the master. It matters only in the tailored copy (aim for one page for graduate and early-career roles in Australia; two pages maximum).
 - It also serves as a recall aid for interview examples.
 
 ## What a complete entry holds

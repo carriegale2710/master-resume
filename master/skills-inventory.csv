@@ -5,12 +5,12 @@ Backend,"NestJS, Spring Boot","Node.js, Flask (Blueprints), REST APIs",
 Databases,,"MySQL, PostgreSQL, Supabase, database migrations and seeding",Cloud Firestore (training)
 Validation,,,Zod (training)
 Testing,,"JUnit, Mockito, REST Assured, Vitest, Playwright, Postman, end-to-end testing",Jest and TDD (training)
-Cloud / DevOps,,"AWS (EC2, S3, CloudFront), Render, Vercel, GitHub Actions CI/CD, HTTPS and custom domains, Log4j logging, health checks",
-Tools / Process,"Git, Figma","GitHub Issues/PRs, Trello, Miro, Notion, Agile/Kanban, pair programming, Lighthouse",
-Design / Accessibility,,"WCAG audits, semantic HTML, keyboard navigation, colour contrast, design systems, wireframing, prototyping, information architecture, mobile UI, design thinking",
+Cloud / DevOps,,"AWS (EC2, S3, CloudFront), Render, Vercel, GitHub Actions CI, CD / auto-deploy on push (AWS EC2, Render, Vercel; user-stated, no records), HTTPS and custom domains, Log4j logging, health checks",
+Tools / Process,"Git, Figma","GitHub Issues/PRs, Trello, Miro, Notion, Google Workspace, Microsoft Office, Agile/Kanban, pair programming, Lighthouse",
+Design / Accessibility,,"WCAG audits, semantic HTML, keyboard navigation, colour contrast, design systems, wireframing, prototyping, information architecture, mobile UI, design thinking, heuristic evaluation / UI audits",
 Design tools,Figma,"Adobe Creative Suite (Illustrator, Photoshop), Framer, Webflow, Canva",
 Research / Analytics,,"User interviews, surveys, personas, empathy maps, journey maps, usability testing, competitor analysis, Google Analytics, Hotjar, Tableau, data visualisation",
 E-commerce,,"Shopify (checkout and UI redesign), usability optimisation",
 AI,,"Prompt engineering, rubric design, LLM output evaluation, Claude/Codex","Google Stitch, v0"
-Customer service,,"Visual merchandising, stock and inventory, POS and cash handling",
+Customer service,,"Visual merchandising, stock and inventory, POS and cash handling, customer engagement, upselling, bilingual (English/Korean) customer service",
 Other,,"Stakeholder communication, requirements gathering, MVP scoping, workshop facilitation, investor pitching, event planning, social-media marketing, cultural studies, product development",

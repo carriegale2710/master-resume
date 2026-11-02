@@ -8,7 +8,7 @@ Private repo for my master resume and every tailored application.
 
 `scripts/build.sh` needs the Pandoc executable (not the Python `pandoc` package). Install it from the [official instructions](https://pandoc.org/installing.html) and check `pandoc --version`. Run scripts with `bash scripts/<name>.sh`; on Windows use Git Bash.
 
-`.docx` styling comes from Word reference templates: `templates/reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and `templates/cover-letter/reference.docx` (A4, 2.5 cm margins, Calibri 11 pt). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save. Without a cover-letter template, letters use `templates/reference.docx`.
+`.docx` styling comes from Word reference templates: `templates/reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and an optional `templates/cover-letter-reference.docx` for letters (not in the repo yet). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save. Without a cover-letter template, letters use `templates/reference.docx`.
 
 ## Scripts
 
@@ -39,9 +39,9 @@ bash tests/run-all.sh
 
 1. **Intake.** `bash scripts/new-application.sh acme-frontend`, then paste the posting into `applications/<folder>/job-description.md`.
    Or run `bash scripts/tailor.sh` (no arguments) to do steps 1-3 interactively in 6 steps: it asks for the company, role, URL, posting and closing date, then opens one Claude session per skill, loops `verify-claims` until it passes, offers a cover letter, then at step 6 Enter runs `build.sh` (with its own y/N approval) and the CLI exits once the row is `exported` (`c` re-checks status without building). Every prompt takes `b N` (back to step N) and `q` (quit). Pick an existing folder by number to resume.
-2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, asks for a template, drafts with `resume-drafter`, reviews with `resume-ats-optimizer` and pulls in other `resume-*` skills as needed). The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
+2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, drafts with `resume-drafter`, reviews with `resume-ats-optimizer` and pulls in other `resume-*` skills as needed). The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
-   then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page.
+   then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page (two pages maximum).
 3. **Verify.** Run `verify-claims`. Any unsupported claim, uncited claim or `TODO` blocks the next step.
 4. **Approve and export.** Run the build yourself so `.env` fills the header; answer `y` at the prompt to approve:
    `bash scripts/build.sh applications/<folder>/resume.md`
@@ -59,7 +59,7 @@ Hard gates: zero unsupported claims in anything `ready`; metrics only from `mast
 
 ## Private header
 
-Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}`. Put real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
+Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}`. Copy `.env.example` to a gitignored `.env` at the repo root and put your real values in `.env` (never in `.env.example`):
 
 ```
 RESUME_NAME="Your Name"
@@ -72,11 +72,13 @@ LINKEDIN_URL="linkedin.com/in/you"
 PORTFOLIO_URL="yourportfolio.com"
 ```
 
-The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its ` | ` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env`, and its `PreToolUse` hook (`.claude/hooks/block-secrets.sh`) also blocks Bash, Read, Grep and Glob calls that name `.env` or `~/.config/resume`. This is best effort: it matches text, so a disguised path such as `cat $(echo .e)nv` gets through, and the agent can edit these repo files. For a hard guarantee, copy the hook and deny rule into `~/.claude/settings.json` and keep the real values outside the repo (`RESUME_ENV_FILE=~/.config/resume/identity.env`).
+The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its `|` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env`, and its `PreToolUse` hook (`.claude/hooks/block-secrets.sh`) also blocks Bash, Read, Grep and Glob calls that name `.env` or `~/.config/resume`. This is best effort: it matches text, so a disguised path such as `cat $(echo .e)nv` gets through, and the agent can edit these repo files. For a hard guarantee, copy the hook and deny rule into `~/.claude/settings.json` and keep the real values outside the repo (`RESUME_ENV_FILE=~/.config/resume/identity.env`).
 
 ## Tags
 
-`fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security`
+`fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security` `research` `ecommerce` `startup` `retail` `customer-service`
+
+Summary-variant and add-on tags, and what each tag covers, live in `master/tags.md`.
 
 ## Rules and maintenance
 
@@ -99,16 +101,22 @@ master-resume/
 ├── README.md
 ├── AGENTS.md                      # canonical agent rules (edit this)
 ├── CLAUDE.md                      # one line: @AGENTS.md
-├── .env.example                   # sample resume content, not env variables
-├── .claude/settings.json          # denies Read on .env, registers the block-secrets hook
-├── .claude/hooks/block-secrets.sh # PreToolUse: blocks tool calls that name .env
+├── ISSUES.md                      # open repo issues
+├── CHANGELOG.md
+├── .env.example                   # placeholder header values; copy to .env
+├── .claude/
+│   ├── settings.json              # denies Read on .env, registers the block-secrets hook
+│   ├── hooks/block-secrets.sh     # PreToolUse: blocks tool calls that name .env
+│   └── skills/                    # <skill-name>/SKILL.md
 ├── .github/workflows/tests.yml
-├── master/                        # master-resume.md, skills-inventory.csv, metrics-log.csv, narrative-notes.md, archive.md
-├── checklists/                    # universal-checklist.md plus role checklists
-├── industry/                      # design/ and dev/ tailoring guides
-├── .claude/skills/                # README.md and <skill-name>/SKILL.md
-├── templates/                     # dev.md, hybrid.md, design.md
-├── scripts/                       # build.sh, new-application.sh, set-status.sh
-├── tests/                         # test-*.sh, fixtures/ (dummy master, side files, resume)
-└── docs/                          # MVP.md, PRODUCT-SPEC.md
+├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
+├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
+├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
+├── templates/                     # resume-template.md, cover-letter.md, reference.docx (Word styles)
+├── examples/                      # job-desc-samples/
+├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
+├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)
+└── docs/                          # MVP.md, PRODUCT-SPEC.md, research/
 ```
+
+Local only (gitignored): `.env`, `TODO.md`, `copilot/`, `.copilot/`, `.obsidian/`.

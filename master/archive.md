@@ -1,12 +1,3 @@
-# Master archive and maintenance (private; never on a resume)
-
-## Maintenance checklist
-
-- [ ] Within 1 week of finishing anything: add bullets, tags, and metrics evidence
-- [ ] Monthly (10 min): add new work, check links, update demo URLs
-- [ ] Quarterly: move stale material to an Archive section
-- [ ] Commit after every change (or save a dated copy)
-- [ ] Before exporting any tailored CV: follow `checklists/universal-checklist.md`
 
 ## Archive
 
