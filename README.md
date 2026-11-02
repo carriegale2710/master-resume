@@ -8,7 +8,7 @@ Private repo for my master resume and every tailored application.
 
 `scripts/build.sh` needs the Pandoc executable (not the Python `pandoc` package). Install it from the [official instructions](https://pandoc.org/installing.html) and check `pandoc --version`. Run scripts with `bash scripts/<name>.sh`; on Windows use Git Bash.
 
-`.docx` styling comes from Word reference templates: `templates/reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and `templates/cover-letter/reference.docx` (A4, 2.5 cm margins, Calibri 11 pt). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save. Without a cover-letter template, letters use `templates/reference.docx`.
+`.docx` styling comes from Word reference templates: `templates/reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and an optional `templates/cover-letter-reference.docx` for letters (not in the repo yet). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save. Without a cover-letter template, letters use `templates/reference.docx`.
 
 ## Scripts
 
@@ -105,7 +105,7 @@ master-resume/
 ├── checklists/                    # universal-checklist.md plus role checklists
 ├── industry/                      # design/ and dev/ tailoring guides
 ├── .claude/skills/                # README.md and <skill-name>/SKILL.md
-├── templates/                     # dev.md, hybrid.md, design.md
+├── templates/                     # resume-template.md, cover-letter.md, reference.docx (Word styles)
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh
 ├── tests/                         # test-*.sh, fixtures/ (dummy master, side files, resume)
 └── docs/                          # MVP.md, PRODUCT-SPEC.md

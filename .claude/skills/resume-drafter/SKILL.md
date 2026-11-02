@@ -12,7 +12,7 @@ Read `tailoring-rules/every-resume.md` first. The draft must pass every item (on
 Then read the matching role checklist in `tailoring-rules/by-role/` (`software-engineer`, `qa-role`, `ai`, `design` or `retail-cs`) and, where they apply, `tailoring-rules/by-company/graduate.md`, `startup.md` and the relevant section of `industry.md`. Apply them under the universal checklist; where any conflicts with the source-of-truth or privacy rules in `AGENTS.md`, those rules win.
 
 1. Read the job description. List required skills, tools, seniority and the role family (full-stack, frontend, QA, UX/accessibility, AI evaluation).
-2. Pick the matching template. If unclear, choose hybrid and say so.
+2. Pick the appropriate matching template if available.
 3. Start with `bash scripts/build.sh --tags <tags matching the role> --md-only master/master-resume.md` instead of reading the whole master. It prints to stdout (no file written) master sections 0-5: headlines, summaries, main stack, education, work, projects and leadership. Tagged bullets appear only if they match a tag; untagged lines, including Stack, Role and Repo lines, stay. It drops section 6, all `> ` notes and the tag/variant keys.
 4. Then read master section 6 (constraints) and the dropped notes (`grep -n '^> ' master/master-resume.md`). The notes hold entry rules and `TODO`s; ask about or flag any that affect a chosen entry.
 5. From the filtered output choose the 5-7 strongest bullets overall, favouring bullets that match the posting's must-haves. Cut the rest.
