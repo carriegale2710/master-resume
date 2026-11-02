@@ -2,7 +2,7 @@
 
 Private repo for my master resume and every tailored application.
 
-**Goal (V1):** turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using the scripts and skills here. No CLI, model API or database. Scope: [docs/MVP.md](docs/MVP.md). Longer-term target: [docs/PRODUCT-SPEC.md](docs/PRODUCT-SPEC.md). Where they differ, the MVP wins.
+**Goal (V1):** turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using the scripts and skills here. No CLI, model API or database. Longer-term target: [docs/PRODUCT-SPEC.md](docs/PRODUCT-SPEC.md); V1 is what the scripts and skills here already do.
 
 ## Setup
 
@@ -113,7 +113,7 @@ master-resume/
 ├── examples/                      # job-desc-samples/
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
 ├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)
-└── docs/                          # MVP.md, PRODUCT-SPEC.md, research/
+└── docs/                          # PRODUCT-SPEC.md, research/
 ```
 
 Local only (gitignored): `.env`, `TODO.md`, `copilot/`, `.copilot/`, `.obsidian/`.

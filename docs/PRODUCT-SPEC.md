@@ -35,6 +35,14 @@ Record intake and approval timestamps for each pilot application; use the first 
 
 ## Scope
 
+V1 shipped as the existing scripts and skills (`tailor.sh`, `verify-claims`, `build.sh`); no CLI, model API or database. Where this spec differs, V1 as shipped wins. Add the following only if triggered:
+
+| Trigger                                                                                       | Add                                     |
+| --------------------------------------------------------------------------------------------- | --------------------------------------- |
+| A draft is edited after approval and the change goes unnoticed                                | Hash check against an approval manifest |
+| Running the pipeline in the agent session is too slow or costly                               | The API CLI from this spec              |
+| Ten consecutive applications with zero unsupported claims, clean builds and recorded approval | Batch processing                        |
+
 ### In Scope (V1)
 
 A local CLI wrapper around the existing scripts and a configurable OpenAI-compatible API for an open-weight model. The API is used for tag suggestions and draft generation, not as the final verifier. No web app or database in V1. The specific model and endpoint may be selected later.
