@@ -1,7 +1,7 @@
 # **No-bullshit CV checklist specific by the role (AI)**
 
 > Tailor your CV for the specific AI role you are applying for.
-> You MUST check CV follows universal-rules.md first before applying the role-specific guidelines below.
+> You MUST check CV follows every-resume.md first before applying the role-specific guidelines below.
 
 ## **4\. AI Engineer (Junior / LLM‑focused)**
 

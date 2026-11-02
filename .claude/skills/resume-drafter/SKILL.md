@@ -5,9 +5,11 @@ description: Draft a tailored resume (one page target, two pages maximum) from m
 
 # Draft a tailored resume (one page target, two pages maximum)
 
-Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `checklists/universal-checklist.md`, a template in `templates/` (dev, hybrid or design), and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
+Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `tailoring-rules/every-resume.md`, `templates/resume-template.md`, and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
 
-Read `checklists/universal-checklist.md` first. The draft must pass every item (one target role, headline states stack, what+how+why bullets, no generic Skills section, Education & Training placement, fully typed links). Report any item that fails or cannot be met from the master.
+Read `tailoring-rules/every-resume.md` first. The draft must pass every item (one target role, headline states stack, what+how+why bullets, no generic Skills section, Education & Training placement, fully typed links). Report any item that fails or cannot be met from the master.
+
+Then read the matching role checklist in `tailoring-rules/by-role/` (`software-engineer`, `qa-role`, `ai`, `design` or `retail-cs`) and, where they apply, `tailoring-rules/by-company/graduate.md`, `startup.md` and the relevant section of `industry.md`. Apply them under the universal checklist; where any conflicts with the source-of-truth or privacy rules in `AGENTS.md`, those rules win.
 
 1. Read the job description. List required skills, tools, seniority and the role family (full-stack, frontend, QA, UX/accessibility, AI evaluation).
 2. Pick the matching template. If unclear, choose hybrid and say so.

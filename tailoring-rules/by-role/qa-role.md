@@ -1,7 +1,7 @@
 # **No-bullshit CV checklist specific by the role (QA)**
 
 > Tailor your CV for the specific QA role you are applying for.
-> You MUST check CV follows universal-rules.md first before applying the role-specific guidelines below.
+> You MUST check CV follows every-resume.md first before applying the role-specific guidelines below.
 
 ## **3\. QA Tester / Junior SDET**
 

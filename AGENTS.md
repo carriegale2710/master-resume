@@ -24,7 +24,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - Plain, specific, past-tense bullets. No filler adjectives. Australian English spelling.
 - Do not use tag names (`fullstack`, `qa`, etc.) in final output.
 - Projects carry no dates or years (master section 4 rule). Add one only for a work in progress, and only if the master gives it. Never ask for or invent project or deployment dates.
-- Tailoring workflow: follow `checklists/universal-checklist.md` (one target role, headline states stack, what+how+why bullets, no generic Skills section, graduate roles put Education & Training under the summary, fully typed links). Tick every item before calling a resume tailored. Where it conflicts with the privacy or source-of-truth rules above, those rules win.
+- Tailoring workflow: follow `tailoring-rules/every-resume.md` (one target role, headline states stack, what+how+why bullets, no generic Skills section, graduate roles put Education & Training under the summary, fully typed links), then the matching role checklist in `tailoring-rules/by-role/` and, where they apply, `tailoring-rules/by-company/graduate.md`, `startup.md` and `industry.md`. Tick every item before calling a resume tailored. Where it conflicts with the privacy or source-of-truth rules above, those rules win.
 
 ## Tools in this repo
 
