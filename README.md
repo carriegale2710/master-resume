@@ -58,7 +58,7 @@ Hard gates: zero unsupported claims in anything `ready`; metrics only from `mast
 
 ## Private header
 
-Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}`. Put real values in a gitignored `.env` at the repo root (not `.env.example`, which holds sample resume content):
+Name, email, location, phone, links and work rights never live in the repo. Drafts use `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}`. Copy `.env.example` to a gitignored `.env` at the repo root and put your real values in `.env` (never in `.env.example`):
 
 ```
 RESUME_NAME="Your Name"
@@ -71,11 +71,13 @@ LINKEDIN_URL="linkedin.com/in/you"
 PORTFOLIO_URL="yourportfolio.com"
 ```
 
-The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its ` | ` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
+The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its `|` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
 
 ## Tags
 
-`fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security`
+`fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security` `research` `ecommerce` `startup` `retail` `customer-service`
+
+Summary-variant and add-on tags, and what each tag covers, live in `master/tags.md`.
 
 ## Rules and maintenance
 
@@ -98,15 +100,21 @@ master-resume/
 ├── README.md
 ├── AGENTS.md                      # canonical agent rules (edit this)
 ├── CLAUDE.md                      # one line: @AGENTS.md
-├── .env.example                   # sample resume content, not env variables
-├── .claude/settings.json          # denies Read on .env
+├── ISSUES.md                      # open repo issues
+├── CHANGELOG.md
+├── .env.example                   # placeholder header values; copy to .env
+├── .claude/
+│   ├── settings.json              # denies Read on .env
+│   └── skills/                    # <skill-name>/SKILL.md
 ├── .github/workflows/tests.yml
-├── master/                        # master-resume.md, skills-inventory.csv, metrics-log.csv, narrative-notes.md, archive.md
-├── checklists/                    # universal-checklist.md plus role checklists
-├── industry/                      # design/ and dev/ tailoring guides
-├── .claude/skills/                # README.md and <skill-name>/SKILL.md
+├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
+├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
+├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
 ├── templates/                     # resume-template.md, cover-letter.md, reference.docx (Word styles)
-├── scripts/                       # build.sh, new-application.sh, set-status.sh
-├── tests/                         # test-*.sh, fixtures/ (dummy master, side files, resume)
-└── docs/                          # MVP.md, PRODUCT-SPEC.md
+├── examples/                      # job-desc-samples/
+├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
+├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)
+└── docs/                          # MVP.md, PRODUCT-SPEC.md, research/
 ```
+
+Local only (gitignored): `.env`, `TODO.md`, `copilot/`, `.copilot/`, `.obsidian/`.

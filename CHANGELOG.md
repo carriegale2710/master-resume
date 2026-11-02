@@ -8,8 +8,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 - `humanize-prose` skill strips AI patterns from cover letters.
 - `humanize-prose` refuses `resume.md`; edits wording only, adds no facts.
-- `build.sh` exports `cover-letter.md`: needs `cover_letter_status` `verified`, keeps line breaks, uses `templates/cover-letter/reference.docx` if present, leaves resume status alone.
-- Word reference templates: `templates/reference.docx` (one-page resume) and `templates/cover-letter/reference.docx` (one-page letter), both A4.
+- `build.sh` exports `cover-letter.md`: needs `cover_letter_status` `verified`, keeps line breaks, uses `templates/cover-letter-reference.docx` if present, else `templates/reference.docx`, leaves resume status alone.
+- Word reference templates: `templates/reference.docx` (one-page resume, A4). Optional `templates/cover-letter-reference.docx` for letters; not in the repo yet.
 
 ### Changed
 
