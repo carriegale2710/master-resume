@@ -6,12 +6,16 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 ### Added
 
+- General application skills now come from the `job-application-agent` plugin; `AGENTS.md` maps its paths to this repo and wins on conflicts.
+
 - `humanize-prose` skill strips AI patterns from cover letters.
 - `humanize-prose` refuses `resume.md`; edits wording only, adds no facts.
 - `build.sh` exports `cover-letter.md`: needs `cover_letter_status` `verified`, keeps line breaks, uses `templates/cover-letter-reference.docx` if present, else `templates/reference.docx`, leaves resume status alone.
 - Word reference templates: `templates/reference.docx` (one-page resume, A4). Optional `templates/cover-letter-reference.docx` for letters; not in the repo yet.
 
 ### Changed
+
+- `resume-orchestrator`, `tailor.sh` and docs call `job-application-agent:job-ad-decoder`, `application-lint`, `achievement-statements`, `cover-letter` and `interview-prep`.
 
 - `AGENTS.md` order: cover letter, `humanize-prose`, then `verify-claims`.
 
