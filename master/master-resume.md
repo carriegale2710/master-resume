@@ -1,7 +1,7 @@
 # MASTER RESUME (source of truth: never submit this directly)
 
-> **Use:** `bash scripts/new-application.sh company-role`, filter bullets by tag, cut to one page, tick `checklists/universal-checklist.md`, export as **.docx**.
-> **Rules:** Edit facts here only. Every number needs a row in `master/metrics-log.csv` (section 6). Fill every `TODO` before reusing a claim. Swap unproven numbers for the safe wording.
+> **Use:** `bash scripts/new-application.sh company-role`, filter bullets by tag, cut to one page (two pages maximum), tick `tailoring-rules/every-resume.md`, export as **.docx**.
+> **Rules:** Edit facts here only. Every number needs a row in `master/metrics-log.csv`. Fill every `TODO` before reusing a claim. Swap unproven numbers for the safe wording.
 
 **Tag key:** `fullstack` `backend` `frontend` `qa` `ux` `a11y` `ai-eval` `devops` `product` `leadership` `security` `research` `ecommerce` `startup` `retail` `customer-service`
 **Variant key:** **S** = short one-liner, **M** = standard, **Q** = quantified
@@ -159,6 +159,24 @@ Clients: small Shopify e-commerce businesses (fashion and retail)
 - `ux` Explained design rationale, accessibility, performance and user-flow friction in plain language for non-technical stakeholders.
 - `product` Managed projects from discovery to delivery (scoping, prioritising, iterating on feedback to reduce rework); revised branding, then built a working landing page and social-media marketing strategies.
 
+### Freelance UX/UI Designer (alternative format: client-named entries)
+
+> Use instead of the entry above when named clients read better. Keep both. TODO: Artonclo (Jun–Aug 2022) predates the entry above (starts May 2023); confirm the dates before using. Floratique end date set to Dec 2024 to match the entry above (older draft said "present"; TODO confirm).
+
+#### Floratique Florals (Shopify e-commerce), UX/UI Designer (Freelance)
+
+Sydney, NSW | Jul 2024 – Dec 2024 | Tools: Figma, Shopify analytics, usability testing
+
+- `ux` `ecommerce` Worked as the sole designer, optimising checkout user flows and troubleshooting usability issues to reduce purchase friction.
+- `ux` `research` Analysed Shopify analytics to find where shoppers dropped off, then validated hunches with usability testing before proposing changes.
+
+#### Artonclo (boutique online clothing store), UX/UI Designer (Freelance)
+
+Sydney, NSW | Jun 2022 – Aug 2022 (TODO: confirm) | Tools: Figma
+
+- `ux` `a11y` Ran a heuristic evaluation and UI audit against design principles that found an estimated 15+ usability and accessibility issues. _(estimate; see Metrics Log)_
+- `ux` `research` Facilitated client UX workshops covering moodboards, competitor analysis, user personas, user-flow testing and site-mapping.
+
 ### Gapmash, UX Design Intern
 
 Sydney, NSW | Oct 2021 – Nov 2021 (part-time, 10 hours per week) | Tools: Figma, Figjam, Miro
@@ -182,23 +200,23 @@ Sydney, NSW | Oct 2021 – Nov 2021 (part-time, 10 hours per week) | Tools: Figm
 
 Redfern, NSW | Mar 2021 – Oct 2021
 
-- `retail` Restructured product displays for easier browsing, contributing to stronger sales and more customer interaction.
-- `retail` `customer-service` Gave personalised service and product advice that built loyalty and brought customers back.
-- `retail` Helped organise stock, pricing and inventory so shelves stayed accurate and well stocked.
+- `retail` Restructured product displays for easier browsing, contributing to stronger sales and more customer interaction; estimated 10–15% lift in sales and foot traffic. _(estimate; see Metrics Log)_
+- `retail` `customer-service` Gave personalised service and product advice to up to 60 customers per shift, building loyalty and bringing customers back. _(self-reported; see Metrics Log)_
+- `retail` Helped organise stock, pricing and inventory (50+ items of incoming stock a day) so shelves stayed accurate and well stocked. _(self-reported; see Metrics Log)_
 
 #### McDonald's, Team Member (Cashier All-Rounder)
 
 Sydney, NSW | Jun 2015 – Aug 2017
 
-- `retail` `customer-service` Served customers at the counter and POS in high-volume shifts, keeping orders fast and accurate.
+- `retail` `customer-service` Served customers at the counter and POS in high-volume shifts (100–150 transactions per shift), keeping orders fast and accurate. _(self-reported; see Metrics Log)_
 - `customer-service` Handled complaints calmly, turning problems into positive experiences and protecting repeat business.
-- `leadership` Spotted workflow inefficiencies and suggested process changes that streamlined team operations.
+- `leadership` Spotted workflow inefficiencies and suggested process changes that streamlined team operations; estimated 10% faster order processing. _(estimate; see Metrics Log)_
 
 #### Daskalakis Jewels, Sales Assistant
 
 Glebe, NSW | Feb 2012 – Feb 2013
 
-- `retail` `customer-service` Guided customers choosing high-value items with personalised recommendations, consistently meeting sales targets.
+- `retail` `customer-service` Guided 10–30 customers per shift choosing high-value items with personalised recommendations, consistently meeting sales targets. _(self-reported; see Metrics Log)_
 - `retail` Helped design and set up visual-merchandising displays that kept the store inviting and supported sales.
 
 #### East Hills Girls Technology High School, Library Assistant
@@ -378,7 +396,7 @@ Sydney, NSW | Dec 2024 (two-week program)
 - `product` `leadership` Co-pitched the finished MVP to 5+ VC investors and adjusted features from team and investor feedback. _(self-reported; see Metrics Log)_
 - `product` `startup` The team's pitch, delivered by my co-founder, drew praise from two investors (Boson Ventures and OneVentures) as a "perfect pitch presentation". _(team accolade: I did not deliver it; see Metrics Log)_
 
-### Multicultural Interracial Experience Society (MIXSOC), USYD, Founder & President
+### Multiracial Intercultural Experience Society (MIXSOC), USYD, Founder & President
 
 Sydney, NSW | Jun 2021 – Jun 2022
 
@@ -427,7 +445,7 @@ Seoul, South Korea and Saitama, Japan | Jun 2018 – Feb 2019 | Rikkyo grade: 90
 - **Anything discussable but not publishable:** TODO.
 - **MATES Abroad reference letter (third-party evidence):** the program coordinator oversaw the five months, cited mentee feedback reports describing the support as invaluable with a significant impact on adjustment, and credited emotional intelligence, time management and communication. Recommends me for client-facing and people-focused work. Use for retail, customer-service, graduate-program and cover-letter angles, not as resume adjectives. TODO: record the coordinator's name, title and contact, and whether they agreed to be listed.
 - **Gapmash reference letter (third-party evidence):** the internship required team work on a product review, research synthesis, design strategy and analysis, wireframing and prototyping. The referee described me as hard-working, collaborative, able to multi-task and finish tasks on time, honest, friendly and positive, and able to view problems from a unique perspective. Use for cover letters, interviews and reference requests ("my internship supervisor described me as..."), never as resume bullets (adjectives). TODO: record the referee's name, title and contact in a private reference list, and whether they agreed to be listed.
-- **Do not claim (from a pasted older answer):** "100% test coverage" (no coverage figure; say "automated test suite"); "CI/CD" (only CI is evidenced; say "CI"); "12 weeks" (use 4 months for \_nology); "QA pipelines" (say "prompts, rubrics and checklists").
+- **Do not claim (from a pasted older answer):** "100% test coverage" (no coverage figure; say "automated test suite"); "CI/CD" (CI is evidenced in the repos; auto-deploy on push for Employee Creator, Trivia Game and Library Portal is user-stated with no records, so say "auto-deploy" and be ready to explain the setup); "12 weeks" (use 4 months for \_nology); "QA pipelines" (say "prompts, rubrics and checklists").
 
 ### Conflicts between this master and older CVs (resolve once, then delete this list)
 
