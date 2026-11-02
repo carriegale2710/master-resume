@@ -5,7 +5,7 @@ description: Draft a tailored resume (one page target, two pages maximum) from m
 
 # Draft a tailored resume (one page target, two pages maximum)
 
-Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `tailoring-rules/every-resume.md`, `templates/resume-template.md`, and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
+Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `tailoring-rules/every-resume.md`, `templates/resume.md`, and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
 
 Read `tailoring-rules/every-resume.md` first. The draft must pass every item (one target role, headline states stack, what+how+why bullets, no generic Skills section, Education & Training placement, fully typed links). Report any item that fails or cannot be met from the master.
 

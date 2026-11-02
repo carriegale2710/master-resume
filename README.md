@@ -109,7 +109,7 @@ master-resume/
 ├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
 ├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
 ├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
-├── templates/                     # resume-template.md, cover-letter.md, reference.docx (Word styles)
+├── templates/                     # resume.md, cover-letter.md, reference.docx (Word styles)
 ├── examples/                      # job-desc-samples/
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
 ├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)

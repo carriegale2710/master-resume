@@ -32,7 +32,7 @@ new() {
   export T TRACKER="$T/tracker.csv"
   mkdir -p "$T/templates" "$T/applications"
   cp -r "$repo_root/scripts" "$T/"
-  cp "$repo_root/templates/resume-template.md" "$T/templates/"
+  cp "$repo_root/templates/resume.md" "$T/templates/"
   cat > "$T/scripts/build.sh" <<'EOF'
 #!/usr/bin/env bash
 echo "$*" >> "$T/build.log"
