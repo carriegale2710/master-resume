@@ -27,6 +27,7 @@ bash tests/run-all.sh
 | Test                           | Purpose                                                                                           |
 | ------------------------------ | ------------------------------------------------------------------------------------------------- |
 | `test-build.sh`                | tag filtering, dropped private sections, `TODO` warning, `.env` header fill, missing-value errors |
+| `test-block-secrets.sh`        | hook blocks `.env` and `~/.config/resume` in Bash, Read, Grep and Glob calls; look-alikes pass   |
 | `test-master-split.sh`         | master stops at section 6; metrics log, skills inventory, narrative notes and archive files exist |
 | `test-new-application.sh`      | expected files, unsafe names rejected, duplicates refused, `pending` row added                    |
 | `test-set-status.sh`           | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected         |
@@ -71,7 +72,7 @@ LINKEDIN_URL="linkedin.com/in/you"
 PORTFOLIO_URL="yourportfolio.com"
 ```
 
-The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its ` | ` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env` (best effort; shell commands are a separate path).
+The build substitutes them and fails if `.env` or a variable the draft uses is missing. The three `*_URL` values are optional: an unset one is dropped along with its ` | ` separator. Run it yourself, not through an agent. `.claude/settings.json` denies Claude's Read tool on `.env`, and its `PreToolUse` hook (`.claude/hooks/block-secrets.sh`) also blocks Bash, Read, Grep and Glob calls that name `.env` or `~/.config/resume`. This is best effort: it matches text, so a disguised path such as `cat $(echo .e)nv` gets through, and the agent can edit these repo files. For a hard guarantee, copy the hook and deny rule into `~/.claude/settings.json` and keep the real values outside the repo (`RESUME_ENV_FILE=~/.config/resume/identity.env`).
 
 ## Tags
 
@@ -99,7 +100,8 @@ master-resume/
 ├── AGENTS.md                      # canonical agent rules (edit this)
 ├── CLAUDE.md                      # one line: @AGENTS.md
 ├── .env.example                   # sample resume content, not env variables
-├── .claude/settings.json          # denies Read on .env
+├── .claude/settings.json          # denies Read on .env, registers the block-secrets hook
+├── .claude/hooks/block-secrets.sh # PreToolUse: blocks tool calls that name .env
 ├── .github/workflows/tests.yml
 ├── master/                        # master-resume.md, skills-inventory.csv, metrics-log.csv, narrative-notes.md, archive.md
 ├── checklists/                    # universal-checklist.md plus role checklists
