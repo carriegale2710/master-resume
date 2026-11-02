@@ -44,7 +44,7 @@ Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for
 4. `cover-letter-generator` (optional), then `humanize-prose` on the letter (never on the resume), then `verify-claims` on the letter
 5. `interview-prep-generator` (after applying)
 
-View `.claude/skills/README.md` for the full list of available other skills imported into this repo.
+Other imported skills live in the same folder; each `SKILL.md` description says when to use it.
 
 ## Always report
 
