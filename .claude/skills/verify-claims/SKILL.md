@@ -15,7 +15,7 @@ Check, in order:
 5. **Consistency.** Dates, titles, employers and tech stacks match the master. Overlapping dates are explainable per master section 6. A project stack in the resume matches the project entry (e.g. database names).
    Project entries must carry no dates or years (master section 4 rule). Flag any project date, except a work-in-progress marker the master supports.
 6. **Leftovers.** No tag names, variant labels, or "(see Metrics Log)" notes.
-7. **Length.** Estimate whether it fits one page; suggest what to cut if not.
+7. **Length.** Estimate the page count. Over two pages is a FAIL: list what to cut. Between one and two pages is allowed: suggest cuts that would bring it to one page.
 
 Output: PASS or FAIL, then a numbered list of issues with the file line, the problem, and a suggested fix. Do not silently edit; propose changes unless the user asks you to apply them.
 

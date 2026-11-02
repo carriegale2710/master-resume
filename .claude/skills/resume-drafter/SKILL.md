@@ -1,9 +1,9 @@
 ---
 name: resume-drafter
-description: Draft a tailored one-page resume from master/master-resume.md for a specific job posting in applications/<folder>/job-description.md. Use when asked to tailor, adapt, customise or write a resume for a role.
+description: Draft a tailored resume (one page target, two pages maximum) from master/master-resume.md for a specific job posting in applications/<folder>/job-description.md. Use when asked to tailor, adapt, customise or write a resume for a role.
 ---
 
-# Draft a tailored one-page resume
+# Draft a tailored resume (one page target, two pages maximum)
 
 Inputs: `master/master-resume.md`, `applications/<folder>/job-description.md`, `checklists/universal-checklist.md`, a template in `templates/` (dev, hybrid or design), and only the `master/metrics-log.csv` rows behind numbers you use. Do not read `master/narrative-notes.md` or `master/archive.md`.
 
@@ -17,7 +17,7 @@ Read `checklists/universal-checklist.md` first. The draft must pass every item (
 6. Choose the bullet variant per `AGENTS.md`: use a quantified variant only if `master/metrics-log.csv` has a row for the number (find it with `grep -i '<claim>' master/metrics-log.csv`); otherwise use the safe wording.
 7. Gaps: if a must-have has no master evidence, ask the user one open question about it (where, what they personally did, tools, scope). Never infer experience from uncertainty or turn exposure into proficiency. Anything they confirm goes into the master first via `improve-master` (with their permission), never straight into the resume. No defensible example: record the gap in the report and carry on.
 8. Rewrite the summary in 2-3 lines using only facts from the master. Mirror the posting's exact phrasing only where it truthfully describes the work; no keyword stuffing.
-9. Reorder sections, roles and bullets so the most relevant comes first. Remove tag names and private sections.
+9. Reorder sections, roles and bullets so the most relevant comes first. Remove tag names and private sections. Aim for one page; never exceed two. If it runs over one page, cut the least relevant bullets first.
 10. Write to `applications/<folder>/resume.md`.
 11. Run `bash scripts/set-status.sh <folder> tailored`.
 12. Report: bullets cut, wording changed, claims needing evidence, gaps found, `TODO` fields still blank.
