@@ -9,7 +9,7 @@
 ## **Must‑have signals**
 
 - **One target role** named in the headline, with the stack as in the posting (only where the master supports it).
-- **Education & Training sits directly under the summary** (degree, institution, relevant units or capstone, as in the master).
+- **Education sits directly under the summary** (degree, institution, relevant units or capstone, as in the master).
 - **Strongest 1–2 projects or placements come next**, with impact, not a list of coursework.
 - **Eligibility is clear**: work rights on one line using `${RESUME_WORKRIGHTS}`; location and availability only if the master gives them.
 - **Program keywords mirrored** (rotation, traineeship, cohort, mentoring) only where the master supports them.

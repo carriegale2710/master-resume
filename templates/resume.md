@@ -10,7 +10,8 @@ Graduate tech template. Rules:
 
 **[Target role from posting, e.g. Graduate Software Engineer] | [Stack from posting, as the master supports: e.g. TypeScript, React, Node.js]**
 
-${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
+${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE}
+${LINKEDIN_URL} | ${GITHUB_URL} | ${PORTFOLIO_URL}
 
 ## Profile
 
@@ -18,7 +19,7 @@ ${RESUME_LOCATION} | ${RESUME_WORKRIGHTS} | ${RESUME_EMAIL} | ${RESUME_PHONE} | 
 - [Strongest project: what you built + how + result + where (personal, client, hackathon)]
 - [Relevant work experience: role + what you shipped + the engineering practice the ad asks for, e.g. testing, code review, Agile teamwork]
 
-## Education & Training
+## Education
 
 ### [Bachelor of / Diploma of / Bootcamp name (Specialisation)] | Mon YYYY – expected Mon YYYY
 
@@ -28,28 +29,13 @@ _[Institution]_
 - [Relevant coursework: e.g. Data Structures & Algorithms, Databases, Software Engineering]
 - [Capstone or team project: what you built + how + grade or result]
 
+## Programs & Certifications
+
 ### [Course or certification, e.g. AWS Cloud Practitioner] | Mon YYYY
 
 _[Provider]_
 
 - [What you learned or built, and where you have since applied it]
-
-## Projects
-
-### [Project Name] – [what it does, in one line]
-
-_[Stack] | [github.com/... repo path] | [live domain, no https://]_
-
-- [Built \<feature\> with \<tech\> so \<users\> could \<outcome\>]
-- [Designed \<architecture, data model or API\> with \<tech\> to \<solve a specific problem\>]
-- [Tested and deployed with \<tools, e.g. Jest, GitHub Actions, Vercel\> to \<outcome, e.g. catch regressions before release\>]
-
-### [Project Name] – [what it does, in one line]
-
-_[Stack] | [github.com/... repo path] | [live domain, no https://]_
-
-- [Built \<feature\> with \<tech\> to \<purpose or outcome\>]
-- [Worked with \<team\> using Git branching, pull requests and code review to \<outcome\>]
 
 ## Relevant Experience
 
@@ -69,6 +55,23 @@ _[Organisation, Location]_
 
 - [Did \<task\> using \<method or tool\> to \<outcome\>, showing \<transferable skill: problem solving, communication, teamwork\>]
 - [Did \<task\> using \<method or tool\> to \<outcome\>]
+
+## Projects
+
+### [Project Name] – [what it does, in one line]
+
+_[Stack] | [github.com/... repo path] | [live domain, no https://]_
+
+- [Built \<feature\> with \<tech\> so \<users\> could \<outcome\>]
+- [Designed \<architecture, data model or API\> with \<tech\> to \<solve a specific problem\>]
+- [Tested and deployed with \<tools, e.g. Jest, GitHub Actions, Vercel\> to \<outcome, e.g. catch regressions before release\>]
+
+### [Project Name] – [what it does, in one line]
+
+_[Stack] | [github.com/... repo path] | [live domain, no https://]_
+
+- [Built \<feature\> with \<tech\> to \<purpose or outcome\>]
+- [Worked with \<team\> using Git branching, pull requests and code review to \<outcome\>]
 
 ## Programs & Activities
 
