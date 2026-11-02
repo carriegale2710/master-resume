@@ -10,7 +10,7 @@ Private repo for my master resume and every tailored application.
 
 The `job-application-agent` plugin is enabled for this project only (`.claude/settings.json`). To install it on a new machine, run from the repo root: `claude plugin marketplace add carriegale2710/job-application-agent --scope project`, then `claude plugin install job-application-agent@job-application-agent --scope project`. Its skills load only in sessions started in this repo; restart the session or run `/reload-plugins` after installing.
 
-`.docx` styling comes from Word reference templates: `templates/reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and an optional `templates/cover-letter-reference.docx` for letters (not in the repo yet). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save. Without a cover-letter template, letters use `templates/reference.docx`.
+`.docx` styling comes from Word reference templates: `templates/resume-reference.docx` (resume: A4, 1.5 cm margins, Calibri 10 pt, navy ruled section headings) and an optional `templates/cover-letter-reference.docx` for letters (not in the repo yet). Pandoc takes only their styles, page size, margins and headers/footers, never their body content. To change the look, open one in Word, modify the styles it uses (Heading 1 = name, Heading 2 = section, Body Text, First Paragraph, Compact = list items, Hyperlink) and save.
 
 ## Scripts
 
@@ -111,7 +111,7 @@ master-resume/
 ├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
 ├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
 ├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
-├── templates/                     # resume.md, cover-letter.md, reference.docx (Word styles)
+├── templates/                     # resume.md, cover-letter.md, resume-reference.docx (Word styles)
 ├── examples/                      # job-desc-samples/
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
 ├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)

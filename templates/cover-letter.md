@@ -1,22 +1,39 @@
-# ${RESUME_NAME}
+${RESUME_NAME}
+${RESUME_LOCATION}
+${RESUME_PHONE}
+${RESUME_EMAIL}
 
-${RESUME_LOCATION} | ${RESUME_PHONE} | ${RESUME_EMAIL} | ${GITHUB_URL} | ${LINKEDIN_URL} | ${PORTFOLIO_URL}
-
-[Date]
-[Hiring Manager]
-[Company Name]
+[Date]  
+[Hiring Manager Name / Recruitment Team]  
+[Company Name]  
 [Company Address]
 
-Dear [Hiring Manager],
+**Re: Name of position – [Company Name]**
 
-Re: Application for [Insert Job Title]
+Dear [Hiring Manager Name] or Dear HR Manager or Dear Recruitment Team (Only use Dear Sir/Madam if you are unable to find a name),
 
-I am excited to apply for the [Insert Job Title] position at [Organization Name]. After researching your organization’s mission and recent projects, I am particularly drawn to your work in [mention a specific project or value]. My enthusiasm for this role stems from [state why you want to work there].
+<!-- ## First paragraph -->
 
-My background in [mention academic, volunteer, or paid experience] has equipped me with key skills that directly align with this role. Specifically, I have demonstrated [mention a skill] through [provide a brief example or context not found in your CV]. I am confident that my ability to [mention a specific match to the job description] makes me a strong fit for your team.
+- Introduce yourself (summary of relevant qualifications and experience)
+- Detail why you want that job and why you want to work for that company
+- Highlight how you will meet their needs (what value can you bring? Do not focus on what you want)
 
-I am eager to contribute my strengths to [Organization Name] and showcase my motivation for this [role]. Thank you for your time and consideration.
+<!-- ## Middle paragraphs -->
 
-Sincerely,
+- Describe selected skills and knowledge through experiences undertaken and resulting achievements
+  - Select the 3-5 most important based on the selection criteria and/or job description
+- Each paragraph can describe an experience that showcases various skills; or
+- Each paragraph can focus on a skill and describe the various experiences in which it was applied
+
+<!-- ## Summary paragraph -->
+
+- Tell them why you are the best fit for the company and how your skills will meet their needs
+- Tip: you could summarise the 3 best things about you that make you most competitive for the job and how these things will allow you to make an impact / get results in the role
+
+<!-- ## Closing paragraph -->
+
+- Thank them for considering your application and make a positive statement about discussing your application and the position further at an interview.
+
+Yours sincerely, (or Yours faithfully if you do not have a name and have used Dear Sir/Madam)
 
 ${RESUME_NAME}

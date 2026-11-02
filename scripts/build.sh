@@ -4,9 +4,9 @@
 # --tags     keep only tagged bullets matching any tag (untagged lines kept)
 # --md-only  print filtered Markdown to stdout instead of building a .docx
 # docx build requires tracker status "verified" and a y/N approval (sets ready, then exported).
-# The .docx needs pandoc only; optional templates/reference.docx styles it.
+# The .docx needs pandoc only; optional templates/resume-reference.docx styles it.
 # Single line breaks are kept. cover-letter.md: gated on cover_letter_status=verified (no ready/exported change),
-# styled by templates/cover-letter-reference.docx if present, else templates/reference.docx.
+# styled by templates/cover-letter-resume-reference.docx if present, else templates/resume-reference.docx.
 # Everything from the first "## 6."-"## 10." heading on (master section 6 is private), tag/variant keys
 # and "> " notes are always removed. Private side files in master/ are never read.
 # docx build only: ${RESUME_NAME|EMAIL|LOCATION|PHONE|LINKS|WORKRIGHTS} and ${GITHUB_URL|LINKEDIN_URL|PORTFOLIO_URL}
@@ -83,9 +83,9 @@ fi
 out_dir="${RESUME_OUT_DIR:-$HOME/Downloads}"
 mkdir -p "$out_dir"
 out="$out_dir/$folder-$stem.docx"
-ref="$(dirname "$0")/../templates/reference.docx"
+ref="$(dirname "$0")/../templates/resume-reference.docx"
 if [ "$cover" -eq 1 ]; then
-  cref="$(dirname "$0")/../templates/cover-letter-reference.docx"
+  cref="$(dirname "$0")/../templates/cover-letter-resume-reference.docx"
   [ -f "$cref" ] && ref="$cref"
 fi
 ref_opt=(); [ -f "$ref" ] && ref_opt=(--reference-doc="$ref")

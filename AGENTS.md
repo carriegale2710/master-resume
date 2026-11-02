@@ -26,6 +26,11 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - Projects carry no dates or years (master section 4 rule). Add one only for a work in progress, and only if the master gives it. Never ask for or invent project or deployment dates.
 - Tailoring workflow: follow `tailoring-rules/every-resume.md` (one target role, headline states stack, what+how+why bullets, no generic Skills section, graduate roles put Education & Training under the summary, fully typed links), then the matching role checklist in `tailoring-rules/by-role/` and, where they apply, `tailoring-rules/by-company/graduate.md`, `startup.md` and `industry.md`. Tick every item before calling a resume tailored. Where it conflicts with the privacy or source-of-truth rules above, those rules win.
 
+## Cover letters
+
+- Every cover letter an agent generates must be checked against `tailoring-rules/every-cover-letter.md` before it is called done. Tick every item, fix anything that fails, then re-check. Do not finish with an unticked item; report any item you could not fix.
+- Where it conflicts with the privacy or source-of-truth rules above, those rules win.
+
 ## Tools in this repo
 
 - `bash scripts/build.sh --tags a,b --md-only master/master-resume.md` filters master bullets by tag.
