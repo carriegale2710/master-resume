@@ -49,7 +49,7 @@ bash tests/run-all.sh
    The agent never sets `ready`. Editing a draft after verify means verifying again.
 5. **Submit.** `git add . && git commit -m "app: acme-frontend submitted" && git tag submit-YYYY-MM-acme`, then update the `tracker.csv` row.
 
-Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported` (both set by `build.sh` after your y/N approval). `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date, eligibility`.
+Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported` (both set by `build.sh` after your y/N approval). Building an `exported` resume asks "Re-export?" before overwriting. A resume build then offers the `cover-letter.md` beside it; its own `cover_letter_status` goes `none` -> `drafted` -> `verified` -> `exported`. `tracker.csv` columns: `id, date_applied, company, role, location, source, version_folder, status, last_update, contact, outcome, notes, opening_date, closing_date, eligibility`.
 
 Hard gates: zero unsupported claims in anything `ready`; metrics only from `master/metrics-log.csv` using its safe wording; nothing from master section 6, `master/narrative-notes.md` or `master/archive.md` in output; one page target, two pages limit.
 
@@ -111,7 +111,7 @@ master-resume/
 ├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
 ├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
 ├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
-├── templates/                     # resume.md, cover-letter.md, resume-reference.docx (Word styles)
+├── templates/                     # resume, cover letter, emails, LinkedIn/GitHub profile, case study, about me; *-reference.docx (Word styles)
 ├── examples/                      # job-desc-samples/
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
 ├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)

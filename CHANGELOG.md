@@ -6,6 +6,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 ### Added
 
+- Templates: `linkedin-profile.md`, `github-profile.md`, `project-case-study.md`, `portfolio-about-me.md`, `cold-email.md`, `follow-up-email.md`, `linkedin-dm.md`. Each carries the master source-of-truth, privacy and placeholder rules in a header comment.
 - General application skills now come from the `job-application-agent` plugin; `AGENTS.md` maps its paths to this repo and wins on conflicts.
 
 - `humanize-prose` skill strips AI patterns from cover letters.
@@ -15,6 +16,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 ### Changed
 
+- `build.sh` accepts status `exported` and asks "Re-export? This will overwrite your previous export." before rebuilding.
+- A resume build also offers the `cover-letter.md` in the same folder (own `verified` gate and y/N prompt).
+- Cover letter build now sets `cover_letter_status` to `exported`; `set-status.sh <folder> exported cover` allows it. Resume status stays untouched.
+- Renamed `templates/reference.docx` to `templates/resume-reference.docx`.
 - `resume-orchestrator`, `tailor.sh` and docs call `job-application-agent:job-ad-decoder`, `application-lint`, `achievement-statements`, `cover-letter` and `interview-prep`.
 
 - `AGENTS.md` order: cover letter, `humanize-prose`, then `verify-claims`.
