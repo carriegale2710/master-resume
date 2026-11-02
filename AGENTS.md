@@ -36,15 +36,27 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 
 ## Skills
 
-Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. Typical order for an application:
+Repo-specific skills live in `.claude/skills/<name>/SKILL.md`. General application skills come from the `job-application-agent` plugin (invoked as `job-application-agent:<skill>`). Typical order for an application:
 
 1. `tracker-intake`
-2. `resume-orchestrator` (runs `job-description-analyzer`, `resume-drafter`, `resume-ats-optimizer`, and other `resume-*` skills as needed, then `verify-claims`)
+2. `resume-orchestrator` (runs `job-application-agent:job-ad-decoder`, `resume-drafter`, `job-application-agent:application-lint`, and other plugin skills as needed, then `verify-claims`)
 3. `verify-claims` (mandatory final step before any file is called ready)
-4. `cover-letter-generator` (optional), then `humanize-prose` on the letter (never on the resume), then `verify-claims` on the letter
-5. `interview-prep-generator` (after applying)
+4. `job-application-agent:cover-letter` (optional), then `humanize-prose` on the letter (never on the resume), then `verify-claims` on the letter
+5. `job-application-agent:interview-prep` (after applying)
 
-Other imported skills live in the same folder; each `SKILL.md` description says when to use it.
+Other repo skills live in the same folder; each `SKILL.md` description says when to use it.
+
+### Plugin skills in this repo
+
+The `job-application-agent` plugin assumes its own file layout. In this repo, read its paths as:
+
+- `resume/master-resume.md` is `master/master-resume.md`. `resume/stories.md` and `resume/linkedin.md` are `master/stories.md` and `master/linkedin.md` (create them only when the user asks to edit `master/`).
+- `applications/<company>-<role>/` is `applications/<folder>/`. The ad is in `job-description.md`; `job-ad-decoder` writes `criteria.md` beside it.
+- Numbers come from `master/metrics-log.csv` per the source-of-truth rules, not from the plugin's estimate rules.
+- `applications/tracker.csv` is the tracker. Never create the plugin's `tracker.md`.
+- Never run `job-application-agent:docx-export`; `scripts/build.sh` exports (user-run only).
+
+Where a plugin skill conflicts with this file (page length, project dates, Skills section, tracker, privacy), this file wins.
 
 ## Always report
 

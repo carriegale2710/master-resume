@@ -147,7 +147,7 @@ while :; do
     5)
       echo "Step 5/6: Cover letter (optional)"
       ask "Add a cover letter to go with the resume? [y/N]" "y yes | [Enter] no" || continue
-      case "$ans" in [yY]|[yY][eE][sS]) run cover-letter-generator; verify || continue ;; esac
+      case "$ans" in [yY]|[yY][eE][sS]) run job-application-agent:cover-letter; verify || continue ;; esac
       step=6 ;;
     6)
       echo "Step 6/6: Export"

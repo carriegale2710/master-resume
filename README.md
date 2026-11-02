@@ -38,7 +38,7 @@ bash tests/run-all.sh
 
 1. **Intake.** `bash scripts/new-application.sh acme-frontend`, then paste the posting into `applications/<folder>/job-description.md`.
    Or run `bash scripts/tailor.sh` (no arguments) to do steps 1-3 interactively in 6 steps: it asks for the company, role, URL, posting and closing date, then opens one Claude session per skill, loops `verify-claims` until it passes, offers a cover letter, then at step 6 Enter runs `build.sh` (with its own y/N approval) and the CLI exits once the row is `exported` (`c` re-checks status without building). Every prompt takes `b N` (back to step N) and `q` (quit). Pick an existing folder by number to resume.
-2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, drafts with `resume-drafter`, reviews with `resume-ats-optimizer` and pulls in other `resume-*` skills as needed). The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed. To draft by hand:
+2. **Tailor.** In an agent session run `tracker-intake`, then `resume-orchestrator` (it analyses the posting, drafts with `resume-drafter`, reviews with `job-application-agent:application-lint` and pulls in other plugin skills as needed). The agent writes `resume.md` and never edits `master/`. Run `job-application-agent:cover-letter` only if a letter is needed. To draft by hand:
    `bash scripts/build.sh --tags frontend,a11y,fullstack --md-only master/master-resume.md > applications/<folder>/resume.md`
    then pick the 5-7 strongest bullets, mirror only keywords the master supports, and cut to one page (two pages maximum).
 3. **Verify.** Run `verify-claims`. Any unsupported claim, uncited claim or `TODO` blocks the next step.
@@ -89,7 +89,7 @@ Summary-variant and add-on tags, and what each tag covers, live in `master/tags.
 ## Agents and skills
 
 - `AGENTS.md` holds the canonical rules; `CLAUDE.md` points to it.
-- `.claude/skills/` holds the skills as plain Markdown. Order: `tracker-intake`, `resume-orchestrator`, `verify-claims`, then optionally `cover-letter-generator` and `interview-prep-generator`.
+- `.claude/skills/` holds the skills as plain Markdown. Order: `tracker-intake`, `resume-orchestrator`, `verify-claims`, then optionally `job-application-agent:cover-letter` and `job-application-agent:interview-prep`. General application skills come from the [`job-application-agent`](https://github.com/carriegale2710/job-application-agent) plugin; `AGENTS.md` maps its paths to this repo.
 - Tools without file access: paste `AGENTS.md` into the instructions and upload only the skill, master and job description needed. Never upload `master/metrics-log.csv`, `master/narrative-notes.md` or `master/archive.md` to tools you do not control.
 
 ## Repository structure
@@ -109,7 +109,7 @@ master-resume/
 ├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
 ├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
 ├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
-├── templates/                     # resume-template.md, cover-letter.md, reference.docx (Word styles)
+├── templates/                     # resume.md, cover-letter.md, reference.docx (Word styles)
 ├── examples/                      # job-desc-samples/
 ├── scripts/                       # build.sh, new-application.sh, set-status.sh, tailor.sh
 ├── tests/                         # run-all.sh, test-*.sh, fixtures/ (dummy master, side files, resume, sample application)

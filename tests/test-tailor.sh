@@ -32,7 +32,7 @@ new() {
   export T TRACKER="$T/tracker.csv"
   mkdir -p "$T/templates" "$T/applications"
   cp -r "$repo_root/scripts" "$T/"
-  cp "$repo_root/templates/resume-template.md" "$T/templates/"
+  cp "$repo_root/templates/resume.md" "$T/templates/"
   cat > "$T/scripts/build.sh" <<'EOF'
 #!/usr/bin/env bash
 echo "$*" >> "$T/build.log"
@@ -94,7 +94,7 @@ new; run "" "${pre}s\nskip\nn\nq\n" || fail "4: tailor.sh exited non-zero"
 new; run "1 3" "${pre}n\nb 4\nskip\nn\nb 5\ny\nq\n" || fail "5: tailor.sh exited non-zero"
 grep -q 'Not verified yet' "$T/out" || fail "5: b 4 did not reset to tailored before verify"
 [[ "$(count)" -eq 3 ]] || fail "5: verify-claims ran $(count) times, want 3"
-[[ "$(tail -n 2 "$T/claude.log")" == "/cover-letter-generator $dir
+[[ "$(tail -n 2 "$T/claude.log")" == "/job-application-agent:cover-letter $dir
 /verify-claims $dir" ]] || fail "5: cover letter not followed by verify, got: $(tail -n 2 "$T/claude.log")"
 
 # 8. Edge input: b N before a new app still starts at step 1; JD ending at EOF (no END, no newline) is saved.

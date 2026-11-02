@@ -13,7 +13,7 @@ Turn a job description into a verified, one-to-two page resume (and optionally a
 #todo - create a workflow skill that runs all steps in a row and stops only if a step fails or needs user input.
 
 1. ~~**Intake.**~~ `bash scripts/new-application.sh company-role`, then paste the job description into `applications/<YYYY-MM-company-role>/job-description.md`.
-2. ~~**Tailor.**~~ Run `resume-drafter`. The agent writes `resume.md` and never edits `master/`. Run `cover-letter-generator` only if a letter is needed.
+2. ~~**Tailor.**~~ Run `resume-drafter`. The agent writes `resume.md` and never edits `master/`. Run `job-application-agent:cover-letter` only if a letter is needed.
 3. ~~**Verify.**~~ Run `verify-claims`; it reports PASS or FAIL in chat with a numbered list of issues (file line, problem, suggested fix) and sets `verified` on PASS. Carrie checks each issue. Any FAIL blocks the next step.
 4. **Approve and export.** After a clean verify, Carrie runs `bash scripts/build.sh applications/<folder>/resume.md` locally so `.env` fills the header. `build.sh` refuses unless status is `verified`, then asks y/N; yes sets `ready`, builds, and sets `exported`. The agent never runs it. Status flow: `pending` -> `tailored` -> `verified` -> `ready` -> `exported`. Editing a draft after verify means verifying again. It writes `<folder>-resume.docx` to `~/Downloads`. A `.docx` has no fixed page count, so Carrie checks in Word that it is one page (two at most).
 
