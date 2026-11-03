@@ -1,8 +1,6 @@
 {
   "permissions": {
-    "deny": [
-      "Read(./.env)"
-    ]
+    "deny": ["Read(./.env)"]
   },
   "extraKnownMarketplaces": {
     "job-application-agent": {
@@ -14,5 +12,6 @@
   },
   "enabledPlugins": {
     "job-application-agent@job-application-agent": true
-  }
+  },
+  "ultracode": true
 }

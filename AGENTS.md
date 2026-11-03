@@ -13,7 +13,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 
 - Never copy content from master section 6 (private constraints), `master/metrics-log.csv` (numbers only as evidenced, worded per "Safe wording"), `master/narrative-notes.md` (may inform cover letters and interview prep, rewritten; never a resume) or `master/archive.md` into a resume or cover letter.
 - Respect the Outlier / Scale AI NDA note: use generic wording for tools and project types unless the user confirms otherwise.
-- Never upload or paste this repo's private files into external services.
+- Never upload or paste this repo's private files into external services other than the agent session you are running in. That session may read any repo file except `.env`; private content must still never reach the output.
 - Contact details are secret. Leave `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}` placeholders exactly as written; they are intentional, not `TODO`. Never read `.env`, never ask for or write the real values, and never run the docx build (the user runs it locally so `.env` is filled in then).
 
 ## Writing rules
@@ -72,9 +72,11 @@ At the end of any task, list: what was cut, what was reworded, and every claim t
 `applications/tracker.csv` status moves `pending` (new-application.sh) -> `tailored` (resume-drafter) -> `verified` (verify-claims, on PASS) -> `ready` (build.sh sets it when the user answers y at its approval prompt) -> `exported` (build.sh sets it after a docx build; rebuilding an `exported` row asks to confirm a re-export). Skills set their own status with `bash scripts/set-status.sh <folder> <status>` before finishing. The row `id` is the application folder name. Agents never set `ready` or `exported`.
 
 <!-- caveman-begin -->
+
 Respond terse like smart caveman. All technical substance stay. Only fluff die.
 
 Rules:
+
 - Answer first: Answer, then reason, then next step.
 - Kill ceremony: No greeting, hedging, pleasantries, recap, or closer.
 - Short word: "fix" not "implement a solution for".
@@ -92,4 +94,7 @@ Auto-Clarity: plain prose for security warnings, irreversible actions, step orde
 
 Boundaries: code, comments, commits, PRs, docs written normal; existing comments kept unless asked.
 Floor: code, commands, paths, numbers and error strings verbatim; never drop not/never/no/only.
+
 <!-- caveman-end -->
+
+Always use the ponytail skill/plugin when making design or architectural decisions in order to acheive the user's goals in to prevent unneccessary complexity.
