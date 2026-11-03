@@ -32,8 +32,9 @@ bash tests/run-all.sh
 | `test-master-split.sh`         | master stops at section 6; metrics log, skills inventory, narrative notes and archive files exist |
 | `test-new-application.sh`      | expected files, unsafe names rejected, duplicates refused, `pending` row added                    |
 | `test-set-status.sh`           | `set-status.sh` updates only the matching row; unknown statuses and missing rows rejected         |
-| `test-skill-evidence-rules.sh` | skill docs keep the evidence and privacy rules                                                    |
 | `test-docx-export.sh`          | real .docx from a synthetic resume; skips without Pandoc                                          |
+| `test-tailor.sh`               | `tailor.sh` flow with a stub `claude`: JD capture, step order, verify loop and `skip`, export     |
+| `test-agent-fixtures.sh`       | runs the tailor skill on a temp copy with the dummy master; skips without the `claude` CLI        |
 
 ## Workflow
 
