@@ -16,3 +16,4 @@ Ranked biggest cut first. Net: about -1300 lines, no deps to drop (pandoc only, 
 ## Out of scope (correctness)
 
 - [x] `scripts/set-status.sh` and `scripts/build.sh` split CSV on plain commas. A quoted comma in `notes` shifts columns and can write status to the wrong field.
+- [x] Cover-letter verify writes the resume `status` column. `verify-claims` runs `set-status.sh <folder> verified` without `cover`, and `tailor.sh` step 5 resets and reads `status`, so `cover_letter_status` never reaches `verified` and `build.sh` refuses the letter. Nothing sets `cover drafted` either, and `tailor.sh` passes only the folder, so `verify-claims` is not told which file to check.

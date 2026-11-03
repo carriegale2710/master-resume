@@ -19,4 +19,4 @@ Check, in order:
 
 Output: PASS or FAIL, then a numbered list of issues with the file line, the problem, and a suggested fix. Do not silently edit; propose changes unless the user asks you to apply them.
 
-On PASS, run `bash scripts/set-status.sh <folder> verified`. On FAIL, leave the status unchanged. Never set `ready` or `exported`.
+On PASS, run `bash scripts/set-status.sh <folder> verified` for `resume.md`, or `bash scripts/set-status.sh <folder> verified cover` for `cover-letter.md` (sets `cover_letter_status`, leaves `status` alone). `<folder>` is the file's parent directory, never the file path. On FAIL, leave the status unchanged. Never set `ready` or `exported`.

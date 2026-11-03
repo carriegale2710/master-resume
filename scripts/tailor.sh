@@ -22,18 +22,22 @@ ask() {
   ans="${ans%$'\r'}"
   if [ "$ans" = q ]; then exit 0; fi
 }
-status() { awk -v FPAT='([^,]*)|("([^"]|"")*")' -v k="$(basename "$dir")" 'NR==1 { for (i=1;i<=NF;i++) c[$i]=i; next }
-  $(c["id"])==k { sub(/\r$/, ""); print $(c["status"]) }' "$tracker"; }
+# status [COLUMN]: the tracker value for this folder (default column: status).
+status() { awk -v FPAT='([^,]*)|("([^"]|"")*")' -v k="$(basename "$dir")" -v col="${1:-status}" 'NR==1 { for (i=1;i<=NF;i++) c[$i]=i; next }
+  $(c["id"])==k { sub(/\r$/, ""); print $(c[col]) }' "$tracker"; }
 run() { "$claude" "/$1 $dir${2:-}" || echo "$1 exited non-zero"; }
 slug() { printf %s "$1" | tr 'A-Z_ ' 'a-z--' | tr -cd 'a-z0-9-' | sed 's/^-*//; s/-*$//'; }
-# Reset to tailored before each run so a re-run after editing is a real re-check.
+# verify [cover]: resume by default; "cover" checks cover-letter.md against cover_letter_status.
+# Reset to tailored (cover: drafted) before each run so a re-run after editing is a real re-check.
 verify() {
+  local cov="${1:-}" col=status reset=tailored file=
+  [ -n "$cov" ] && { col=cover_letter_status; reset=drafted; file=/cover-letter.md; }
   while :; do
-    bash scripts/set-status.sh "$dir" tailored >/dev/null
-    run verify-claims
-    [ "$(status)" = verified ] && return 0
+    bash scripts/set-status.sh "$dir" "$reset" $cov >/dev/null   # $cov unquoted on purpose: empty adds no arg
+    run verify-claims "$file"
+    [ "$(status "$col")" = verified ] && return 0
     ask "Not verified yet. [Enter] re-run | skip = mark verified without passing"
-    [ "$ans" = skip ] && { bash scripts/set-status.sh "$dir" verified >/dev/null; return 0; }
+    [ "$ans" = skip ] && { bash scripts/set-status.sh "$dir" verified $cov >/dev/null; return 0; }
   done
 }
 
@@ -113,7 +117,7 @@ while :; do
     5)
       echo "Step 5/6: Cover letter (optional)"
       ask "Add a cover letter to go with the resume? [y/N]"
-      case "$ans" in [yY]|[yY][eE][sS]) run job-application-agent:cover-letter; verify ;; esac
+      case "$ans" in [yY]|[yY][eE][sS]) run job-application-agent:cover-letter; verify cover ;; esac
       step=6 ;;
     6)
       echo "Step 6/6: Export"

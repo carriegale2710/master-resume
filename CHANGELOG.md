@@ -39,6 +39,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 - `build.sh` keeps single line breaks in the `.docx`; the headline, contact line and education entries no longer merge into one paragraph.
 - Quoted commas in `tracker.csv` no longer shift status columns.
 - `tailor.sh` status read is quote-aware too; test 11 covers it.
+- Cover-letter verify now checks `cover-letter.md` and uses `cover_letter_status` (reset to `drafted`, then `verified`), not the resume `status`. `build.sh` can now export a letter verified through `tailor.sh`.
 
 ## [0.1.0] - 2026-10-29
 
