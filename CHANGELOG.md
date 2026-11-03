@@ -8,6 +8,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). No ver
 
 - Templates: `linkedin-profile.md`, `github-profile.md`, `project-case-study.md`, `portfolio-about-me.md`, `cold-email.md`, `follow-up-email.md`, `linkedin-dm.md`. Each carries the master source-of-truth, privacy and placeholder rules in a header comment.
 - General application skills now come from the `job-application-agent` plugin; `AGENTS.md` maps its paths to this repo and wins on conflicts.
+- Master write-back (`AGENTS.md`): facts the user confirms in any skill's questions go to `master/` (resume, metrics log, skills inventory, `stories.md`) first, per confirmed edit.
 
 - `humanize-prose` skill strips AI patterns from cover letters.
 - `humanize-prose` refuses `resume.md`; edits wording only, adds no facts.

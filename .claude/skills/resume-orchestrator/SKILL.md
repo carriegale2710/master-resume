@@ -5,7 +5,7 @@ description: Run the whole tailoring step for applications/<folder> in one sessi
 
 # Resume orchestrator
 
-Input: `<folder>`. `AGENTS.md` wins over any sub-skill. Never run `build.sh` or `tracker-intake`, and never edit `master/`.
+Input: `<folder>`. `AGENTS.md` wins over any sub-skill. Never run `build.sh` or `tracker-intake`, and never edit `master/` except by master write-back (`AGENTS.md`).
 
 1. Run `job-application-agent:job-ad-decoder` on `applications/<folder>/job-description.md`; it writes `applications/<folder>/criteria.md`. Keep must-haves, role family and whether it is a tech role. No match score or percentage. Never add gaps as claims.
 2. Use `templates/resume.md` (the only resume template).

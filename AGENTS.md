@@ -9,6 +9,17 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 - Skills reference: `master/skills-inventory.csv` (Strong, Proficient, Weak / exposure only). Never lead with Weak / exposure only. A skill no master bullet evidences is a `TODO`.
 - Anything marked `TODO` is unknown. Flag it; never fill it in.
 
+### Master write-back
+
+When any skill asks the user a question (gap interview, interview prep, cover letter, feedback) and they confirm a new fact (experience, tool, outcome, number, story, date), add it to `master/` before using it anywhere:
+
+- Facts: `master/master-resume.md`, in the right section, with tags. Record raw facts in the user's words, not polished bullets.
+- Numbers: a new `master/metrics-log.csv` row with Type and source. Unproven numbers are Self-reported or Estimate and get a Safe wording.
+- Skills: `master/skills-inventory.csv`, at the level the evidence supports. No skill goes above Weak / exposure only without a master bullet.
+- STAR stories: `master/stories.md` (create it with the first story).
+
+Use `job-application-agent:master-resume` for the edit. Show each edit as file, section, old, new; write only what the user confirms. Unknown parts stay `TODO`. Then use the fact in the application file, under the privacy rules below.
+
 ## Privacy
 
 - Never copy content from master section 6 (private constraints), `master/metrics-log.csv` (numbers only as evidenced, worded per "Safe wording"), `master/narrative-notes.md` (may inform cover letters and interview prep, rewritten; never a resume) or `master/archive.md` into a resume or cover letter.
@@ -18,7 +29,7 @@ This file is the canonical, tool-neutral instruction set. Any agent working in t
 
 ## Writing rules
 
-- Tailored resumes go in `applications/<YYYY-MM-company-role>/resume.md`. Never edit `master/` unless explicitly asked.
+- Tailored resumes go in `applications/<YYYY-MM-company-role>/resume.md`. Never edit `master/` unless explicitly asked or for master write-back.
 - Length: aim for one page; two pages is the hard maximum. Use the 5-7 strongest bullets per role family and cut older leadership items first.
 - Mirror a job posting's keywords only where the master supports them.
 - Plain, specific, past-tense bullets. No filler adjectives. Australian English spelling.
@@ -55,7 +66,7 @@ Other repo skills live in the same folder; each `SKILL.md` description says when
 
 The `job-application-agent` plugin assumes its own file layout. In this repo, read its paths as:
 
-- `resume/master-resume.md` is `master/master-resume.md`. `resume/stories.md` and `resume/linkedin.md` are `master/stories.md` and `master/linkedin.md` (create them only when the user asks to edit `master/`).
+- `resume/master-resume.md` is `master/master-resume.md`. `resume/stories.md` and `resume/linkedin.md` are `master/stories.md` and `master/linkedin.md` (master write-back may create `master/stories.md`; create `master/linkedin.md` only when the user asks).
 - `applications/<company>-<role>/` is `applications/<folder>/`. The ad is in `job-description.md`; `job-ad-decoder` writes `criteria.md` beside it.
 - Numbers come from `master/metrics-log.csv` per the source-of-truth rules, not from the plugin's estimate rules.
 - `applications/tracker.csv` is the tracker. Never create the plugin's `tracker.md`.
@@ -65,7 +76,7 @@ Where a plugin skill conflicts with this file (page length, project dates, Skill
 
 ## Always report
 
-At the end of any task, list: what was cut, what was reworded, and every claim that still needs evidence.
+At the end of any task, list: what was cut, what was reworded, every claim that still needs evidence, and every master write-back edit (file, section).
 
 ## Tracker status
 
