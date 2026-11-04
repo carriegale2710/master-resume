@@ -233,7 +233,7 @@ Choices and reasons:
 | Duplicate company-role in same month                | `new-application.sh` exits with "Already exists"; ~~the CLI stops, creates nothing~~ and preserves the existing folder. Use a different name.                   | ✅ (`tailor.sh` re-prompts) |
 | User edits output after verification or approval    | ~~At the next CLI check that relies on approval, compare file hashes; on mismatch, set tracker status to `needs-review` and require re-verification and approval.~~ | **Changed:** planned step-6 re-verify reminder; hash check behind a [trigger](#scope) |
 | ~~Cost estimate exceeds USD 0.50~~                  | Moved to [V2](#v2-not-built).                                                                                                                                   | V2 |
-| Model, verifier, or docx export fails               | Report the error, preserve the JD and drafts, and do not mark ready.                                                                                            | ✅ |
+| Model, verifier, or docx export fails               | Report the error, preserve the JD and drafts, and do not mark ready.                                                                                            | **Changed:** model and verifier failures hold. A docx build failure after y leaves `ready`; see [Planned V1 changes](#planned-v1-changes) |
 
 ## Acceptance Criteria
 
@@ -265,6 +265,11 @@ Agreed 2026-11-03; not built yet. Each needs a synthetic-fixture test.
 - [ ] `build.sh`: after each y/N approval, ask "Rate 1-5 (Enter to skip)" and write `resume_rating` / `cl_rating`.
 - [ ] `verify-claims`: on FAIL, write `claims_caught`.
 - [ ] `resume-orchestrator`: after `application-lint`, write `keyword_coverage` and `ats_lint`.
+
+Found 2026-11-04 in the README check; fixes not yet agreed. Details in [ISSUES.md](../ISSUES.md).
+
+- [ ] `build.sh`: a failure after y (missing `.env`, missing variable, no Pandoc) leaves the row `ready`, and line 54 then refuses every rebuild. Proposed fix: accept `ready` at line 54. Recovery until then: `bash scripts/set-status.sh <folder> verified`.
+- [ ] `build.sh`: every resume build tries the empty `cover-letter.md` from `new-application.sh` and prints an error when `cover_letter_status` is `none`. Proposed fix: gate line 99 on status.
 
 ## V2 (not built)
 
@@ -342,6 +347,10 @@ Trigger: a `verified` or exported draft is found to contain an unsupported numbe
 | ~~Provider compatibility or retention terms differ~~           | Medium   | Moved to [V2](#v2-not-built)                                                                                                                      | V2      |
 | Whether tailored applications improve recruiter response rates | Medium   | ~~Defer outcome analytics; decide whether to track callbacks after the core workflow is proven~~ Track `outcome_rating` in `quality-log.csv`      | Decided |
 | Verify gate can be overridden with `skip`                      | Medium   | Keep for false positives; record every use as `verify_skipped`                                                                                   | Decided |
+| Separate Claude session per skill, or bundle skills in one session? | Low | Undecided. `tailor.sh` opens one session per skill, with no recorded reason. Separate sessions could give `verify-claims` fresh context; one session shares context and avoids restarts. Today is mixed: `resume-orchestrator` runs `verify-claims` in its own session, and `tailor.sh` step 4 then skips a `verified` row. | Open |
+| Agents can set `ready` or `exported`; only `AGENTS.md` forbids it | Medium | `set-status.sh` accepts both from any caller, and `.claude/settings.json` denies only `Read(./.env)`. Add a deny rule if the rule needs enforcing. | Open |
+| A redraft overwrites an uncommitted `resume.md`                 | Medium | Git replaced revisions, but nothing commits before submit. Commit before re-running a skill. | Open |
+| GitHub handle is committed, while README says links never live in the repo | Low | `carriegale2710` is in README plugin commands and `.claude/settings.json`. Repo stays private; accept it or reword the README. | Open |
 
 ## Assumptions Made
 
