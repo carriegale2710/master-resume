@@ -12,6 +12,32 @@ Tailoring a resume for each job invites drift: a skill gets stretched, a number 
 - Every number must appear in a metrics log.
 - A `verify-claims` step must pass before any resume can be exported, unless overridden with `skip` in `tailor.sh`.
 
+### Who it is for
+
+- Software developers and fresh graduates who want to automate most of their application process while juggling uni or other commitments.
+- Job seekers who apply to many roles and want each resume tailored without inventing anything.
+- People comfortable with a terminal, Git and [Claude Code](https://claude.com/claude-code). There is no GUI.
+- Anyone who wants to keep personal data local, in plain files they own.
+
+Not for you if you want a one-click web builder, auto-apply, or a tool that works without Claude Code, Pandoc and Bash.
+
+### Why use it over alternatives
+
+| Alternative                            | Gap                                                                                       | This repo                                                                                                  |
+| -------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Chatbot "tailor my resume" prompt      | Free to stretch skills, round numbers and invent details. Nothing checks the output.      | Facts and numbers come only from `master/`. `verify-claims` audits each draft against the master.          |
+| Online resume builders                 | Your data lives on their service. Layout tools, not fact checks.                          | Everything stays in local files. Contact details live in a gitignored `.env`, never in drafts.             |
+| Hand-edited Word copies                | Versions drift apart. Old bullets and numbers go stale or contradict each other.          | One master, one folder per application, status tracked in `applications/tracker.csv`, history in Git.      |
+
+What you get that the alternatives do not give together:
+
+- **Claim checking:** a failed audit blocks export unless you override it.
+- **Human sign-off:** only your `y` at the `build.sh` prompt marks a resume `ready`.
+- **Privacy rules:** private notes and unproven numbers cannot reach a resume or cover letter.
+- **Plain files:** Markdown and CSV, so you can read, diff and back up everything.
+
+Trade-off: setup takes effort, and verification is model-run, so read the final `.docx` yourself.
+
 **Goal (V1):** turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using the scripts and skills here. No API CLI, model API or database.
 
 **Longer-term target:** [docs/PRODUCT-SPEC.md](docs/PRODUCT-SPEC.md). V1 is what the scripts and skills here already do.
@@ -83,6 +109,14 @@ claude plugin install job-application-agent@job-application-agent --scope projec
 ```
 
 Its skills load only in sessions started in this repo. Restart the session or run `/reload-plugins` after installing.
+
+### Use your own data (template folders)
+
+`master/` and `applications/` hold the repo owner's data. Use the empty `-example` folders instead:
+
+1. Rename `master-example/` to `master/` and `applications-example/` to `applications/`.
+2. Fill `master/master-resume.md`. Leave every unknown as `TODO` and every `${...}` placeholder as written.
+3. Copy `.env.example` to `.env` and fill in your contact details.
 
 ### Word templates
 
@@ -300,6 +334,8 @@ master-resume/
 ├── .github/workflows/tests.yml
 ├── applications/                  # tracker.csv, archive/, one YYYY-MM-company-role/ folder per application
 ├── master/                        # master-resume.md, metrics-log.csv, skills-inventory.csv, narrative-notes.md, archive.md, tags.md
+├── applications-example/          # empty template: rename to applications/ (see Setup)
+├── master-example/                # empty template: rename to master/ (see Setup)
 ├── tailoring-rules/               # every-resume.md, by-role/ and by-company/ checklists
 ├── templates/                     # resume, cover letter, emails, LinkedIn/GitHub profile, case study, about me; *-reference.docx (Word styles)
 ├── examples/                      # job-desc-samples/

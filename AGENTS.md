@@ -23,7 +23,7 @@ Use `job-application-agent:master-resume` for the edit. Show each edit as file, 
 ## Privacy
 
 - Never copy content from master section 6 (private constraints), `master/metrics-log.csv` (numbers only as evidenced, worded per "Safe wording"), `master/narrative-notes.md` (may inform cover letters and interview prep, rewritten; never a resume) or `master/archive.md` into a resume or cover letter.
-- Respect the Outlier / Scale AI NDA note: use generic wording for tools and project types unless the user confirms otherwise.
+- Respect project client NDAs: use generic wording for tools and project types unless the user confirms otherwise.
 - Never upload or paste this repo's private files into external services other than the agent session you are running in. That session may read any repo file except `.env`; private content must still never reach the output.
 - Contact details are secret. Leave `${RESUME_NAME}`, `${RESUME_EMAIL}`, `${RESUME_LOCATION}`, `${RESUME_PHONE}`, `${RESUME_WORKRIGHTS}`, `${GITHUB_URL}`, `${LINKEDIN_URL}` and `${PORTFOLIO_URL}` placeholders exactly as written; they are intentional, not `TODO`. Never read `.env`, never ask for or write the real values, and never run the docx build (the user runs it locally so `.env` is filled in then).
 

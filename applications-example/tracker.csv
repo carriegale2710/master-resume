@@ -1,0 +1,2 @@
+id,date_applied,company,role,location,source,version_folder,status,last_update,contact,outcome,notes,opening_date,closing_date,eligibility,cover_letter_status
+EXAMPLE-YYYY-MM-company-role,YYYY-MM-DD submitted,Company name,Job title as posted,City State; hybrid/remote/on-site,https://original-job-posting-url,YYYY-MM-company-role,pending/tailored/verified/ready/exported,YYYY-MM-DD,Recruiter name or email,pending/interview/offer/rejected,Free text; no commas,YYYY-MM-DD posted,YYYY-MM-DD apply-by,Posting criteria; joined with semicolons,none|drafted|verified
