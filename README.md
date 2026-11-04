@@ -2,6 +2,15 @@
 
 Private repo for my master resume and every tailored application.
 
+## Project intro
+
+A local, agent-assisted pipeline that turns a job posting into a verified, tailored resume (and optional cover letter). One master file is the only source of facts; Bash scripts and Claude Code skills draft from it, and a claim-checking step blocks anything unsupported, estimated or private before a human approves the .docx export.
+
+- **Why:** tailoring each application by hand was slow, produced drifting drafts and risked unsupported claims.
+- **How:** Markdown master with tags, a CSV tracker with a status gate (`pending` to `exported`), Bash scripts, and agent skills (intake, orchestrate, verify) under shared rules in `AGENTS.md`. Pandoc builds the .docx.
+- **Design choices:** no database or model API; private contact details stay in a gitignored `.env`; the agent never exports. Synthetic-data tests run in GitHub Actions.
+- **Stack:** Bash, Markdown, CSV, Pandoc, Claude Code, GitHub Actions.
+
 **Goal (V1):** turn a job description into a verified, one-to-two page resume (and optionally a cover letter) in one sitting, using the scripts and skills here. No CLI, model API or database. Longer-term target: [docs/PRODUCT-SPEC.md](docs/PRODUCT-SPEC.md); V1 is what the scripts and skills here already do.
 
 ## Setup
