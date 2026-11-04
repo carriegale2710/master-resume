@@ -99,6 +99,12 @@ flowchart TD
 - Run scripts with `bash scripts/<name>.sh`. On Windows use Git Bash.
 - `build.sh` and `set-status.sh` also need gawk. CI installs it.
 
+**macOS:** install both with [Homebrew](https://brew.sh). The built-in awk lacks the quote-aware CSV support the scripts use, so gawk is required.
+
+```bash
+brew install pandoc gawk
+```
+
 ### Plugin
 
 The `job-application-agent` plugin is enabled for this project only (`.claude/settings.json`). To install it on a new machine, run from the repo root:
